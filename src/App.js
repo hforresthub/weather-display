@@ -1,13 +1,11 @@
-// api key for openweather 6a229679b9f32bbf8e2efa2697417d08
-
-// import logo from './logo.svg';
 import './App.css';
 import axios from 'axios'
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
+// import datetime from 'datetime'
 
-const apiKey = '6a229679b9f32bbf8e2efa2697417d08'
+const apiKey = process.env.REACT_APP_API_KEY
 
-
+const currentDate = new Date('05/28/1980')
 
 function App() {
 
@@ -21,9 +19,9 @@ function App() {
 			setLatitude(position.coords.latitude)
 			setLongitude(position.coords.longitude)
 		})
+		// only do an api call if we received geolocation
 		if (latitude != 0 && longitude != 0) {
 			axios({
-				// url: `http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=${apiKey}`,
 				url: `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`,
 				method: 'GET',
 				dataResponse: 'json'
@@ -46,6 +44,14 @@ function App() {
 
 						lon: {longitude}
 					</p>
+					<div>
+						{
+							currentDate.toLocaleDateString("en-EN", { weekday: 'short'})
+						}
+					</div>
+					<div>
+						<img src={require(`./icons/${result.daily[0].weather[0].icon}@2x.png`)} alt="testing" />
+					</div>
 					<div className="currentWeather">
 
 						<p>max: {result.daily[0].temp.max}</p>
