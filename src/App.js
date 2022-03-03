@@ -22,7 +22,7 @@ function App() {
 		// only do an api call if we received geolocation
 		if (latitude !== 0 && longitude !== 0) {
 			axios({
-				url: `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`,
+				url: `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid='6a229679b9f32bbf8e2efa2697417d08'&units=metric`,
 				method: 'GET',
 				dataResponse: 'json'
 			}).then((res) => {
