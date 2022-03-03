@@ -1,38 +1,38 @@
 .App {
-  text-align: center;
+	display: flex;
+	height: 100vh;
+	width: 100vw;
+	font-weight: bold;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+div {
+	align-items: center;
+	justify-content: center;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.weatherDisplay {
+	display: flex;
+	flex-direction: row;
+	border: 1px solid lightgray;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.dayContainer {
+	padding: 1rem;
 }
-
-.App-link {
-  color: #61dafb;
+.dayContainer0 {
+	background-color: lightgray;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.day0 {
+}
+.dayName {
+	text-align: center;
+	color: gray;
+}
+.temps {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+.tempMin {
+	color: gray;
+}
+.tempMax {
+	color: rgb(41, 41, 41);
 }

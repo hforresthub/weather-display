@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 const apiKey = process.env.REACT_APP_API_KEY
 
-const currentDate = new Date('05/28/1980')
+const currentDate = new Date()
 
 function App() {
 
@@ -33,33 +33,47 @@ function App() {
 	}, [longitude, latitude])
 
 	return (
-		<div className="App">
+		<div className='App'>
 			{/* weather display from api app */}
 			{result !== '' ?
 				<div className="weatherDisplay">
-					<p>
+					{/* <p>
 						lat: {latitude}
 					</p>
 					<p>
 
 						lon: {longitude}
-					</p>
-					<div>
-						{
-							currentDate.toLocaleDateString("en-EN", { weekday: 'short'})
+					</p> */}
+					{result.daily.map((element, index) => {
+						if (index < 5) {
+							const elementDate = new Date()
+							elementDate.setDate(currentDate.getDate() + index)
+							return (
+								<div className={`dayContainer${index} dayContainer`} key={index}>
+									<div className={`day${index}`} >
+										<div className='dayName'>
+											{
+												elementDate.toLocaleDateString("en-EN", { weekday: 'short' })
+											}
+										</div>
+										<div>
+											<img src={require(`./icons/${element.weather[0].icon}@2x.png`)} alt="testing" />
+										</div>
+										<div className='temps'>
+											{/* round to nearest degree */}
+											<div className='tempMax'>{Math.round(element.temp.max)}{'\u00b0'}</div>
+											<div className='tempMin'>{Math.round(element.temp.min)}{'\u00b0'}</div>
+										</div>
+									</div>
+								</div>
+							)
+						} else {
+							return null
 						}
-					</div>
-					<div>
-						<img src={require(`./icons/${result.daily[0].weather[0].icon}@2x.png`)} alt="testing" />
-					</div>
-					<div className="currentWeather">
-
-						<p>max: {result.daily[0].temp.max}</p>
-						<p>min: {result.daily[0].temp.min}</p>
-					</div>
-					<div>
+					})}
+					{/* <div>
 						result: {JSON.stringify(result)}
-					</div>
+					</div> */}
 				</div>
 				:
 				null
