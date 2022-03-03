@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 // import datetime from 'datetime'
 
-const apiKey = process.env.REACT_APP_API_KEY
+// const apiKey = process.env.REACT_APP_API_KEY
 
 const currentDate = new Date()
 
@@ -22,7 +22,7 @@ function App() {
 		// only do an api call if we received geolocation
 		if (latitude !== 0 && longitude !== 0) {
 			axios({
-				url: `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`,
+				url: `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_API_KEY}&units=metric`,
 				method: 'GET',
 				dataResponse: 'json'
 			}).then((res) => {
