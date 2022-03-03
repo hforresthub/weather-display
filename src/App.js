@@ -50,7 +50,7 @@ function App() {
 					})}
 				</div>
 				:
-				null
+				'Geolocation not supported'
 			}
 		</div>
 	);
