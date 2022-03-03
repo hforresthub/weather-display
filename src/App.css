@@ -34,3 +34,13 @@ div {
 .tempMax {
 	color: rgb(41, 41, 41);
 }
+
+@media only screen and (max-width: 600px) {
+	.App {
+		height: auto;
+		height: auto;
+	}
+	.weatherDisplay {
+		flex-direction: column;
+	}
+}
