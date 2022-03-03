@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 // import datetime from 'datetime'
 
-const apiKey = '6a229679b9f32bbf8e2efa2697417d08'
+const apiKey = process.env.REACT_APP_API_KEY
 
 const currentDate = new Date()
 
