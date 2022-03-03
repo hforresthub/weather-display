@@ -15,12 +15,12 @@ function App() {
 
 	useEffect(() => {
 
-		const geolocationCoordinatesInstance = navigator.geolocation.getCurrentPosition((position) => {
+		navigator.geolocation.getCurrentPosition((position) => {
 			setLatitude(position.coords.latitude)
 			setLongitude(position.coords.longitude)
 		})
 		// only do an api call if we received geolocation
-		if (latitude != 0 && longitude != 0) {
+		if (latitude !== 0 && longitude !== 0) {
 			axios({
 				url: `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`,
 				method: 'GET',
