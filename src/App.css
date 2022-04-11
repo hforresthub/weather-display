@@ -34,9 +34,12 @@ div {
 .tempMax {
 	color: rgb(41, 41, 41);
 }
-.description, .wind {
+.description, .wind, .dewPoint {
 	color: grey;
 	text-align: center;
+}
+.dewPoint {
+	font-size: 0.5rem;
 }
 
 @media only screen and (max-width: 600px) {
