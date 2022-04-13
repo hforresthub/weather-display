@@ -2,6 +2,7 @@ import './App.css';
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import DayForecast from './DayForecast';
+import HourForecast from './HourForecast';
 
 const currentDate = new Date()
 
@@ -34,6 +35,23 @@ function App() {
 		<div className='App'>
 			{/* weather display from api app */}
 			{result !== '' ?
+			<div class="container">
+				<div className="weatherDisplay">
+					{/* create forecast for first 5 days */}
+					{result.hourly.map((element, index) => {
+						if (index < 5) {
+							const elementDate = new Date()
+							elementDate.setDate(currentDate.getDate() + index)
+							return (
+								<div className={`dayContainer${index} dayContainer`} key={index}>
+									<HourForecast element={element} index={index} elementDate={elementDate} />
+								</div>
+							)
+						} else {
+							return null
+						}
+					})}
+				</div>
 				<div className="weatherDisplay">
 					{/* create forecast for first 5 days */}
 					{result.daily.map((element, index) => {
@@ -50,6 +68,7 @@ function App() {
 						}
 					})}
 				</div>
+			</div>
 				:
 				'Geolocation not supported'
 			}
