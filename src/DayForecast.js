@@ -16,7 +16,7 @@ const DayForecast = ({element, index, elementDate}) => {
 			<div className='description'>{element.weather[0].main}</div>
 			<div className='wind'>{Math.round(element.wind_speed)} m/s</div>
 			<div className='dewPoint'>Dew Point: {Math.round(element.dew_point * 100) / 100}{'\u00b0'}</div>
-			<div className='humid'>Humiditiy: {element.humidity}{'\u00b0'}</div>
+			<div className='humid'>Humiditiy: {element.humidity}%</div>
 		</div>
 	)
 }

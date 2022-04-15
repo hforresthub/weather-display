@@ -48,6 +48,7 @@ div {
 		height: auto;
 	}
 	.weatherDisplay {
-		flex-direction: column;
+		/* flex-direction: column; */
+		flex-wrap: wrap;
 	}
 }

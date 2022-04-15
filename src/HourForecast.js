@@ -3,7 +3,9 @@ const HourForecast = ({element, index, elementDate}) => {
 		<div className={`day${index}`} >
 			<div className='dayName'>
 				{
-					(elementDate.getHours() > 12 ? (elementDate.getHours() + index) % 12 : elementDate.getHours()) + (elementDate.getHours() > 11 ? "pm" : "am")
+					((elementDate.getHours() + index - 1) % 12 + 1) 
+					// am or pm
+					+ (((elementDate.getHours() + index) % 24) > 11 ? "pm" : "am")
 				}
 			</div>
 			<div>
@@ -15,7 +17,7 @@ const HourForecast = ({element, index, elementDate}) => {
 			<div className='description'>{element.weather[0].main}</div>
 			<div className='wind'>{Math.round(element.wind_speed)} m/s</div>
 			<div className='dewPoint'>Dew Point: {Math.round(element.dew_point * 100) / 100}{'\u00b0'}</div>
-			<div className='humid'>Humiditiy: {element.humidity}{'\u00b0'}</div>
+			<div className='humid'>Humiditiy: {element.humidity}%</div>
 		</div>
 	)
 }

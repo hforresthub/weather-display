@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import DayForecast from './DayForecast';
 import HourForecast from './HourForecast';
 import Chart from 'chart.js/auto'
-import { Bar } from 'react-chartjs-2';
+import { Bar, Line } from 'react-chartjs-2';
 
 const currentDate = new Date()
 
@@ -14,6 +14,9 @@ function App() {
 	const [latitude, setLatitude] = useState(200)
 	const [result, setResult] = useState('')
 	const [chartData, setChartData] = useState([])
+	const [feelsChartData, setFeelsChartData] = useState([])
+	const [dewChartData, setDewChartData] = useState([])
+	const [windChartData, setWindChartData] = useState([])
 	const [labels, setLabels] = useState([])
 
 	useEffect(() => {
@@ -35,8 +38,21 @@ function App() {
 					return element.temp
 				})
 				setChartData(tempData)
+				const feelsData = res.data.hourly.map(element => {
+					return element.feels_like
+				})
+				setFeelsChartData(feelsData)
+				const dewData = res.data.hourly.map(element => {
+					return element.dew_point
+				})
+				setDewChartData(dewData)
+				const windData = res.data.hourly.map(element => {
+					return element.wind_speed
+				})
+				setWindChartData(windData)
 				const labelData = res.data.hourly.map((element, index) => {
-					return (currentDate.getHours() % 24 > 12 ? (currentDate.getHours() + index) % 12 : currentDate.getHours()) 
+					return ((currentDate.getHours() + index - 1) % 12 + 1) 
+					// am or pm
 					+ (((currentDate.getHours() + index) % 24) > 11 ? "pm" : "am")
 				})
 				setLabels(labelData)
@@ -49,29 +65,45 @@ function App() {
 			{/* weather display from api app */}
 			{result !== '' ?
 				<div className="container">
-					<Bar
+					<Line
 						data={{
 							labels: labels,
 							datasets: [
 								{
 									label: 'Temperature',
-									backgroundColor: 'rgba(75,192,192,1)',
+									backgroundColor: 'rgba(192,111,111,1)',
 									borderColor: 'rgba(0,0,0,1)',
 									borderWidth: 2,
 									data: chartData
-								}
+								},
+								{
+									label: 'Feels like',
+									backgroundColor: 'rgba(75,192,111,1)',
+									borderColor: 'rgba(0,0,0,1)',
+									borderWidth: 2,
+									data: feelsChartData
+								},
+								{
+									label: 'Dew point',
+									backgroundColor: 'rgba(75,192,192,1)',
+									borderColor: 'rgba(0,0,0,1)',
+									borderWidth: 2,
+									data: dewChartData
+								},
 							]
 						}}
 						options={{
-							title: {
-								display: true,
-								text: 'temperature over the course of the 2 days',
-								fontSize: 20
+							plugins: {
+								title: {
+									display: true,
+									text: 'Temperature over the course of the 2 days (in C\u00b0)',
+									fontSize: 20
+								},
 							},
 							legend: {
 								display: true,
 								position: 'right'
-							}
+							},
 						}}
 					/>
 					<div className="weatherDisplay">
@@ -106,6 +138,34 @@ function App() {
 							}
 						})}
 					</div>
+					<Line
+						data={{
+							labels: labels,
+							datasets: [
+								{
+									label: 'Wind speed in m/s',
+									backgroundColor: 'rgba(192,75,192,1)',
+									borderColor: 'rgba(0,0,0,1)',
+									borderWidth: 2,
+									data: windChartData
+								},
+							]
+						}}
+						options={{
+							plugins: {
+								title: {
+									display: true,
+									text: 'Wind speed over the course of the 2 days',
+									fontSize: 20
+								},
+							},
+							legend: {
+								display: true,
+								position: 'right'
+							},
+						}}
+					/>
+
 				</div>
 				:
 				'Geolocation not supported'
