@@ -96,7 +96,7 @@ function App() {
 							plugins: {
 								title: {
 									display: true,
-									text: 'Temperature over the course of the 2 days (in C\u00b0)',
+									text: 'Temperature over 48 hours (in C\u00b0)',
 									fontSize: 20
 								},
 							},
@@ -155,7 +155,7 @@ function App() {
 							plugins: {
 								title: {
 									display: true,
-									text: 'Wind speed over the course of the 2 days',
+									text: 'Wind speed over 48 hours',
 									fontSize: 20
 								},
 							},
