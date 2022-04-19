@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import DayForecast from './DayForecast';
 import HourForecast from './HourForecast';
+import Article from './Article';
 import Chart from 'chart.js/auto'
 import { Bar, Line } from 'react-chartjs-2';
 
@@ -10,6 +11,7 @@ const currentDate = new Date()
 
 function App() {
 
+	// weather state variables
 	const [longitude, setLongitude] = useState(200) // 200 is outside possible value
 	const [latitude, setLatitude] = useState(200)
 	const [result, setResult] = useState('')
@@ -18,8 +20,17 @@ function App() {
 	const [dewChartData, setDewChartData] = useState([])
 	const [windChartData, setWindChartData] = useState([])
 	const [labels, setLabels] = useState([])
+	// news state variables
+	const [newsArticles, setNewsArticles] = useState([])
+	// const [searchTopic, setSearchTopic] = useState('')
+
+	// const handleTopicChange = (event) => {
+	// 	setSearchTopic(event.target.value)
+	// }
 
 	useEffect(() => {
+
+		//weather api
 		// request geolocation permission from user
 		navigator.geolocation.getCurrentPosition((position) => {
 			setLatitude(position.coords.latitude)
@@ -51,14 +62,26 @@ function App() {
 				})
 				setWindChartData(windData)
 				const labelData = res.data.hourly.map((element, index) => {
-					return ((currentDate.getHours() + index - 1) % 12 + 1) 
-					// am or pm
-					+ (((currentDate.getHours() + index) % 24) > 11 ? "pm" : "am")
+					return ((currentDate.getHours() + index - 1) % 12 + 1)
+						// am or pm
+						+ (((currentDate.getHours() + index) % 24) > 11 ? "pm" : "am")
 				})
 				setLabels(labelData)
 			})
 		}
 	}, [longitude, latitude])
+	
+	useEffect(() => {
+		// news api
+		axios({
+			url: `https://newsapi.org/v2/everything?q=news&from=2022-04-19&sortBy=popularity&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`,
+			method: 'GET',
+			dataResponse: 'json'
+		}).then((res) => {
+			console.log(res.data.articles)
+			setNewsArticles(res.data.articles)
+		})
+	}, [])
 
 	return (
 		<div className='App'>
@@ -169,6 +192,22 @@ function App() {
 				</div>
 				:
 				'Geolocation not supported'
+			}
+			{/* news */}
+			{newsArticles.length !== 0 ?
+				<div className='newsArticles'>
+					<p>News Articles about: </p>
+					{/* <input type='text' value={searchTopic} onChange={handleTopicChange} className='searchField' placeholder='Search by topic' /> */}
+					{newsArticles.map((element, index) => {
+						return (
+							<div className={`articleContainer${index} articleContainer`} key={index}>
+								<Article element={element} />
+							</div>
+						)
+					})}
+				</div>
+				:
+				'No news available atm'
 			}
 		</div>
 	);
