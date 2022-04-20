@@ -7,6 +7,9 @@ import Article from './Article';
 import Chart from 'chart.js/auto'
 import { Bar, Line } from 'react-chartjs-2';
 
+import data from './data.json'
+
+
 const currentDate = new Date()
 
 function App() {
@@ -21,7 +24,7 @@ function App() {
 	const [windChartData, setWindChartData] = useState([])
 	const [labels, setLabels] = useState([])
 	// news state variables
-	const [newsArticles, setNewsArticles] = useState([])
+	const [newsArticles, setNewsArticles] = useState(data)
 	// const [searchTopic, setSearchTopic] = useState('')
 
 	// const handleTopicChange = (event) => {
@@ -79,8 +82,12 @@ function App() {
 			dataResponse: 'json'
 		}).then((res) => {
 			console.log(res.data.articles)
+			// console.log(JSON.stringify(res.data.articles))
 			setNewsArticles(res.data.articles)
 		})
+
+		// avoiding using api calls
+		// setNewsArticles(data)
 	}, [])
 
 	return (

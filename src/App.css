@@ -13,7 +13,7 @@ img {
 	height: 100px;
 	width: fit-content;
 }
-.weatherDisplay {
+.weatherDisplay, .newsArticles {
 	display: flex;
 	flex-direction: row;
 	border: 1px solid lightgray;
@@ -45,6 +45,42 @@ img {
 }
 .dewPoint, .humid {
 	font-size: 0.5rem;
+}
+
+.newsArticles {
+	/* flex-direction: row; */
+	flex-wrap: wrap;
+}
+
+p {
+	width: 100%;
+}
+
+.articleContainer {
+	width: 17%;
+	padding: 1%;
+	border: 1px solid lightgray;
+}
+
+.title {
+	height: 25rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.title h2 {
+	overflow: hidden;
+	height: 10rem;
+}
+
+.title h2::after {
+	content: '..';
+}
+
+.content {
+	overflow: hidden;
+	height: 15rem;
 }
 
 @media only screen and (max-width: 600px) {
