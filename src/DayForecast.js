@@ -1,12 +1,12 @@
 const DayForecast = ({element, index, elementDate}) => {
 	return (
-		<div className={`day${index}`} >
+		<div className={`day${index} day`} >
 			<div className='dayName'>
 				{
 					elementDate.toLocaleDateString("en-EN", { weekday: 'short' }) + ' ' + elementDate.toString().split(" ")[2]
 				}
 			</div>
-			<div>
+			<div className='imgContainer'>
 				<img src={require(`./icons/${element.weather[0].icon}@2x.png`)} alt="testing" />
 			</div>
 			<div className='temps'>

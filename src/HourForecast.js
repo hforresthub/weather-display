@@ -1,6 +1,6 @@
 const HourForecast = ({element, index, elementDate}) => {
 	return (
-		<div className={`day${index}`} >
+		<div className={`hour${index} hour`} >
 			<div className='dayName'>
 				{
 					((elementDate.getHours() + index - 1) % 12 + 1) 
@@ -8,7 +8,7 @@ const HourForecast = ({element, index, elementDate}) => {
 					+ (((elementDate.getHours() + index) % 24) > 11 ? "pm" : "am")
 				}
 			</div>
-			<div>
+			<div className='imgContainer'>
 				<img src={require(`./icons/${element.weather[0].icon}@2x.png`)} alt="testing" />
 			</div>
 			<div className='temps'>

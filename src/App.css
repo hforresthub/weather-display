@@ -8,10 +8,21 @@
 div {
 	align-items: center;
 	justify-content: center;
+	height: 100%;
+	width: 100%;
 }
-img {
-	height: 100px;
-	width: fit-content;
+/* .temps, .day, .hour {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+} */
+.title img {
+	width: 190px;
+	height: fit-content;
+}
+.imgContainer {
+	display: flex;
+	justify-content: center;
 }
 .weatherDisplay, .newsArticles {
 	display: flex;
@@ -31,13 +42,15 @@ img {
 .temps {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-evenly;
+	justify-content: space-between;
 }
 .tempMin {
 	color: gray;
+	text-align: center;
 }
 .tempMax {
 	color: rgb(41, 41, 41);
+	text-align: center;
 }
 .description, .wind, .dewPoint, .humid {
 	color: grey;
@@ -57,7 +70,7 @@ p {
 }
 
 .articleContainer {
-	width: 17%;
+	width: 200px;
 	padding: 1%;
 	border: 1px solid lightgray;
 }

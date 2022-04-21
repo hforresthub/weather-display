@@ -7,7 +7,7 @@ import Article from './Article';
 import Chart from 'chart.js/auto'
 import { Bar, Line } from 'react-chartjs-2';
 
-import data from './data.json'
+import backupNewsData from './backupNewsData.json'
 
 
 const currentDate = new Date()
@@ -24,7 +24,7 @@ function App() {
 	const [windChartData, setWindChartData] = useState([])
 	const [labels, setLabels] = useState([])
 	// news state variables
-	const [newsArticles, setNewsArticles] = useState(data)
+	const [newsArticles, setNewsArticles] = useState(backupNewsData)
 	// const [searchTopic, setSearchTopic] = useState('')
 
 	// const handleTopicChange = (event) => {
@@ -73,7 +73,7 @@ function App() {
 			})
 		}
 	}, [longitude, latitude])
-	
+
 	useEffect(() => {
 		// news api
 		axios({
@@ -81,13 +81,10 @@ function App() {
 			method: 'GET',
 			dataResponse: 'json'
 		}).then((res) => {
-			console.log(res.data.articles)
+			// console.log(res.data.articles)
 			// console.log(JSON.stringify(res.data.articles))
 			setNewsArticles(res.data.articles)
 		})
-
-		// avoiding using api calls
-		// setNewsArticles(data)
 	}, [])
 
 	return (
@@ -95,49 +92,52 @@ function App() {
 			{/* weather display from api app */}
 			{result !== '' ?
 				<div className="container">
-					<Line
-						data={{
-							labels: labels,
-							datasets: [
-								{
-									label: 'Temperature',
-									backgroundColor: 'rgba(192,111,111,1)',
-									borderColor: 'rgba(0,0,0,1)',
-									borderWidth: 2,
-									data: chartData
+					<div className="chartContainer">
+						<Line
+							data={{
+								labels: labels,
+								datasets: [
+									{
+										label: 'Temperature',
+										backgroundColor: 'rgba(192,111,111,1)',
+										borderColor: 'rgba(0,0,0,1)',
+										borderWidth: 2,
+										data: chartData
+									},
+									{
+										label: 'Feels like',
+										backgroundColor: 'rgba(75,192,111,1)',
+										borderColor: 'rgba(0,0,0,1)',
+										borderWidth: 2,
+										data: feelsChartData
+									},
+									{
+										label: 'Dew point',
+										backgroundColor: 'rgba(75,192,192,1)',
+										borderColor: 'rgba(0,0,0,1)',
+										borderWidth: 2,
+										data: dewChartData
+									},
+								]
+							}}
+							options={{
+								plugins: {
+									title: {
+										display: true,
+										text: 'Temperature over 48 hours (in C\u00b0)',
+										fontSize: 20
+									},
 								},
-								{
-									label: 'Feels like',
-									backgroundColor: 'rgba(75,192,111,1)',
-									borderColor: 'rgba(0,0,0,1)',
-									borderWidth: 2,
-									data: feelsChartData
-								},
-								{
-									label: 'Dew point',
-									backgroundColor: 'rgba(75,192,192,1)',
-									borderColor: 'rgba(0,0,0,1)',
-									borderWidth: 2,
-									data: dewChartData
-								},
-							]
-						}}
-						options={{
-							plugins: {
-								title: {
+								legend: {
 									display: true,
-									text: 'Temperature over 48 hours (in C\u00b0)',
-									fontSize: 20
+									position: 'right'
 								},
-							},
-							legend: {
-								display: true,
-								position: 'right'
-							},
-						}}
-					/>
+							}}
+						/>
+					</div>
 					<div className="weatherDisplay">
-						{/* create forecast for first 5 days */}
+						<p>5 hour forecast</p>
+						{/* create forecast for first 5 hours */}
 						{result.hourly.map((element, index) => {
 							if (index < 5) {
 								const elementDate = new Date()
@@ -153,6 +153,7 @@ function App() {
 						})}
 					</div>
 					<div className="weatherDisplay">
+						<p>5 day forecast</p>
 						{/* create forecast for first 5 days */}
 						{result.daily.map((element, index) => {
 							if (index < 5) {
@@ -168,33 +169,35 @@ function App() {
 							}
 						})}
 					</div>
-					<Line
-						data={{
-							labels: labels,
-							datasets: [
-								{
-									label: 'Wind speed in m/s',
-									backgroundColor: 'rgba(192,75,192,1)',
-									borderColor: 'rgba(0,0,0,1)',
-									borderWidth: 2,
-									data: windChartData
+					<div className="chartContainer">
+						<Line
+							data={{
+								labels: labels,
+								datasets: [
+									{
+										label: 'Wind speed in m/s',
+										backgroundColor: 'rgba(192,75,192,1)',
+										borderColor: 'rgba(0,0,0,1)',
+										borderWidth: 2,
+										data: windChartData
+									},
+								]
+							}}
+							options={{
+								plugins: {
+									title: {
+										display: true,
+										text: 'Wind speed over 48 hours',
+										fontSize: 20
+									},
 								},
-							]
-						}}
-						options={{
-							plugins: {
-								title: {
+								legend: {
 									display: true,
-									text: 'Wind speed over 48 hours',
-									fontSize: 20
+									position: 'right'
 								},
-							},
-							legend: {
-								display: true,
-								position: 'right'
-							},
-						}}
-					/>
+							}}
+						/>
+					</div>
 
 				</div>
 				:
@@ -203,7 +206,7 @@ function App() {
 			{/* news */}
 			{newsArticles.length !== 0 ?
 				<div className='newsArticles'>
-					<p>News Articles about: </p>
+					<p>News Articles: </p>
 					{/* <input type='text' value={searchTopic} onChange={handleTopicChange} className='searchField' placeholder='Search by topic' /> */}
 					{newsArticles.map((element, index) => {
 						return (
