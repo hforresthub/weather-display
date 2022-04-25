@@ -143,7 +143,7 @@ function App() {
 								const elementDate = new Date()
 								elementDate.setDate(currentDate.getDate() + index)
 								return (
-									<div className={`dayContainer${index} dayContainer`} key={index}>
+									<div className={`hourContainer${index} hourContainer`} key={index}>
 										<HourForecast element={element} index={index} elementDate={elementDate} />
 									</div>
 								)

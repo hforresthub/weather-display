@@ -1,8 +1,8 @@
 const Article = ({ element, index }) => {
 	return (
-		<div className={`article${index}`} >
+		<div className={`article${index} article`} >
 			<div className='title'>
-				<h2>
+				<h2 title={element.title}>
 					{element.title}
 				</h2>
 				<img src={element.urlToImage} alt="testing" />

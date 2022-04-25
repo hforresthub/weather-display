@@ -29,10 +29,10 @@ div {
 	flex-direction: row;
 	border: 1px solid lightgray;
 }
-.dayContainer {
+.hourContainer, .dayContainer {
 	padding: 1rem;
 }
-.dayContainer0 {
+.dayContainer0, .hourContainer0 {
 	background-color: lightgray;
 }
 .dayName {
@@ -76,7 +76,7 @@ p {
 }
 
 .title {
-	height: 25rem;
+	height: 21rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -87,9 +87,9 @@ p {
 	height: 10rem;
 }
 
-.title h2::after {
+/* .title h2::after {
 	content: '..';
-}
+} */
 
 .content {
 	overflow: hidden;
@@ -104,5 +104,9 @@ p {
 	.weatherDisplay {
 		/* flex-direction: column; */
 		flex-wrap: wrap;
+	}
+	.hourContainer, .dayContainer {
+		border: 1px solid lightgrey;
+		width: 100px;
 	}
 }
