@@ -4,6 +4,8 @@
 	/* width: 100vw; */
 	font-weight: bold;
 	flex-direction: column;
+	background-color: rgb(242, 242, 242);
+	color: rgb(26, 26, 26);
 }
 div {
 	align-items: center;
