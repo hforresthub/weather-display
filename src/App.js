@@ -23,6 +23,8 @@ function App() {
 	const [dewChartData, setDewChartData] = useState([])
 	const [windChartData, setWindChartData] = useState([])
 	const [labels, setLabels] = useState([])
+	// toggle variables
+	const [tempCharToggle, setTempCharToggle] = useState(true)
 	// news state variables
 	const [newsArticles, setNewsArticles] = useState(backupNewsData)
 	// const [searchTopic, setSearchTopic] = useState('')
@@ -30,6 +32,9 @@ function App() {
 	// const handleTopicChange = (event) => {
 	// 	setSearchTopic(event.target.value)
 	// }
+	const handleButtonClick = (event) => {
+		setTempCharToggle(!tempCharToggle)
+	}
 
 	useEffect(() => {
 
@@ -92,31 +97,60 @@ function App() {
 			{/* weather display from api app */}
 			{result !== '' ?
 				<div className="container">
-					<div className="chartContainer">
-						<Line
+					<button onClick={handleButtonClick}>{tempCharToggle ? 'Hide ' : 'Show '} Charts </button>
+					{tempCharToggle ?
+						<div className="chartContainer">
+							<Line
+								data={{
+									labels: labels,
+									datasets: [
+										{
+											label: 'Temperature',
+											backgroundColor: 'rgba(192,111,111,1)',
+											borderColor: 'rgba(0,0,0,1)',
+											borderWidth: 2,
+											data: chartData
+										},
+										{
+											label: 'Feels like',
+											backgroundColor: 'rgba(75,192,111,1)',
+											borderColor: 'rgba(0,0,0,1)',
+											borderWidth: 2,
+											data: feelsChartData
+										},
+										{
+											label: 'Dew point',
+											backgroundColor: 'rgba(75,192,192,1)',
+											borderColor: 'rgba(0,0,0,1)',
+											borderWidth: 2,
+											data: dewChartData
+										},
+									]
+								}}
+								options={{
+									plugins: {
+										title: {
+											display: true,
+											text: 'Temperature over 48 hours (in C\u00b0)',
+											fontSize: 20
+										},
+									},
+									legend: {
+										display: true,
+										position: 'right'
+									},
+								}}
+							/>
+							<Line
 							data={{
 								labels: labels,
 								datasets: [
 									{
-										label: 'Temperature',
-										backgroundColor: 'rgba(192,111,111,1)',
+										label: 'Wind speed in m/s',
+										backgroundColor: 'rgba(192,75,192,1)',
 										borderColor: 'rgba(0,0,0,1)',
 										borderWidth: 2,
-										data: chartData
-									},
-									{
-										label: 'Feels like',
-										backgroundColor: 'rgba(75,192,111,1)',
-										borderColor: 'rgba(0,0,0,1)',
-										borderWidth: 2,
-										data: feelsChartData
-									},
-									{
-										label: 'Dew point',
-										backgroundColor: 'rgba(75,192,192,1)',
-										borderColor: 'rgba(0,0,0,1)',
-										borderWidth: 2,
-										data: dewChartData
+										data: windChartData
 									},
 								]
 							}}
@@ -124,7 +158,7 @@ function App() {
 								plugins: {
 									title: {
 										display: true,
-										text: 'Temperature over 48 hours (in C\u00b0)',
+										text: 'Wind speed over 48 hours',
 										fontSize: 20
 									},
 								},
@@ -134,7 +168,10 @@ function App() {
 								},
 							}}
 						/>
-					</div>
+						</div>
+						:
+						''
+					}
 					<div className="weatherDisplay">
 						<p>5 hour forecast</p>
 						{/* create forecast for first 5 hours */}
@@ -168,35 +205,6 @@ function App() {
 								return null
 							}
 						})}
-					</div>
-					<div className="chartContainer">
-						<Line
-							data={{
-								labels: labels,
-								datasets: [
-									{
-										label: 'Wind speed in m/s',
-										backgroundColor: 'rgba(192,75,192,1)',
-										borderColor: 'rgba(0,0,0,1)',
-										borderWidth: 2,
-										data: windChartData
-									},
-								]
-							}}
-							options={{
-								plugins: {
-									title: {
-										display: true,
-										text: 'Wind speed over 48 hours',
-										fontSize: 20
-									},
-								},
-								legend: {
-									display: true,
-									position: 'right'
-								},
-							}}
-						/>
 					</div>
 
 				</div>
