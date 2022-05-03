@@ -30,6 +30,10 @@ button {
 	display: flex;
 	justify-content: center;
 }
+.weatherContainer, .articlesContainer {
+	display: flex;
+	flex-direction: column;
+}
 .weatherDisplay, .newsArticles {
 	display: flex;
 	flex-direction: row;

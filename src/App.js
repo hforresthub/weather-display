@@ -24,7 +24,7 @@ function App() {
 	const [windChartData, setWindChartData] = useState([])
 	const [labels, setLabels] = useState([])
 	// toggle variables
-	const [tempCharToggle, setTempCharToggle] = useState(true)
+	const [sectionToggles, setSectionToggles] = useState([true, true, true])
 	// news state variables
 	const [newsArticles, setNewsArticles] = useState(backupNewsData)
 	// const [searchTopic, setSearchTopic] = useState('')
@@ -32,8 +32,8 @@ function App() {
 	// const handleTopicChange = (event) => {
 	// 	setSearchTopic(event.target.value)
 	// }
-	const handleButtonClick = (event) => {
-		setTempCharToggle(!tempCharToggle)
+	const handleButtonClick = (index) => (event) => {
+		setSectionToggles((prev) => prev.map((toggle, toggleIndex) => ((toggleIndex === index) ? !toggle : toggle)))
 	}
 
 	useEffect(() => {
@@ -94,139 +94,156 @@ function App() {
 
 	return (
 		<div className='App'>
-			{/* weather display from api app */}
-			{result !== '' ?
-				<div className="container">
-					<button onClick={handleButtonClick}>{tempCharToggle ? 'Hide ' : 'Show '} Charts </button>
-					{tempCharToggle ?
-						<div className="chartContainer">
-							<Line
-								data={{
-									labels: labels,
-									datasets: [
-										{
-											label: 'Temperature',
-											backgroundColor: 'rgba(192,111,111,1)',
-											borderColor: 'rgba(0,0,0,1)',
-											borderWidth: 2,
-											data: chartData
+			<div className="container">
+				{/* weather display from api app */}
+				{result !== '' ?
+					<div className="weatherContainer">
+						<button onClick={handleButtonClick(0)}>{sectionToggles[0] ? 'Hide ' : 'Show '} Charts </button>
+						{sectionToggles[0] ?
+							<div className="chartContainer">
+								<Line
+									data={{
+										labels: labels,
+										datasets: [
+											{
+												label: 'Temperature',
+												backgroundColor: 'rgba(192,111,111,1)',
+												borderColor: 'rgba(0,0,0,1)',
+												borderWidth: 2,
+												data: chartData
+											},
+											{
+												label: 'Feels like',
+												backgroundColor: 'rgba(75,192,111,1)',
+												borderColor: 'rgba(0,0,0,1)',
+												borderWidth: 2,
+												data: feelsChartData
+											},
+											{
+												label: 'Dew point',
+												backgroundColor: 'rgba(75,192,192,1)',
+												borderColor: 'rgba(0,0,0,1)',
+												borderWidth: 2,
+												data: dewChartData
+											},
+										]
+									}}
+									options={{
+										plugins: {
+											title: {
+												display: true,
+												text: 'Temperature over 48 hours (in C\u00b0)',
+												fontSize: 20
+											},
 										},
-										{
-											label: 'Feels like',
-											backgroundColor: 'rgba(75,192,111,1)',
-											borderColor: 'rgba(0,0,0,1)',
-											borderWidth: 2,
-											data: feelsChartData
-										},
-										{
-											label: 'Dew point',
-											backgroundColor: 'rgba(75,192,192,1)',
-											borderColor: 'rgba(0,0,0,1)',
-											borderWidth: 2,
-											data: dewChartData
-										},
-									]
-								}}
-								options={{
-									plugins: {
-										title: {
+										legend: {
 											display: true,
-											text: 'Temperature over 48 hours (in C\u00b0)',
-											fontSize: 20
+											position: 'right'
 										},
-									},
-									legend: {
-										display: true,
-										position: 'right'
-									},
-								}}
-							/>
-							<Line
-							data={{
-								labels: labels,
-								datasets: [
-									{
-										label: 'Wind speed in m/s',
-										backgroundColor: 'rgba(192,75,192,1)',
-										borderColor: 'rgba(0,0,0,1)',
-										borderWidth: 2,
-										data: windChartData
-									},
-								]
-							}}
-							options={{
-								plugins: {
-									title: {
-										display: true,
-										text: 'Wind speed over 48 hours',
-										fontSize: 20
-									},
-								},
-								legend: {
-									display: true,
-									position: 'right'
-								},
-							}}
-						/>
-						</div>
-						:
-						''
-					}
-					<div className="weatherDisplay">
-						<p>5 hour forecast</p>
-						{/* create forecast for first 5 hours */}
-						{result.hourly.map((element, index) => {
-							if (index < 5) {
-								const elementDate = new Date()
-								elementDate.setDate(currentDate.getDate() + index)
-								return (
-									<div className={`hourContainer${index} hourContainer`} key={index}>
-										<HourForecast element={element} index={index} elementDate={elementDate} />
-									</div>
-								)
-							} else {
-								return null
-							}
-						})}
-					</div>
-					<div className="weatherDisplay">
-						<p>5 day forecast</p>
-						{/* create forecast for first 5 days */}
-						{result.daily.map((element, index) => {
-							if (index < 5) {
-								const elementDate = new Date()
-								elementDate.setDate(currentDate.getDate() + index)
-								return (
-									<div className={`dayContainer${index} dayContainer`} key={index}>
-										<DayForecast element={element} index={index} elementDate={elementDate} />
-									</div>
-								)
-							} else {
-								return null
-							}
-						})}
-					</div>
-
-				</div>
-				:
-				'Geolocation not supported'
-			}
-			{/* news */}
-			{newsArticles.length !== 0 ?
-				<div className='newsArticles'>
-					<p>News Articles: </p>
-					{/* <input type='text' value={searchTopic} onChange={handleTopicChange} className='searchField' placeholder='Search by topic' /> */}
-					{newsArticles.map((element, index) => {
-						return (
-							<div className={`articleContainer${index} articleContainer`} key={index}>
-								<Article element={element} />
+									}}
+								/>
+								<Line
+									data={{
+										labels: labels,
+										datasets: [
+											{
+												label: 'Wind speed in m/s',
+												backgroundColor: 'rgba(192,75,192,1)',
+												borderColor: 'rgba(0,0,0,1)',
+												borderWidth: 2,
+												data: windChartData
+											},
+										]
+									}}
+									options={{
+										plugins: {
+											title: {
+												display: true,
+												text: 'Wind speed over 48 hours',
+												fontSize: 20
+											},
+										},
+										legend: {
+											display: true,
+											position: 'right'
+										},
+									}}
+								/>
 							</div>
-						)
-					})}
-				</div>
-				:
-				'No news available atm'
-			}
+							:
+							''
+						}
+						<button onClick={handleButtonClick(1)}>{sectionToggles[1] ? 'Hide ' : 'Show '} Forecasts </button>
+						{sectionToggles[1] ?
+							<div>
+								<div className="weatherDisplay">
+									<p>5 hour forecast</p>
+									{/* create forecast for first 5 hours */}
+									{result.hourly.map((element, index) => {
+										if (index < 5) {
+											const elementDate = new Date()
+											elementDate.setDate(currentDate.getDate() + index)
+											return (
+												<div className={`hourContainer${index} hourContainer`} key={index}>
+													<HourForecast element={element} index={index} elementDate={elementDate} />
+												</div>
+											)
+										} else {
+											return null
+										}
+									})}
+								</div>
+								<div className="weatherDisplay">
+									<p>5 day forecast</p>
+									{/* create forecast for first 5 days */}
+									{result.daily.map((element, index) => {
+										if (index < 5) {
+											const elementDate = new Date()
+											elementDate.setDate(currentDate.getDate() + index)
+											return (
+												<div className={`dayContainer${index} dayContainer`} key={index}>
+													<DayForecast element={element} index={index} elementDate={elementDate} />
+												</div>
+											)
+										} else {
+											return null
+										}
+									})}
+								</div>
+							</div>
+							:
+							''
+						}
+
+					</div>
+					:
+					'Geolocation not supported'
+				}
+				{/* news */}
+				{newsArticles.length !== 0 ?
+					<div className='articlesContainer'>
+						<button onClick={handleButtonClick(2)}>{sectionToggles[2] ? 'Hide ' : 'Show '} News </button>
+						{sectionToggles[2] ?
+							<div className='newsArticles'>
+								<p>News Articles: </p>
+								{/* <input type='text' value={searchTopic} onChange={handleTopicChange} className='searchField' placeholder='Search by topic' /> */}
+								{newsArticles.map((element, index) => {
+									return (
+										<div className={`articleContainer${index} articleContainer`} key={index}>
+											<Article element={element} />
+										</div>
+									)
+								})}
+							</div>
+
+							:
+							''
+						}
+					</div>
+					:
+					'No news available atm'
+				}
+			</div>
 		</div>
 	);
 }
