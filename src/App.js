@@ -176,11 +176,11 @@ function App() {
 						<button onClick={handleButtonClick(1)}>{sectionToggles[1] ? 'Hide ' : 'Show '} Forecasts </button>
 						{sectionToggles[1] ?
 							<div>
+									<p>24 hour forecast</p>
 								<div className="weatherDisplay">
-									<p>5 hour forecast</p>
 									{/* create forecast for first 5 hours */}
 									{result.hourly.map((element, index) => {
-										if (index < 5) {
+										if (index < 24) {
 											const elementDate = new Date()
 											elementDate.setDate(currentDate.getDate() + index)
 											return (
@@ -193,8 +193,8 @@ function App() {
 										}
 									})}
 								</div>
-								<div className="weatherDisplay">
 									<p>5 day forecast</p>
+								<div className="weatherDisplay">
 									{/* create forecast for first 5 days */}
 									{result.daily.map((element, index) => {
 										if (index < 5) {

@@ -4,7 +4,7 @@
 	/* width: 100vw; */
 	font-weight: bold;
 	flex-direction: column;
-	background-color: rgb(242, 242, 242);
+	background-color: rgb(207, 224, 227);
 	color: rgb(26, 26, 26);
 }
 div {
@@ -34,6 +34,11 @@ button {
 	display: flex;
 	flex-direction: column;
 }
+.weatherDisplay {
+	overflow-x: scroll;
+	scrollbar-width: hidden;
+	justify-content: start;
+}
 .weatherDisplay, .newsArticles {
 	display: flex;
 	flex-direction: row;
@@ -43,7 +48,7 @@ button {
 	padding: 1rem;
 }
 .dayContainer0, .hourContainer0 {
-	background-color: lightgray;
+	background-color: rgb(129, 213, 228);
 }
 .dayName {
 	text-align: center;
