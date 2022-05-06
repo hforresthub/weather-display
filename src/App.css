@@ -1,3 +1,6 @@
+html {
+	background-color: rgb(207, 224, 227);
+}
 .App {
 	display: flex;
 	/* height: 100vh; */
@@ -33,6 +36,8 @@ button {
 .weatherContainer, .articlesContainer {
 	display: flex;
 	flex-direction: column;
+	/* border: 1px solid rgb(161, 193, 199); */
+	/* border-radius: 10px; */
 }
 .weatherDisplay {
 	overflow-x: scroll;
@@ -53,7 +58,8 @@ button {
 .weatherDisplay, .newsArticles {
 	display: flex;
 	flex-direction: row;
-	border: 1px solid rgb(161, 193, 199);
+	/* border: 1px solid rgb(161, 193, 199); */
+	background-color: rgb(183, 224, 230);
 	border-radius: 10px;
 }
 .hourContainer, .dayContainer {
@@ -94,13 +100,14 @@ button {
 
 p {
 	width: 100%;
+	text-align: center;
 }
 
 .articleContainer {
 	width: 200px;
-	padding: 1%;
-	border: 1px solid rgb(112, 151, 157);
-	border-radius: 10px;
+	padding: 3%;
+	/* border: 1px solid rgb(112, 151, 157); */
+	/* border-radius: 10px; */
 }
 
 .title {
@@ -124,14 +131,20 @@ p {
 	height: 15rem;
 }
 
+@media only screen and (min-width: 800px) {
+	.App{
+		width: 98%;
+		margin: auto;
+	}
+}
 @media only screen and (max-width: 600px) {
 	.App {
 		height: auto;
 		height: auto;
 	}
 	.weatherDisplay {
-		/* flex-direction: column; */
-		flex-wrap: wrap;
+		flex-direction: row;
+		/* flex-wrap: wrap; */
 	}
 	.hourContainer, .dayContainer {
 		border: 1px solid lightgrey;

@@ -176,7 +176,7 @@ function App() {
 						<button onClick={handleButtonClick(1)}>{sectionToggles[1] ? 'Hide ' : 'Show '} Forecasts </button>
 						{sectionToggles[1] ?
 							<div>
-									<p>24 hour forecast</p>
+								<p>24 hour forecast</p>
 								<div className="weatherDisplay">
 									{/* create forecast for first 5 hours */}
 									{result.hourly.map((element, index) => {
@@ -193,7 +193,7 @@ function App() {
 										}
 									})}
 								</div>
-									<p>5 day forecast</p>
+								<p>5 day forecast</p>
 								<div className="weatherDisplay">
 									{/* create forecast for first 5 days */}
 									{result.daily.map((element, index) => {
@@ -224,16 +224,18 @@ function App() {
 					<div className='articlesContainer'>
 						<button onClick={handleButtonClick(2)}>{sectionToggles[2] ? 'Hide ' : 'Show '} News </button>
 						{sectionToggles[2] ?
-							<div className='newsArticles'>
+							<div className='newsContainer'>
 								<p>News Articles: </p>
 								{/* <input type='text' value={searchTopic} onChange={handleTopicChange} className='searchField' placeholder='Search by topic' /> */}
-								{newsArticles.map((element, index) => {
-									return (
-										<div className={`articleContainer${index} articleContainer`} key={index}>
-											<Article element={element} />
-										</div>
-									)
-								})}
+								<div className='newsArticles'>
+									{newsArticles.map((element, index) => {
+										return (
+											<div className={`articleContainer${index} articleContainer`} key={index}>
+												<Article element={element} />
+											</div>
+										)
+									})}
+								</div>
 							</div>
 
 							:
