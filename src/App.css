@@ -39,7 +39,7 @@ button {
 	/* border: 1px solid rgb(161, 193, 199); */
 	/* border-radius: 10px; */
 }
-.weatherDisplay {
+.weatherDisplay, .newsArticles {
 	overflow-x: scroll;
 	scrollbar-width: hidden;
 	justify-content: start;
@@ -95,7 +95,7 @@ button {
 
 .newsArticles {
 	/* flex-direction: row; */
-	flex-wrap: wrap;
+	/* flex-wrap: wrap; */
 }
 
 p {
