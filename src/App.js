@@ -98,6 +98,47 @@ function App() {
 				{/* weather display from api app */}
 				{result !== '' ?
 					<div className="weatherContainer">
+						<button onClick={handleButtonClick(1)}>{sectionToggles[1] ? 'Hide ' : 'Show '} Forecasts </button>
+						{sectionToggles[1] ?
+							<div>
+								<p>24 hour forecast</p>
+								<div className="weatherDisplay">
+									{/* create forecast for first 5 hours */}
+									{result.hourly.map((element, index) => {
+										if (index < 24) {
+											const elementDate = new Date()
+											elementDate.setDate(currentDate.getDate() + index)
+											return (
+												<div className={`hourContainer${index} hourContainer`} key={index}>
+													<HourForecast element={element} index={index} elementDate={elementDate} />
+												</div>
+											)
+										} else {
+											return null
+										}
+									})}
+								</div>
+								<p>5 day forecast</p>
+								<div className="weatherDisplay">
+									{/* create forecast for first 5 days */}
+									{result.daily.map((element, index) => {
+										if (index < 5) {
+											const elementDate = new Date()
+											elementDate.setDate(currentDate.getDate() + index)
+											return (
+												<div className={`dayContainer${index} dayContainer`} key={index}>
+													<DayForecast element={element} index={index} elementDate={elementDate} />
+												</div>
+											)
+										} else {
+											return null
+										}
+									})}
+								</div>
+							</div>
+							:
+							''
+						}
 						<button onClick={handleButtonClick(0)}>{sectionToggles[0] ? 'Hide ' : 'Show '} Charts </button>
 						{sectionToggles[0] ?
 							<div className="chartContainer">
@@ -173,47 +214,7 @@ function App() {
 							:
 							''
 						}
-						<button onClick={handleButtonClick(1)}>{sectionToggles[1] ? 'Hide ' : 'Show '} Forecasts </button>
-						{sectionToggles[1] ?
-							<div>
-								<p>24 hour forecast</p>
-								<div className="weatherDisplay">
-									{/* create forecast for first 5 hours */}
-									{result.hourly.map((element, index) => {
-										if (index < 24) {
-											const elementDate = new Date()
-											elementDate.setDate(currentDate.getDate() + index)
-											return (
-												<div className={`hourContainer${index} hourContainer`} key={index}>
-													<HourForecast element={element} index={index} elementDate={elementDate} />
-												</div>
-											)
-										} else {
-											return null
-										}
-									})}
-								</div>
-								<p>5 day forecast</p>
-								<div className="weatherDisplay">
-									{/* create forecast for first 5 days */}
-									{result.daily.map((element, index) => {
-										if (index < 5) {
-											const elementDate = new Date()
-											elementDate.setDate(currentDate.getDate() + index)
-											return (
-												<div className={`dayContainer${index} dayContainer`} key={index}>
-													<DayForecast element={element} index={index} elementDate={elementDate} />
-												</div>
-											)
-										} else {
-											return null
-										}
-									})}
-								</div>
-							</div>
-							:
-							''
-						}
+						
 
 					</div>
 					:

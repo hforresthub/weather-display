@@ -21,9 +21,17 @@ div {
 	flex-direction: column;
 	justify-content: center;
 } */
+.chartContainer {
+	width: 90%;
+}
 button {
 	border-radius: 5px;
 	margin: 1%;
+	border: 1px solid rgb(180, 180, 180);
+	box-shadow: 1px 1px 3px rgb(101, 172, 186),
+	1px -1px 3px rgb(101, 172, 186),
+	-1px 1px 3px rgb(101, 172, 186),
+	-1px -1px 3px rgb(101, 172, 186);
 }
 .title img {
 	width: 190px;
@@ -61,6 +69,18 @@ button {
 	/* border: 1px solid rgb(161, 193, 199); */
 	background-color: rgb(183, 224, 230);
 	border-radius: 10px;
+	border: 2px solid rgb(180, 180, 180);
+	box-shadow: 1px 1px 10px rgb(101, 172, 186),
+	1px -1px 10px rgb(101, 172, 186),
+	-1px 1px 10px rgb(101, 172, 186),
+	-1px -1px 10px rgb(101, 172, 186);
+	margin: 1% 0;
+}
+.newsArticles {
+	background-color: rgb(231, 237, 240);
+}
+.articleContainer:hover {
+	background-color: rgb(148, 222, 246);
 }
 .hourContainer, .dayContainer {
 	padding: 1rem;
@@ -102,7 +122,17 @@ p {
 	width: 100%;
 	text-align: center;
 }
-
+a {
+	color: rgb(12, 79, 105);
+	text-decoration: none;
+}
+a:hover {
+	color: rgb(227, 248, 255);
+	text-shadow: 1px 1px 1px rgb(34, 48, 53),
+	-1px 1px 1px rgb(34, 48, 53),
+	1px -1px 1px rgb(34, 48, 53),
+	-1px -1px 1px rgb(34, 48, 53);
+}
 .articleContainer {
 	width: 200px;
 	padding: 3%;
