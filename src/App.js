@@ -141,80 +141,86 @@ function App() {
 						}
 						<button onClick={handleButtonClick(0)}>{sectionToggles[0] ? 'Hide ' : 'Show '} Charts </button>
 						{sectionToggles[0] ?
-							<div className="chartContainer">
-								<Line
-									data={{
-										labels: labels,
-										datasets: [
-											{
-												label: 'Temperature',
-												backgroundColor: 'rgba(192,111,111,1)',
-												borderColor: 'rgba(0,0,0,1)',
-												borderWidth: 2,
-												data: chartData
+							<div>
+								<div className="chartContainer">
+									<Line
+										data={{
+											labels: labels,
+											datasets: [
+												{
+													label: 'Temperature',
+													backgroundColor: 'rgba(192,111,111,1)',
+													borderColor: 'rgba(0,0,0,1)',
+													borderWidth: 2,
+													data: chartData
+												},
+												{
+													label: 'Feels like',
+													backgroundColor: 'rgba(75,192,111,1)',
+													borderColor: 'rgba(0,0,0,1)',
+													borderWidth: 2,
+													data: feelsChartData
+												},
+												{
+													label: 'Dew point',
+													backgroundColor: 'rgba(75,192,192,1)',
+													borderColor: 'rgba(0,0,0,1)',
+													borderWidth: 2,
+													data: dewChartData
+												},
+											]
+										}}
+										options={{
+											plugins: {
+												title: {
+													display: true,
+													text: 'Temperature over 48 hours (in C\u00b0)',
+													fontSize: 20
+												},
 											},
-											{
-												label: 'Feels like',
-												backgroundColor: 'rgba(75,192,111,1)',
-												borderColor: 'rgba(0,0,0,1)',
-												borderWidth: 2,
-												data: feelsChartData
-											},
-											{
-												label: 'Dew point',
-												backgroundColor: 'rgba(75,192,192,1)',
-												borderColor: 'rgba(0,0,0,1)',
-												borderWidth: 2,
-												data: dewChartData
-											},
-										]
-									}}
-									options={{
-										plugins: {
-											title: {
+											legend: {
 												display: true,
-												text: 'Temperature over 48 hours (in C\u00b0)',
-												fontSize: 20
+												position: 'right'
 											},
-										},
-										legend: {
-											display: true,
-											position: 'right'
-										},
-									}}
-								/>
-								<Line
-									data={{
-										labels: labels,
-										datasets: [
-											{
-												label: 'Wind speed in m/s',
-												backgroundColor: 'rgba(192,75,192,1)',
-												borderColor: 'rgba(0,0,0,1)',
-												borderWidth: 2,
-												data: windChartData
+											maintainAspectRatio: false,
+										}}
+									/>
+								</div>
+								<div className="chartContainer">
+									<Line
+										data={{
+											labels: labels,
+											datasets: [
+												{
+													label: 'Wind speed in m/s',
+													backgroundColor: 'rgba(192,75,192,1)',
+													borderColor: 'rgba(0,0,0,1)',
+													borderWidth: 2,
+													data: windChartData
+												},
+											]
+										}}
+										options={{
+											plugins: {
+												title: {
+													display: true,
+													text: 'Wind speed over 48 hours',
+													fontSize: 20
+												},
 											},
-										]
-									}}
-									options={{
-										plugins: {
-											title: {
+											legend: {
 												display: true,
-												text: 'Wind speed over 48 hours',
-												fontSize: 20
+												position: 'right'
 											},
-										},
-										legend: {
-											display: true,
-											position: 'right'
-										},
-									}}
-								/>
+											maintainAspectRatio: false,
+										}}
+									/>
+								</div>
 							</div>
 							:
 							''
 						}
-						
+
 
 					</div>
 					:

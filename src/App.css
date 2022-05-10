@@ -3,8 +3,6 @@ html {
 }
 .App {
 	display: flex;
-	/* height: 100vh; */
-	/* width: 100vw; */
 	font-weight: bold;
 	flex-direction: column;
 	background-color: rgb(207, 224, 227);
@@ -16,13 +14,10 @@ div {
 	height: 100%;
 	width: 100%;
 }
-/* .temps, .day, .hour {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-} */
 .chartContainer {
 	width: 90%;
+	height: 50vh;
+	margin: auto;
 }
 button {
 	border-radius: 5px;
