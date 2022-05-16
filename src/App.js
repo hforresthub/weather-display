@@ -94,6 +94,9 @@ function App() {
 
 	return (
 		<div className='App'>
+			<header>
+				<img src={require(`./images/sky.png`)} alt="Picture of clouds" className='skyBanner' />
+			</header>
 			<div className="container">
 				{/* weather display from api app */}
 				{result !== '' ?
@@ -253,6 +256,9 @@ function App() {
 					'No news available atm'
 				}
 			</div>
+			<footer>
+				<img src={require(`./images/sky.png`)} alt="Picture of clouds" className='skyBanner' />
+			</footer>
 		</div>
 	);
 }
