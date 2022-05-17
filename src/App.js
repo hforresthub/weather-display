@@ -96,6 +96,7 @@ function App() {
 		<div className='App'>
 			<header>
 				<img src={require(`./images/sky.png`)} alt="Picture of clouds" className='skyBanner' />
+				<h1>Weatherenews</h1>
 			</header>
 			<div className="container">
 				{/* weather display from api app */}
