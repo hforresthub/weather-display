@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import DayForecast from './DayForecast';
@@ -88,7 +88,7 @@ function App() {
 		}).then((res) => {
 			// console.log(res.data.articles)
 			// console.log(JSON.stringify(res.data.articles))
-			setNewsArticles(res.data.articles)
+			// setNewsArticles(res.data.articles)
 		})
 	}, [])
 
@@ -105,7 +105,7 @@ function App() {
 						<button onClick={handleButtonClick(1)}>{sectionToggles[1] ? 'Hide ' : 'Show '} Forecasts </button>
 						{sectionToggles[1] ?
 							<div>
-								<p>24 hour forecast</p>
+								<h2>24 hour forecast</h2>
 								<div className="weatherDisplay">
 									{/* create forecast for first 5 hours */}
 									{result.hourly.map((element, index) => {
@@ -122,7 +122,7 @@ function App() {
 										}
 									})}
 								</div>
-								<p>5 day forecast</p>
+								<h2>5 day forecast</h2>
 								<div className="weatherDisplay">
 									{/* create forecast for first 5 days */}
 									{result.daily.map((element, index) => {
@@ -236,7 +236,7 @@ function App() {
 						<button onClick={handleButtonClick(2)}>{sectionToggles[2] ? 'Hide ' : 'Show '} News </button>
 						{sectionToggles[2] ?
 							<div className='newsContainer'>
-								<p>News Articles: </p>
+								<h2>News Articles: </h2>
 								{/* <input type='text' value={searchTopic} onChange={handleTopicChange} className='searchField' placeholder='Search by topic' /> */}
 								<div className='newsArticles'>
 									{newsArticles.map((element, index) => {
