@@ -101,10 +101,10 @@ function App() {
 			<div className="container">
 				{/* weather display from api app */}
 				{result !== '' ?
-					<div className="weatherContainer">
+					<div className="forecastsContainer">
 						<button onClick={handleButtonClick(1)}>{sectionToggles[1] ? 'Hide ' : 'Show '} Forecasts </button>
 						{sectionToggles[1] ?
-							<div>
+							<div className='forecastsToggleContainer'>
 								<h2>24 hour forecast</h2>
 								<div className="weatherDisplay">
 									{/* create forecast for first 5 hours */}
@@ -143,9 +143,17 @@ function App() {
 							:
 							''
 						}
+					</div>
+					:
+					'Geolocation not supported'
+				}
+
+				{result !== '' ?
+					<div className="chartsContainer">
 						<button onClick={handleButtonClick(0)}>{sectionToggles[0] ? 'Hide ' : 'Show '} Charts </button>
 						{sectionToggles[0] ?
-							<div>
+							<div className='chartsToggleContainer'>
+								<h2>Charts</h2>
 								<div className="chartContainer">
 									<Line
 										data={{
@@ -224,41 +232,40 @@ function App() {
 							:
 							''
 						}
-
-
 					</div>
 					:
 					'Geolocation not supported'
 				}
+
 				{/* news */}
 				{newsArticles.length !== 0 ?
-					<div className='articlesContainer'>
-						<button onClick={handleButtonClick(2)}>{sectionToggles[2] ? 'Hide ' : 'Show '} News </button>
-						{sectionToggles[2] ?
-							<div className='newsContainer'>
-								<h2>News Articles: </h2>
-								{/* <input type='text' value={searchTopic} onChange={handleTopicChange} className='searchField' placeholder='Search by topic' /> */}
-								<div className='newsArticles'>
-									{newsArticles.map((element, index) => {
-										return (
-											<div className={`articleContainer${index} articleContainer`} key={index}>
-												<Article element={element} />
-											</div>
-										)
-									})}
+					<div className='newsContainer'>
+							<button onClick={handleButtonClick(2)}>{sectionToggles[2] ? 'Hide ' : 'Show '} News </button>
+							{sectionToggles[2] ?
+								<div className='newsToggleContainer'>
+									<h2>News Articles: </h2>
+									{/* <input type='text' value={searchTopic} onChange={handleTopicChange} className='searchField' placeholder='Search by topic' /> */}
+									<div className='newsArticles'>
+										{newsArticles.map((element, index) => {
+											return (
+												<div className={`articleContainer${index} articleContainer`} key={index}>
+													<Article element={element} />
+												</div>
+											)
+										})}
+									</div>
 								</div>
-							</div>
 
-							:
-							''
-						}
+								:
+								''
+							}
 					</div>
 					:
 					'No news available atm'
 				}
 			</div>
 			<footer>
-				<img src={require(`./images/sky.png`)} alt="Picture of clouds" className='skyBanner' />
+				<img src={require(`./images/lowerSky.png`)} alt="Picture of clouds" className='skyBanner' />
 			</footer>
 		</div>
 	);

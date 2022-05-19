@@ -4,9 +4,7 @@ html {
 	overflow-x: hidden;
 }
 .App {
-	display: flex;
 	font-weight: bold;
-	flex-direction: column;
 	background-color: #edf1f2;
 	color: rgb(26, 26, 26);
 	.container {
@@ -14,15 +12,30 @@ html {
 	}
 }
 div {
+	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	height: 100%;
 	width: 100%;
 }
-.chartContainer {
-	width: 90%;
-	height: 50vh;
-	margin: auto;
+h1, h2 {
+	text-shadow: 1px 1px 1px rgb(26, 26, 26),
+	1px -1px 1px rgb(26, 26, 26),
+	-1px 1px 1px rgb(26, 26, 26), 
+	-1px -1px 1px rgb(26, 26, 26);
+	width: 100%;
+	text-align: center;
+}
+h1 {
+	color: #edf1f2;
+	position: relative;
+	top: 0;
+	margin-top: -75px;
+	padding-bottom: 25px;
+}
+h2 {
+	color: #ffffe4;
 }
 button {
 	border-radius: 5px;
@@ -39,29 +52,34 @@ button {
 	height: 100px;
 	object-fit: cover;
 }
-h1 {
-	text-align: center;
-	color: #edf1f2;
-	text-shadow: 1px 1px 1px rgb(26, 26, 26),
-	1px -1px 1px rgb(26, 26, 26),
-	-1px 1px 1px rgb(26, 26, 26), 
-	-1px -1px 1px rgb(26, 26, 26);
-	position: relative;
-	top: 0;
-	margin-top: -75px;
-	padding-bottom: 25px;
+.forecastsContainer, .chartsContainer, .newsContainer {
+	background-color: #626d8195;
+	border-radius: 10px;
+	box-shadow: 1px 1px 3px #626d814f,
+	1px -1px 3px #626d814f,
+	-1px 1px 3px #626d814f,
+	-1px -1px 3px #626d814f;
+	padding: 0 2%;
+	margin: 1% 0;
+	align-items: space-around;
+
 }
-h2 {
-	width: 100%;
-	text-align: center;
+.chartContainer {
+	width: 90%;
+	height: 50vh;
+	margin: auto;
+	background-color: #edf1f2;
+	border-radius: 10px;
+	border: 2px solid #437ebd;
+	box-shadow: 1px 1px 10px #626d81,
+	1px -1px 10px #626d81,
+	-1px 1px 10px #626d81,
+	-1px -1px 10px #626d81;
+	margin: 1% 0;
 }
 .imgContainer {
 	display: flex;
 	justify-content: center;
-}
-.weatherContainer, .articlesContainer {
-	display: flex;
-	flex-direction: column;
 }
 .weatherDisplay, .newsArticles {
 	overflow-x: scroll;
@@ -80,7 +98,6 @@ h2 {
     -webkit-box-shadow: inset 0 0 6px #114071;
 }
 .weatherDisplay, .newsArticles {
-	display: flex;
 	flex-direction: row;
 	background-color: #b0ceef;
 	border-radius: 10px;
@@ -111,7 +128,6 @@ h2 {
 	color: rgb(82, 82, 82);
 }
 .temps {
-	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 }
@@ -147,8 +163,6 @@ a:hover {
 }
 .title {
 	height: 21rem;
-	display: flex;
-	flex-direction: column;
 	justify-content: space-between;
 	img {
 		width: 190px;
