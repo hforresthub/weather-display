@@ -88,7 +88,7 @@ function App() {
 		}).then((res) => {
 			// console.log(res.data.articles)
 			// console.log(JSON.stringify(res.data.articles))
-			// setNewsArticles(res.data.articles)
+			setNewsArticles(res.data.articles)
 		})
 	}, [])
 
