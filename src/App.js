@@ -82,9 +82,9 @@ function App() {
 	useEffect(() => {
 		// news api
 		const tempDate = new Date()
-
+		
 		axios({
-			url: `https://newsapi.org/v2/everything?q=news&sortBy=popularity&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`,
+			url: `https://newsapi.org/v2/everything?q=news&from=2022-05-19&sortBy=popularity&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`,
 			method: 'GET',
 			dataResponse: 'json'
 		}).then((res) => {
