@@ -8,6 +8,7 @@ import Chart from 'chart.js/auto'
 import { Bar, Line } from 'react-chartjs-2';
 
 import backupNewsData from './backupNewsData.json'
+import backupNewsData2 from './backupNewsData2.json'
 
 
 const currentDate = new Date()
@@ -26,7 +27,7 @@ function App() {
 	// toggle variables
 	const [sectionToggles, setSectionToggles] = useState([true, true, true])
 	// news state variables
-	const [newsArticles, setNewsArticles] = useState(backupNewsData)
+	const [newsArticles, setNewsArticles] = useState(backupNewsData2.data)
 	// const [searchTopic, setSearchTopic] = useState('')
 
 	// const handleTopicChange = (event) => {
@@ -81,16 +82,25 @@ function App() {
 
 	useEffect(() => {
 		// news api
-		const tempDate = new Date()
-		
+		// axios({
+		// 	url: `https://newsapi.org/v2/everything?q=news&sortBy=popularity&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`,
+		// 	method: 'GET',
+		// 	dataResponse: 'json'
+		// }).then((res) => {
+		// 	// console.log(res.data.articles)
+		// 	// console.log(JSON.stringify(res.data.articles))
+		// 	setNewsArticles(res.data.articles)
+		// })
+		// NewsAPI
 		axios({
-			url: `https://newsapi.org/v2/everything?q=news&from=2022-05-19&sortBy=popularity&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`,
+			url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
 			method: 'GET',
 			dataResponse: 'json'
 		}).then((res) => {
-			// console.log(res.data.articles)
+			// console.log(JSON.stringify(res.data))
+			console.log(res.data.data)
 			// console.log(JSON.stringify(res.data.articles))
-			setNewsArticles(res.data.articles)
+			setNewsArticles(res.data.data)
 		})
 	}, [])
 
