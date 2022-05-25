@@ -52,7 +52,7 @@ function App() {
 				method: 'GET',
 				dataResponse: 'json'
 			}).then((res) => {
-				console.log(res.data)
+				// console.log(res.data)
 				setResult(res.data)
 				const tempData = res.data.hourly.map(element => {
 					return element.temp
@@ -98,7 +98,7 @@ function App() {
 			dataResponse: 'json'
 		}).then((res) => {
 			// console.log(JSON.stringify(res.data))
-			console.log(res.data.data)
+			// console.log(res.data.data)
 			// console.log(JSON.stringify(res.data.articles))
 			setNewsArticles(res.data.data)
 		})

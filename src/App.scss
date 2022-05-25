@@ -54,7 +54,7 @@ button {
 }
 .forecastsContainer, .chartsContainer, .newsContainer {
 	background-color: #626d8195;
-	border-radius: 10px;
+	border-radius: 25px;
 	box-shadow: 1px 1px 3px #626d814f,
 	1px -1px 3px #626d814f,
 	-1px 1px 3px #626d814f,
@@ -167,6 +167,8 @@ a:hover {
 	img {
 		width: 190px;
 		height: fit-content;
+		max-height: 100px;
+		overflow-y: hidden;
 	}
 	h3 {
 		overflow: hidden;
