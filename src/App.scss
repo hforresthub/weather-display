@@ -1,7 +1,10 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway&family=Inconsolata:wght@200");
+
 html {
 	background-color: #edf1f2;
 	overflow-y: scroll;
 	overflow-x: hidden;
+	font-family: Raleway, sans-serif;
 }
 .App {
 	font-weight: bold;
@@ -19,13 +22,17 @@ div {
 	height: 100%;
 	width: 100%;
 }
-h1, h2 {
-	text-shadow: 1px 1px 1px rgb(26, 26, 26),
-	1px -1px 1px rgb(26, 26, 26),
-	-1px 1px 1px rgb(26, 26, 26), 
-	-1px -1px 1px rgb(26, 26, 26);
+h1,
+h2 {
+	text-shadow: 1px 1px 1px rgb(26, 26, 26), 1px -1px 1px rgb(26, 26, 26), -1px 1px 1px rgb(26, 26, 26),
+		-1px -1px 1px rgb(26, 26, 26);
 	width: 100%;
 	text-align: center;
+}
+h1,
+h2,
+h3 {
+	font-family: Raleway, sans-serif;
 }
 h1 {
 	color: #edf1f2;
@@ -37,32 +44,34 @@ h1 {
 h2 {
 	color: #ffffe4;
 }
+h3, p {
+	color: rgb(26, 26, 26);
+}
+p {
+	font-family: Inconsolata;
+	font-weight: 100;
+}
 button {
 	border-radius: 5px;
 	margin: 1%;
 	border: 1px solid #4378b0;
 	background-color: #ffffe4;
-	box-shadow: 1px 1px 3px #626d81,
-	1px -1px 3px #626d81,
-	-1px 1px 3px #626d81,
-	-1px -1px 3px #626d81;
+	box-shadow: 1px 1px 3px #626d81, 1px -1px 3px #626d81, -1px 1px 3px #626d81, -1px -1px 3px #626d81;
 }
 .skyBanner {
 	width: 100vw;
 	height: 100px;
 	object-fit: cover;
 }
-.forecastsContainer, .chartsContainer, .newsContainer {
+.forecastsContainer,
+.chartsContainer,
+.newsContainer {
 	background-color: #626d8195;
 	border-radius: 25px;
-	box-shadow: 1px 1px 3px #626d814f,
-	1px -1px 3px #626d814f,
-	-1px 1px 3px #626d814f,
-	-1px -1px 3px #626d814f;
+	box-shadow: 1px 1px 3px #626d814f, 1px -1px 3px #626d814f, -1px 1px 3px #626d814f, -1px -1px 3px #626d814f;
 	padding: 0 2%;
 	margin: 1% 0;
 	align-items: space-around;
-
 }
 .chartContainer {
 	width: 90%;
@@ -71,56 +80,65 @@ button {
 	background-color: #edf1f2;
 	border-radius: 10px;
 	border: 2px solid #437ebd;
-	box-shadow: 1px 1px 10px #626d81,
-	1px -1px 10px #626d81,
-	-1px 1px 10px #626d81,
-	-1px -1px 10px #626d81;
+	box-shadow: 1px 1px 10px #626d81, 1px -1px 10px #626d81, -1px 1px 10px #626d81, -1px -1px 10px #626d81;
 	margin: 1% 0;
 }
 .imgContainer {
 	display: flex;
 	justify-content: center;
 }
-.weatherDisplay, .newsArticles {
+.weatherDisplay,
+.newsArticles {
 	overflow-x: scroll;
 	scrollbar-width: hidden;
 	justify-content: start;
 }
 ::-webkit-scrollbar {
-    width: 12px;
+	width: 12px;
 }
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px #225387;
-    border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px #225387;
+	border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px #114071;
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px #114071;
 }
-.weatherDisplay, .newsArticles {
+.weatherDisplay,
+.newsArticles {
 	flex-direction: row;
 	background-color: #b0ceef;
 	border-radius: 10px;
 	border: 2px solid #437ebd;
-	box-shadow: 1px 1px 10px #626d81,
-	1px -1px 10px #626d81,
-	-1px 1px 10px #626d81,
-	-1px -1px 10px #626d81;
+	box-shadow: 1px 1px 10px #626d81, 1px -1px 10px #626d81, -1px 1px 10px #626d81, -1px -1px 10px #626d81;
 	margin: 1% 0;
 }
 .newsArticles {
 	background-color: #edf1f2;
 }
+.articleContainer {
+	width: 200px;
+	padding: 3%;
+	img {
+		border: 2px solid #ffffe4;
+	}
+
+}
 .articleContainer:nth-child(2n) {
 	background-color: #ffffe4;
+	img {
+		border: 2px solid #edf1f2;
+	}
 }
 .articleContainer:hover {
 	background-color: #84b7ed;
 }
-.hourContainer, .dayContainer {
+.hourContainer,
+.dayContainer {
 	padding: 1rem;
 }
-.dayContainer0, .hourContainer0 {
+.dayContainer0,
+.hourContainer0 {
 	background-color: #84b7ed;
 }
 .dayName {
@@ -139,11 +157,15 @@ button {
 	color: rgb(41, 41, 41);
 	text-align: center;
 }
-.description, .wind, .dewPoint, .humid {
+.description,
+.wind,
+.dewPoint,
+.humid {
 	color: rgb(82, 82, 82);
 	text-align: center;
 }
-.dewPoint, .humid {
+.dewPoint,
+.humid {
 	font-size: 0.5rem;
 }
 a {
@@ -152,14 +174,7 @@ a {
 }
 a:hover {
 	color: rgb(227, 248, 255);
-	text-shadow: 1px 1px 1px #0a335f,
-	-1px 1px 1px #0a335f,
-	1px -1px 1px #0a335f,
-	-1px -1px 1px #0a335f;
-}
-.articleContainer {
-	width: 200px;
-	padding: 3%;
+	text-shadow: 1px 1px 1px #0a335f, -1px 1px 1px #0a335f, 1px -1px 1px #0a335f, -1px -1px 1px #0a335f;
 }
 .title {
 	height: 21rem;
@@ -181,7 +196,7 @@ a:hover {
 }
 
 @media only screen and (min-width: 800px) {
-	.App{
+	.App {
 		width: 98%;
 		margin: auto;
 	}
@@ -190,7 +205,7 @@ a:hover {
 	}
 }
 @media only screen and (min-width: 1000px) {
-	.App{
+	.App {
 		width: 98%;
 		margin: auto;
 		.container {
@@ -206,7 +221,8 @@ a:hover {
 	.weatherDisplay {
 		flex-direction: row;
 	}
-	.hourContainer, .dayContainer {
+	.hourContainer,
+	.dayContainer {
 		border: 1px solid lightgrey;
 		width: 100px;
 	}
