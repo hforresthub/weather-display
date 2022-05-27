@@ -2,11 +2,7 @@ const HourForecast = ({element, index, elementDate}) => {
 	return (
 		<div className={`hour${index} hour`} >
 			<div className='dayName'>
-				{
-					((elementDate.getHours() + index - 1) % 12 + 1) 
-					// am or pm
-					+ (((elementDate.getHours() + index) % 24) > 11 ? "pm" : "am")
-				}
+				{elementDate.toLocaleString('en-US', { hour: 'numeric', hour12: true })}
 			</div>
 			<div className='imgContainer'>
 				<img src={require(`./icons/${element.weather[0].icon}@2x.png`)} alt="testing" />

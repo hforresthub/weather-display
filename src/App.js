@@ -1,4 +1,4 @@
-import './App.scss';
+import './styles/App.scss';
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import DayForecast from './DayForecast';
@@ -123,9 +123,9 @@ function App() {
 									{result.hourly.map((element, index) => {
 										if (index < 24) {
 											const elementDate = new Date()
-											elementDate.setDate(currentDate.getDate() + index)
+											elementDate.setHours(currentDate.getHours() + index)
 											return (
-												<div className={`hourContainer${index} hourContainer`} key={index}>
+												<div className={`hourContainer${index} hourContainer  ${elementDate.getDate() > currentDate.getDate() ? 'hourContainerNewDay' : ''}`} key={index}>
 													<HourForecast element={element} index={index} elementDate={elementDate} />
 												</div>
 											)

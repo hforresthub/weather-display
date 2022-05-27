@@ -1,14 +1,16 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway&family=Inconsolata:wght@200");
 
+@import './colors.scss';
+
 html {
-	background-color: #edf1f2;
+	background-color: $quaternaryColor;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	font-family: Raleway, sans-serif;
 }
 .App {
 	font-weight: bold;
-	background-color: #edf1f2;
+	background-color: $quaternaryColor;
 	color: rgb(26, 26, 26);
 	.container {
 		width: 95%;
@@ -35,14 +37,14 @@ h3 {
 	font-family: Raleway, sans-serif;
 }
 h1 {
-	color: #edf1f2;
+	color: $quaternaryColor;
 	position: relative;
 	top: 0;
 	margin-top: -75px;
 	padding-bottom: 25px;
 }
 h2 {
-	color: #ffffe4;
+	color: $secondaryColor;
 }
 h3, p {
 	color: rgb(26, 26, 26);
@@ -55,8 +57,8 @@ button {
 	border-radius: 5px;
 	margin: 1%;
 	border: 1px solid #4378b0;
-	background-color: #ffffe4;
-	box-shadow: 1px 1px 3px #626d81, 1px -1px 3px #626d81, -1px 1px 3px #626d81, -1px -1px 3px #626d81;
+	background-color: $secondaryColor;
+	box-shadow: 1px 1px 3px $tertiaryColor, 1px -1px 3px $tertiaryColor, -1px 1px 3px $tertiaryColor, -1px -1px 3px $tertiaryColor;
 }
 .skyBanner {
 	width: 100vw;
@@ -66,9 +68,9 @@ button {
 .forecastsContainer,
 .chartsContainer,
 .newsContainer {
-	background-color: #626d8195;
+	background-color: $tertiaryColorTransparency;
 	border-radius: 25px;
-	box-shadow: 1px 1px 3px #626d814f, 1px -1px 3px #626d814f, -1px 1px 3px #626d814f, -1px -1px 3px #626d814f;
+	box-shadow: 1px 1px 3px $tertiaryColorTransparency2, 1px -1px 3px $tertiaryColorTransparency2, -1px 1px 3px $tertiaryColorTransparency2, -1px -1px 3px $tertiaryColorTransparency2;
 	padding: 0 2%;
 	margin: 1% 0;
 	align-items: space-around;
@@ -77,10 +79,10 @@ button {
 	width: 90%;
 	height: 50vh;
 	margin: auto;
-	background-color: #edf1f2;
+	background-color: $quaternaryColor;
 	border-radius: 10px;
 	border: 2px solid #437ebd;
-	box-shadow: 1px 1px 10px #626d81, 1px -1px 10px #626d81, -1px 1px 10px #626d81, -1px -1px 10px #626d81;
+	box-shadow: 1px 1px 10px $tertiaryColor, 1px -1px 10px $tertiaryColor, -1px 1px 10px $tertiaryColor, -1px -1px 10px $tertiaryColor;
 	margin: 1% 0;
 }
 .imgContainer {
@@ -110,28 +112,28 @@ button {
 	background-color: #b0ceef;
 	border-radius: 10px;
 	border: 2px solid #437ebd;
-	box-shadow: 1px 1px 10px #626d81, 1px -1px 10px #626d81, -1px 1px 10px #626d81, -1px -1px 10px #626d81;
+	box-shadow: 1px 1px 10px $tertiaryColor, 1px -1px 10px $tertiaryColor, -1px 1px 10px $tertiaryColor, -1px -1px 10px $tertiaryColor;
 	margin: 1% 0;
 }
 .newsArticles {
-	background-color: #edf1f2;
+	background-color: $quaternaryColor;
 }
 .articleContainer {
 	width: 200px;
 	padding: 3%;
 	img {
-		border: 2px solid #ffffe4;
+		border: 2px solid $secondaryColor;
 	}
 
 }
 .articleContainer:nth-child(2n) {
-	background-color: #ffffe4;
+	background-color: $secondaryColor;
 	img {
-		border: 2px solid #edf1f2;
+		border: 2px solid $quaternaryColor;
 	}
 }
 .articleContainer:hover {
-	background-color: #84b7ed;
+	background-color: $primaryColor;
 }
 .hourContainer,
 .dayContainer {
@@ -139,7 +141,10 @@ button {
 }
 .dayContainer0,
 .hourContainer0 {
-	background-color: #84b7ed;
+	background-color: $primaryColor;
+}
+.hourContainerNewDay {
+	background-color: $secondaryColor;
 }
 .dayName {
 	text-align: center;
