@@ -70,7 +70,7 @@ button {
 .newsContainer {
 	background-color: $tertiaryColorTransparency;
 	border-radius: 25px;
-	box-shadow: 1px 1px 3px $tertiaryColorTransparency2, 1px -1px 3px $tertiaryColorTransparency2, -1px 1px 3px $tertiaryColorTransparency2, -1px -1px 3px $tertiaryColorTransparency2;
+	box-shadow: 1px 1px 3px $tertiaryColorTransparency, 1px -1px 3px $tertiaryColorTransparency, -1px 1px 3px $tertiaryColorTransparency, -1px -1px 3px $tertiaryColorTransparency;
 	padding: 0 2%;
 	margin: 1% 0;
 	align-items: space-around;
@@ -144,7 +144,7 @@ button {
 	background-color: $primaryColor;
 }
 .hourContainerNewDay {
-	background-color: $secondaryColor;
+	background-color: $quinaryColor;
 }
 .dayName {
 	text-align: center;
