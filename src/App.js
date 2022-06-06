@@ -150,7 +150,7 @@ function App() {
 				<div className='googleLoginContainer'>
 					<p id="signInDiv"></p>
 					{Object.keys(user).length != 0 &&
-						<button onClick={(e) => handleSignout(e)}>Sign Out</button>
+						<button onClick={(e) => handleSignout(e)}>Sign out with Google</button>
 					}
 					{user &&
 						<div>
