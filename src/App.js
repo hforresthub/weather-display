@@ -10,10 +10,15 @@ import { Bar, Line } from 'react-chartjs-2';
 import backupNewsData from './backupNewsData.json'
 import backupNewsData2 from './backupNewsData2.json'
 
+//login import
+import jwt_decode from "jwt-decode" //install jwt-decode
 
 const currentDate = new Date()
 
 function App() {
+
+	// user state variable
+	const [user, setUser] = useState({})
 
 	// weather state variables
 	const [longitude, setLongitude] = useState(200) // 200 is outside possible value
@@ -33,6 +38,36 @@ function App() {
 	// const handleTopicChange = (event) => {
 	// 	setSearchTopic(event.target.value)
 	// }
+
+	// google login setup
+	function handleCallbackResponse(response) {
+		// console.log(("Encoded JWT ID token: " + response.credential))
+		const userObject = jwt_decode(response.credential)
+		// console.log(userObject)
+		setUser(userObject)
+		document.getElementById("signInDiv").hidden = true
+	}
+	function handleSignout(event) {
+		setUser({})
+		document.getElementById("signInDiv").hidden = false
+	}
+	useEffect(() => {
+		/* global google */
+		google.accounts.id.initialize({
+			client_id: process.env.REACT_APP_GOOGLE_KEY,
+			callback: handleCallbackResponse
+		})
+
+		google.accounts.id.renderButton(
+			document.getElementById("signInDiv"),
+			{
+				theme: "outline", size: "large"
+			}
+		)
+
+		google.accounts.id.prompt()
+	}, [])
+
 	const handleButtonClick = (index) => (event) => {
 		setSectionToggles((prev) => prev.map((toggle, toggleIndex) => ((toggleIndex === index) ? !toggle : toggle)))
 	}
@@ -111,6 +146,19 @@ function App() {
 				<h1>Weatherenews</h1>
 			</header>
 			<div className="container">
+				{/* google login button */}
+				<div className='googleLoginContainer'>
+					<p id="signInDiv"></p>
+					{Object.keys(user).length != 0 &&
+						<button onClick={(e) => handleSignout(e)}>Sign Out</button>
+					}
+					{user &&
+						<div>
+							<img src={user.picture} alt=""></img>
+							<h3>{user.name}</h3>
+						</div>
+					}
+				</div>
 				{/* weather display from api app */}
 				{result !== '' ?
 					<div className="forecastsContainer">
@@ -252,25 +300,25 @@ function App() {
 				{/* news */}
 				{newsArticles.length !== 0 ?
 					<div className='newsContainer'>
-							<button onClick={handleButtonClick(2)}>{sectionToggles[2] ? 'Hide ' : 'Show '} News </button>
-							{sectionToggles[2] ?
-								<div className='newsToggleContainer'>
-									<h2>News Articles: </h2>
-									{/* <input type='text' value={searchTopic} onChange={handleTopicChange} className='searchField' placeholder='Search by topic' /> */}
-									<div className='newsArticles'>
-										{newsArticles.map((element, index) => {
-											return (
-												<div className={`articleContainer${index} articleContainer`} key={index}>
-													<Article element={element} />
-												</div>
-											)
-										})}
-									</div>
+						<button onClick={handleButtonClick(2)}>{sectionToggles[2] ? 'Hide ' : 'Show '} News </button>
+						{sectionToggles[2] ?
+							<div className='newsToggleContainer'>
+								<h2>News Articles: </h2>
+								{/* <input type='text' value={searchTopic} onChange={handleTopicChange} className='searchField' placeholder='Search by topic' /> */}
+								<div className='newsArticles'>
+									{newsArticles.map((element, index) => {
+										return (
+											<div className={`articleContainer${index} articleContainer`} key={index}>
+												<Article element={element} />
+											</div>
+										)
+									})}
 								</div>
+							</div>
 
-								:
-								''
-							}
+							:
+							''
+						}
 					</div>
 					:
 					'No news available atm'
