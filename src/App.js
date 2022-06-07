@@ -13,6 +13,10 @@ import backupNewsData2 from './backupNewsData2.json'
 //login import
 import jwt_decode from "jwt-decode" //install jwt-decode
 
+//firebase
+import realtime from './firebase'
+import { ref, onValue, push, update } from "firebase/database";
+
 const currentDate = new Date()
 
 function App() {
@@ -34,6 +38,9 @@ function App() {
 	// news state variables
 	const [newsArticles, setNewsArticles] = useState(backupNewsData2.data)
 	// const [searchTopic, setSearchTopic] = useState('')
+
+	//firebase state variables
+	const [comments, setComments] = useState([])
 
 	// const handleTopicChange = (event) => {
 	// 	setSearchTopic(event.target.value)
@@ -66,6 +73,30 @@ function App() {
 		)
 
 		google.accounts.id.prompt()
+	}, [])
+
+	//firebase
+	// watch comment data
+	useEffect(() => {
+		const commentsDb = ref(realtime, 'comments/')
+		onValue(commentsDb, (snapshot) => {
+			const myData = snapshot.val()
+			console.log(myData);
+			const commentArray = []
+			for (let propertyName in myData) {
+				// create a new local object for each loop iteration:
+				const userComment = {
+					key: propertyName,
+					newComment: myData[propertyName]
+				}
+				console.log(myData[propertyName]);
+				console.log(userComment);
+				if (myData[propertyName]) {
+					commentArray.push(userComment)
+				}
+			}
+			setComments(commentArray)
+		})
 	}, [])
 
 	const handleButtonClick = (index) => (event) => {
@@ -127,16 +158,16 @@ function App() {
 		// 	setNewsArticles(res.data.articles)
 		// })
 		// NewsAPI
-		axios({
-			url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
-			method: 'GET',
-			dataResponse: 'json'
-		}).then((res) => {
-			// console.log(JSON.stringify(res.data))
-			// console.log(res.data.data)
-			// console.log(JSON.stringify(res.data.articles))
-			setNewsArticles(res.data.data)
-		})
+		// axios({
+		// 	url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
+		// 	method: 'GET',
+		// 	dataResponse: 'json'
+		// }).then((res) => {
+		// 	// console.log(JSON.stringify(res.data))
+		// 	// console.log(res.data.data)
+		// 	// console.log(JSON.stringify(res.data.articles))
+		// 	setNewsArticles(res.data.data)
+		// })
 	}, [])
 
 	return (
@@ -159,6 +190,17 @@ function App() {
 						</div>
 					}
 				</div>
+				<ul>
+					{
+						comments.map((element, index) => {
+							return (
+								<div key={index}>
+									<p>{element.key}</p>
+								</div>
+							)
+						})
+					}
+				</ul>
 				{/* weather display from api app */}
 				{result !== '' ?
 					<div className="forecastsContainer">
