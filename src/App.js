@@ -40,6 +40,7 @@ function App() {
 	// const [searchTopic, setSearchTopic] = useState('')
 
 	//firebase state variables
+	const [users, setUsers] = useState([{}])
 	const [comments, setComments] = useState([])
 
 	// const handleTopicChange = (event) => {
@@ -96,6 +97,26 @@ function App() {
 				}
 			}
 			setComments(commentArray)
+		})
+	}, [])
+	// watch user data
+	useEffect(() => {
+		const userFoundDb = ref(realtime, 'users/')
+		onValue(userFoundDb, (snapshot) => {
+			const myData = snapshot.val()
+			const userArray = []
+			for (let propertyName in myData) {
+				// create a new local object for each loop iteration:
+				const tempUser = {
+					key: propertyName,
+					userData: myData[propertyName]
+				}
+				if (myData[propertyName]) {
+					userArray.push(tempUser)
+				}
+			}
+			console.log(userArray);
+			setUsers(userArray)
 		})
 	}, [])
 
@@ -190,7 +211,7 @@ function App() {
 						</div>
 					}
 				</div>
-				<ul>
+				<div className='commentContainer'>
 					{
 						comments.map((element, index) => {
 							return (
@@ -200,7 +221,7 @@ function App() {
 							)
 						})
 					}
-				</ul>
+				</div>
 				{/* weather display from api app */}
 				{result !== '' ?
 					<div className="forecastsContainer">

@@ -68,7 +68,8 @@ button {
 .forecastsContainer,
 .chartsContainer,
 .newsContainer,
-.googleLoginContainer {
+.googleLoginContainer,
+.commentContainer {
 	background-color: $tertiaryColorTransparency;
 	border-radius: 25px;
 	box-shadow: 1px 1px 3px $tertiaryColorTransparency, 1px -1px 3px $tertiaryColorTransparency, -1px 1px 3px $tertiaryColorTransparency, -1px -1px 3px $tertiaryColorTransparency;
