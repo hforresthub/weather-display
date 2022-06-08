@@ -34,7 +34,7 @@ function App() {
 	const [windChartData, setWindChartData] = useState([])
 	const [labels, setLabels] = useState([])
 	// toggle variables
-	const [sectionToggles, setSectionToggles] = useState([true, true, true])
+	const [sectionToggles, setSectionToggles] = useState([true, true, true, true])
 	// news state variables
 	const [newsArticles, setNewsArticles] = useState(backupNewsData2.data)
 	// const [searchTopic, setSearchTopic] = useState('')
@@ -42,6 +42,7 @@ function App() {
 	//firebase state variables
 	const [users, setUsers] = useState([{}])
 	const [comments, setComments] = useState([])
+	const [savedArticles, setSavedArticles] = useState([])
 
 	// const handleTopicChange = (event) => {
 	// 	setSearchTopic(event.target.value)
@@ -82,7 +83,7 @@ function App() {
 		const commentsDb = ref(realtime, 'comments/')
 		onValue(commentsDb, (snapshot) => {
 			const myData = snapshot.val()
-			console.log(myData);
+			// console.log(myData);
 			const commentArray = []
 			for (let propertyName in myData) {
 				// create a new local object for each loop iteration:
@@ -90,8 +91,8 @@ function App() {
 					key: propertyName,
 					newComment: myData[propertyName]
 				}
-				console.log(myData[propertyName]);
-				console.log(userComment);
+				// console.log(myData[propertyName]);
+				// console.log(userComment);
 				if (myData[propertyName]) {
 					commentArray.push(userComment)
 				}
@@ -101,8 +102,8 @@ function App() {
 	}, [])
 	// watch user data
 	useEffect(() => {
-		const userFoundDb = ref(realtime, 'users/')
-		onValue(userFoundDb, (snapshot) => {
+		const userDb = ref(realtime, 'users/')
+		onValue(userDb, (snapshot) => {
 			const myData = snapshot.val()
 			const userArray = []
 			for (let propertyName in myData) {
@@ -115,10 +116,41 @@ function App() {
 					userArray.push(tempUser)
 				}
 			}
-			console.log(userArray);
+			// console.log(userArray);
 			setUsers(userArray)
 		})
 	}, [])
+	// watch saved article data
+	useEffect(() => {
+		const savedDb = ref(realtime, 'saved/')
+		onValue(savedDb, (snapshot) => {
+			const myData = snapshot.val()
+			const savedArray = []
+			for (let propertyName in myData) {
+				// create a new local object for each loop iteration:
+				const tempArticle = {
+					key: propertyName,
+					userData: myData[propertyName]
+				}
+				if (myData[propertyName]) {
+					savedArray.push(tempArticle)
+				}
+			}
+			// console.log(savedArray);
+			setSavedArticles(savedArray)
+		})
+	}, [])
+
+	const handleSaveButtonClick = (element) => (event) => {
+		// console.log('testing save: ', element)
+
+		//update user
+		const savedDb = ref(realtime, `saved/${element.uuid}`)
+		const tempSavedArticle = {
+			article: element,
+		}
+		update(savedDb, tempSavedArticle)
+	}
 
 	const handleButtonClick = (index) => (event) => {
 		setSectionToggles((prev) => prev.map((toggle, toggleIndex) => ((toggleIndex === index) ? !toggle : toggle)))
@@ -189,6 +221,7 @@ function App() {
 		// 	// console.log(JSON.stringify(res.data.articles))
 		// 	setNewsArticles(res.data.data)
 		// })
+		// console.log(JSON.stringify(newsArticles))
 	}, [])
 
 	return (
@@ -373,6 +406,7 @@ function App() {
 										return (
 											<div className={`articleContainer${index} articleContainer`} key={index}>
 												<Article element={element} />
+												<button onClick={handleSaveButtonClick(element)}>Save</button>
 											</div>
 										)
 									})}
@@ -385,6 +419,33 @@ function App() {
 					</div>
 					:
 					'No news available atm'
+				}
+				{/* saved news */}
+				{savedArticles.length !== 0 ?
+					<div className='newsContainer'>
+						<button onClick={handleButtonClick(3)}>{sectionToggles[3] ? 'Hide ' : 'Show '} Saved News </button>
+						{sectionToggles[3] ?
+							<div className='newsToggleContainer'>
+								<h2>Saved News Articles: </h2>
+								{/* <input type='text' value={searchTopic} onChange={handleTopicChange} className='searchField' placeholder='Search by topic' /> */}
+								<div className='newsArticles'>
+									{savedArticles.map((element, index) => {
+										// console.log('test: ', element)
+										return (
+											<div className={`articleContainer${index} articleContainer`} key={index}>
+												<Article element={element.userData.article} />
+											</div>
+										)
+									})}
+								</div>
+							</div>
+
+							:
+							''
+						}
+					</div>
+					:
+					'No saved news available atm'
 				}
 			</div>
 			<footer>
