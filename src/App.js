@@ -244,7 +244,7 @@ function App() {
 						</div>
 					}
 				</div>
-				<div className='commentContainer'>
+				{/* <div className='commentContainer'>
 					{
 						comments.map((element, index) => {
 							return (
@@ -254,7 +254,7 @@ function App() {
 							)
 						})
 					}
-				</div>
+				</div> */}
 				{/* weather display from api app */}
 				{result !== '' ?
 					<div className="forecastsContainer">
