@@ -55,7 +55,7 @@ p {
 }
 button {
 	border-radius: 5px;
-	margin: 1%;
+	margin: 3%;
 	border: 1px solid #4378b0;
 	background-color: $secondaryColor;
 	box-shadow: 1px 1px 3px $tertiaryColor, 1px -1px 3px $tertiaryColor, -1px 1px 3px $tertiaryColor, -1px -1px 3px $tertiaryColor;
@@ -178,9 +178,25 @@ button {
 a {
 	color: #0a335f;
 	text-decoration: none;
+	text-align: center;
+	width: 100%;
+	border: 1px solid #4378b0;
+	background-color: $secondaryColor;
+	box-shadow: 1px 1px 3px $tertiaryColor, 1px -1px 3px $tertiaryColor, -1px 1px 3px $tertiaryColor, -1px -1px 3px $tertiaryColor;
+}
+.articleContainer:nth-child(2n) a {
+	background-color: $quaternaryColor;
+}
+.articleContainer:nth-child(2n) a:hover {
+	background-color: $tertiaryColor;
+}
+a:hover, button:not(.fontIcon):hover {
+	border: 1px solid #4378b0;
+	background-color: $tertiaryColor;
+	box-shadow: 1px 1px 3px $secondaryColor, 1px -1px 3px $secondaryColor, -1px 1px 3px $secondaryColor, -1px -1px 3px $secondaryColor;
+	color: rgb(227, 248, 255);
 }
 a:hover {
-	color: rgb(227, 248, 255);
 	text-shadow: 1px 1px 1px #0a335f, -1px 1px 1px #0a335f, 1px -1px 1px #0a335f, -1px -1px 1px #0a335f;
 }
 .title {
@@ -200,6 +216,12 @@ a:hover {
 .content {
 	overflow: hidden;
 	height: 10rem;
+}
+.fontIcon {
+	color: $tertiaryColor;
+	background: none;
+	border: 1px solid rgba(255, 0, 0, 0);
+	box-shadow: none;
 }
 
 @media only screen and (min-width: 800px) {

@@ -17,6 +17,13 @@ import jwt_decode from "jwt-decode" //install jwt-decode
 import realtime from './firebase'
 import { ref, onValue, push, update } from "firebase/database";
 
+//fontawesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBookmark } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faBookmark)
+
 const currentDate = new Date()
 
 function App() {
@@ -412,9 +419,12 @@ function App() {
 														return (savedElement.userData.article.uuid == element.uuid)
 													}).length > 0
 														?
-														'saved'
+														// 'saved'
+														<button className='fontIcon'>
+															<FontAwesomeIcon icon="fa-solid fa-bookmark" />
+														</button>
 														:
-														<button onClick={handleSaveButtonClick(element)}>Save</button>
+														<button className='saveIcon' onClick={handleSaveButtonClick(element)}>Save</button>
 												}
 											</div>
 										)

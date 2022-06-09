@@ -6,13 +6,13 @@ import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAgsGo1dwey3e4F5DoTHZ0av-mKl0y-DBw", // will use process.env.REACT_APP_FIREBASE_KEY after testing
-  authDomain: "weatherenews.firebaseapp.com",
-  databaseURL: "https://weatherenews-default-rtdb.firebaseio.com",
-  projectId: "weatherenews",
-  storageBucket: "weatherenews.appspot.com",
-  messagingSenderId: "263933813201",
-  appId: "1:263933813201:web:e6a82ce882568b547300f0"
+	apiKey: process.env.REACT_APP_FIREBASE_KEY,//"AIzaSyAgsGo1dwey3e4F5DoTHZ0av-mKl0y-DBw", // will use process.env.REACT_APP_FIREBASE_KEY after testing
+	authDomain: "weatherenews.firebaseapp.com",
+	databaseURL: "https://weatherenews-default-rtdb.firebaseio.com",
+	projectId: "weatherenews",
+	storageBucket: "weatherenews.appspot.com",
+	messagingSenderId: "263933813201",
+	appId: "1:263933813201:web:e6a82ce882568b547300f0"
 };
 
 // Initialize Firebase
