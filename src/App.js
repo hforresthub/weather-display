@@ -211,16 +211,16 @@ function App() {
 		// 	setNewsArticles(res.data.articles)
 		// })
 		// NewsAPI
-		axios({
-			url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
-			method: 'GET',
-			dataResponse: 'json'
-		}).then((res) => {
-			// console.log(JSON.stringify(res.data))
-			// console.log(res.data.data)
-			// console.log(JSON.stringify(res.data.articles))
-			setNewsArticles(res.data.data)
-		})
+		// axios({
+		// 	url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
+		// 	method: 'GET',
+		// 	dataResponse: 'json'
+		// }).then((res) => {
+		// 	// console.log(JSON.stringify(res.data))
+		// 	// console.log(res.data.data)
+		// 	// console.log(JSON.stringify(res.data.articles))
+		// 	setNewsArticles(res.data.data)
+		// })
 		// console.log(JSON.stringify(newsArticles))
 	}, [])
 
@@ -324,14 +324,14 @@ function App() {
 												},
 												{
 													label: 'Feels like',
-													backgroundColor: 'rgba(75,192,111,1)',
+													backgroundColor: 'rgb(255, 255, 128)',
 													borderColor: 'rgba(0,0,0,1)',
 													borderWidth: 2,
 													data: feelsChartData
 												},
 												{
 													label: 'Dew point',
-													backgroundColor: 'rgba(75,192,192,1)',
+													backgroundColor: 'rgb(132, 183, 237)',
 													borderColor: 'rgba(0,0,0,1)',
 													borderWidth: 2,
 													data: dewChartData
@@ -361,7 +361,7 @@ function App() {
 											datasets: [
 												{
 													label: 'Wind speed in m/s',
-													backgroundColor: 'rgba(192,75,192,1)',
+													backgroundColor: 'rgb(151, 172, 192)',
 													borderColor: 'rgba(0,0,0,1)',
 													borderWidth: 2,
 													data: windChartData
@@ -399,14 +399,23 @@ function App() {
 						<button onClick={handleButtonClick(2)}>{sectionToggles[2] ? 'Hide ' : 'Show '} News </button>
 						{sectionToggles[2] ?
 							<div className='newsToggleContainer'>
-								<h2>News Articles: </h2>
+								<h2>News Feed: </h2>
 								{/* <input type='text' value={searchTopic} onChange={handleTopicChange} className='searchField' placeholder='Search by topic' /> */}
 								<div className='newsArticles'>
 									{newsArticles.map((element, index) => {
+										// console.log(element)
 										return (
 											<div className={`articleContainer${index} articleContainer`} key={index}>
 												<Article element={element} />
-												<button onClick={handleSaveButtonClick(element)}>Save</button>
+												{
+													savedArticles.filter(savedElement => {
+														return (savedElement.userData.article.uuid == element.uuid)
+													}).length > 0
+														?
+														'saved'
+														:
+														<button onClick={handleSaveButtonClick(element)}>Save</button>
+												}
 											</div>
 										)
 									})}
