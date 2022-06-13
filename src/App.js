@@ -21,12 +21,15 @@ import { ref, onValue, push, update } from "firebase/database";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookmark } from '@fortawesome/free-solid-svg-icons'
+import { useRef } from 'react';
 
 library.add(faBookmark)
 
 const currentDate = new Date()
 
 function App() {
+	// button variables
+	const myRef = [useRef(null), useRef(null), useRef(null), useRef(null)]
 
 	// user state variable
 	const [user, setUser] = useState({})
@@ -50,6 +53,15 @@ function App() {
 	const [users, setUsers] = useState([{}])
 	const [comments, setComments] = useState([])
 	const [savedArticles, setSavedArticles] = useState([])
+
+	// button functions
+	const handleButtonClick = (index) => (event) => {
+		setSectionToggles((prev) => prev.map((toggle, toggleIndex) => ((toggleIndex === index) ? !toggle : toggle)))
+	}
+
+	const executeScroll = (index) => () => {
+		return myRef[index].current.scrollIntoView()
+	}
 
 	// const handleTopicChange = (event) => {
 	// 	setSearchTopic(event.target.value)
@@ -159,10 +171,7 @@ function App() {
 		update(savedDb, tempSavedArticle)
 	}
 
-	const handleButtonClick = (index) => (event) => {
-		setSectionToggles((prev) => prev.map((toggle, toggleIndex) => ((toggleIndex === index) ? !toggle : toggle)))
-	}
-
+	// for weather api data
 	useEffect(() => {
 
 		//weather api
@@ -178,7 +187,7 @@ function App() {
 				method: 'GET',
 				dataResponse: 'json'
 			}).then((res) => {
-				// console.log(res.data)
+				console.log(res.data)
 				setResult(res.data)
 				const tempData = res.data.hourly.map(element => {
 					return element.temp
@@ -206,6 +215,7 @@ function App() {
 		}
 	}, [longitude, latitude])
 
+	// for news api data
 	useEffect(() => {
 		// news api
 		// axios({
@@ -218,16 +228,16 @@ function App() {
 		// 	setNewsArticles(res.data.articles)
 		// })
 		// NewsAPI
-		axios({
-			url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
-			method: 'GET',
-			dataResponse: 'json'
-		}).then((res) => {
-			// console.log(JSON.stringify(res.data))
-			// console.log(res.data.data)
-			// console.log(JSON.stringify(res.data.articles))
-			setNewsArticles(res.data.data)
-		})
+		// axios({
+		// 	url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
+		// 	method: 'GET',
+		// 	dataResponse: 'json'
+		// }).then((res) => {
+		// 	// console.log(JSON.stringify(res.data))
+		// 	// console.log(res.data.data)
+		// 	// console.log(JSON.stringify(res.data.articles))
+		// 	setNewsArticles(res.data.data)
+		// })
 		// console.log(JSON.stringify(newsArticles))
 	}, [])
 
@@ -236,6 +246,12 @@ function App() {
 			<header>
 				<img src={require(`./images/sky.png`)} alt="Picture of clouds" className='skyBanner' />
 				<h1>Weatherenews</h1>
+				<nav>
+					<button onClick={executeScroll(0)}> Weather </button>
+					<button onClick={executeScroll(1)}> Charts </button>
+					<button onClick={executeScroll(2)}> News </button>
+					<button onClick={executeScroll(3)}> Saved </button>
+				</nav>
 			</header>
 			<div className="container">
 				{/* google login button */}
@@ -263,6 +279,7 @@ function App() {
 					}
 				</div> */}
 				{/* weather display from api app */}
+				<div ref={myRef[0]}></div>
 				{result !== '' ?
 					<div className="forecastsContainer">
 						<button onClick={handleButtonClick(1)}>{sectionToggles[1] ? 'Hide ' : 'Show '} Forecasts </button>
@@ -310,7 +327,8 @@ function App() {
 					:
 					'Geolocation not supported'
 				}
-
+				{/* Charts */}
+				<div ref={myRef[1]}></div>
 				{result !== '' ?
 					<div className="chartsContainer">
 						<button onClick={handleButtonClick(0)}>{sectionToggles[0] ? 'Hide ' : 'Show '} Charts </button>
@@ -401,6 +419,7 @@ function App() {
 				}
 
 				{/* news */}
+				<div ref={myRef[2]}></div>
 				{newsArticles.length !== 0 ?
 					<div className='newsContainer'>
 						<button onClick={handleButtonClick(2)}>{sectionToggles[2] ? 'Hide ' : 'Show '} News </button>
@@ -440,6 +459,7 @@ function App() {
 					'No news available atm'
 				}
 				{/* saved news */}
+				<div ref={myRef[3]}></div>
 				{savedArticles.length !== 0 ?
 					<div className='newsContainer'>
 						<button onClick={handleButtonClick(3)}>{sectionToggles[3] ? 'Hide ' : 'Show '} Saved News </button>
