@@ -27,7 +27,19 @@ div {
 nav {
 	display: flex;
 	flex-direction: row;
-	justify-content: center;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	z-index: 1;
+	button {
+		flex-grow: 1;
+		padding: 0;
+		margin: 0;
+		&:hover {
+			background-color: $tertiaryColor;
+			color: rgb(227, 248, 255);
+		}
+	}
 }
 h1,
 h2 {
@@ -45,7 +57,7 @@ h1 {
 	color: $quaternaryColor;
 	position: relative;
 	top: 0;
-	margin-top: -75px;
+	margin-top: -60px;
 	padding-bottom: 25px;
 }
 h2 {
@@ -58,7 +70,7 @@ p {
 	font-family: Inconsolata;
 	font-weight: 100;
 }
-button {
+.container button {
 	border-radius: 5px;
 	margin: 3%;
 	border: 1px solid #4378b0;
@@ -195,7 +207,7 @@ a {
 .articleContainer:nth-child(2n) a:hover {
 	background-color: $tertiaryColor;
 }
-a:hover, button:not(.fontIcon):hover {
+a:hover, .container button:not(.fontIcon):hover {
 	border: 1px solid #4378b0;
 	background-color: $tertiaryColor;
 	box-shadow: 1px 1px 3px $secondaryColor, 1px -1px 3px $secondaryColor, -1px 1px 3px $secondaryColor, -1px -1px 3px $secondaryColor;

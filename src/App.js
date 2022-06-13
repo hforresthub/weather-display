@@ -243,15 +243,15 @@ function App() {
 
 	return (
 		<div className='App'>
+			<nav>
+				<button onClick={executeScroll(0)}> Weather </button>
+				<button onClick={executeScroll(1)}> Charts </button>
+				<button onClick={executeScroll(2)}> News </button>
+				<button onClick={executeScroll(3)}> Saved </button>
+			</nav>
 			<header>
 				<img src={require(`./images/sky.png`)} alt="Picture of clouds" className='skyBanner' />
 				<h1>Weatherenews</h1>
-				<nav>
-					<button onClick={executeScroll(0)}> Weather </button>
-					<button onClick={executeScroll(1)}> Charts </button>
-					<button onClick={executeScroll(2)}> News </button>
-					<button onClick={executeScroll(3)}> Saved </button>
-				</nav>
 			</header>
 			<div className="container">
 				{/* google login button */}
