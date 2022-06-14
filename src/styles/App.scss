@@ -86,7 +86,7 @@ p {
 .chartsContainer,
 .newsContainer,
 .googleLoginContainer,
-.commentContainer {
+.commentsContainer {
 	background-color: $tertiaryColorTransparency;
 	border-radius: 25px;
 	box-shadow: 1px 1px 3px $tertiaryColorTransparency, 1px -1px 3px $tertiaryColorTransparency, -1px 1px 3px $tertiaryColorTransparency, -1px -1px 3px $tertiaryColorTransparency;
@@ -126,7 +126,8 @@ p {
 	-webkit-box-shadow: inset 0 0 6px #114071;
 }
 .weatherDisplay,
-.newsArticles {
+.newsArticles,
+.articleComments {
 	flex-direction: row;
 	background-color: #b0ceef;
 	border-radius: 10px;
@@ -134,7 +135,8 @@ p {
 	box-shadow: 1px 1px 10px $tertiaryColor, 1px -1px 10px $tertiaryColor, -1px 1px 10px $tertiaryColor, -1px -1px 10px $tertiaryColor;
 	margin: 1% 0;
 }
-.newsArticles {
+.newsArticles,
+.articleComments {
 	background-color: $quaternaryColor;
 }
 .articleContainer {
@@ -145,13 +147,15 @@ p {
 	}
 
 }
-.articleContainer:nth-child(2n) {
+.articleContainer:nth-child(2n),
+.articleComments:nth-child(2n) {
 	background-color: $secondaryColor;
 	img {
 		border: 2px solid $quaternaryColor;
 	}
 }
-.articleContainer:hover {
+.articleContainer:hover,
+.articleComments:hover {
 	background-color: $primaryColor;
 }
 .hourContainer,
@@ -234,12 +238,30 @@ a:hover {
 	overflow: hidden;
 	height: 10rem;
 }
-.fontIcon {
+.container .fontIcon {
 	color: $tertiaryColor;
 	background: none;
 	border: 1px solid rgba(255, 0, 0, 0);
 	box-shadow: none;
 }
+
+// comments
+.commentContainer {
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	h3 {
+		margin-left: 0.5rem;
+	}
+	p {
+		flex-grow: 1;
+		margin-left: 0.5rem;
+	}
+	img {
+		height: 30px;
+		width: 30px;
+	}
+} 
 
 @media only screen and (min-width: 800px) {
 	.App {

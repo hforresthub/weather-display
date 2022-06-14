@@ -29,7 +29,7 @@ const currentDate = new Date()
 
 function App() {
 	// button variables
-	const myRef = [useRef(null), useRef(null), useRef(null), useRef(null)]
+	const myRef = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)]
 
 	// user state variable
 	const [user, setUser] = useState({})
@@ -44,15 +44,17 @@ function App() {
 	const [windChartData, setWindChartData] = useState([])
 	const [labels, setLabels] = useState([])
 	// toggle variables
-	const [sectionToggles, setSectionToggles] = useState([true, true, true, true])
+	const [sectionToggles, setSectionToggles] = useState([true, true, true, true, true])
 	// news state variables
 	const [newsArticles, setNewsArticles] = useState(backupNewsData2.data)
 	// const [searchTopic, setSearchTopic] = useState('')
 
 	//firebase state variables
 	const [users, setUsers] = useState([{}])
-	const [comments, setComments] = useState([])
 	const [savedArticles, setSavedArticles] = useState([])
+	//current article and comments
+	const [currentArticle, setCurrentArticle] = useState('55c9bca7-01c5-4dd9-9134-71bd0fff5223')
+	const [currentComments, setCurrentComments] = useState([])
 
 	// button functions
 	const handleButtonClick = (index) => (event) => {
@@ -93,32 +95,11 @@ function App() {
 			}
 		)
 
-		google.accounts.id.prompt()
+		//prompt for google login, annoying for testing
+		// google.accounts.id.prompt()
 	}, [])
 
 	//firebase
-	// watch comment data
-	useEffect(() => {
-		const commentsDb = ref(realtime, 'comments/')
-		onValue(commentsDb, (snapshot) => {
-			const myData = snapshot.val()
-			// console.log(myData);
-			const commentArray = []
-			for (let propertyName in myData) {
-				// create a new local object for each loop iteration:
-				const userComment = {
-					key: propertyName,
-					newComment: myData[propertyName]
-				}
-				// console.log(myData[propertyName]);
-				// console.log(userComment);
-				if (myData[propertyName]) {
-					commentArray.push(userComment)
-				}
-			}
-			setComments(commentArray)
-		})
-	}, [])
 	// watch user data
 	useEffect(() => {
 		const userDb = ref(realtime, 'users/')
@@ -159,16 +140,67 @@ function App() {
 			setSavedArticles(savedArray)
 		})
 	}, [])
+	// watch comment data for current article if one is selected
+	useEffect(() => {
+		if (currentArticle !== '' && currentArticle !== null) {
+			const commentsDb = ref(realtime, `saved/${currentArticle}/comments/`)
+			onValue(commentsDb, (snapshot) => {
+				const myData = snapshot.val()
+				// console.log(myData);
+				const commentArray = []
+				for (let propertyName in myData) {
+					// create a new local object for each loop iteration:
+					const userComment = {
+						key: propertyName,
+						comment: myData[propertyName]
+					}
+					// console.log(myData[propertyName]);
+					// console.log(userComment);
+					if (myData[propertyName]) {
+						commentArray.push(userComment)
+					}
+				}
+				setCurrentComments(commentArray)
+			})
+		}
+	}, [currentArticle])
 
+	//firebase button function
+	//save button
 	const handleSaveButtonClick = (element) => (event) => {
 		// console.log('testing save: ', element)
 
 		//update user
 		const savedDb = ref(realtime, `saved/${element.uuid}`)
+		const testComment = {
+			username: 'Weatherenews bot',
+			picture:`./images/favicon.png`,
+			comment: 'First!',
+			date: new Date()
+		}
 		const tempSavedArticle = {
 			article: element,
+			comments: [testComment],
 		}
 		update(savedDb, tempSavedArticle)
+	}
+	//read comments button
+	const handleCommentsButtonClick = (element) => (event) => {
+		// console.log('testing save: ', element)
+
+		//update user
+		const savedDb = ref(realtime, `saved/${element.uuid}`)
+		const testComment = {
+			username: 'Weatherenews bot',
+			picture:`./images/favicon.png`,
+			comment: 'First!',
+			date: new Date()
+		}
+		const tempComments = {
+			comments: [testComment],
+		}
+		update(savedDb, tempComments)
+		setCurrentArticle(element.uuid)
 	}
 
 	// for weather api data
@@ -228,16 +260,16 @@ function App() {
 		// 	setNewsArticles(res.data.articles)
 		// })
 		// NewsAPI
-		axios({
-			url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
-			method: 'GET',
-			dataResponse: 'json'
-		}).then((res) => {
-			// console.log(JSON.stringify(res.data))
-			// console.log(res.data.data)
-			// console.log(JSON.stringify(res.data.articles))
-			setNewsArticles(res.data.data)
-		})
+		// axios({
+		// 	url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
+		// 	method: 'GET',
+		// 	dataResponse: 'json'
+		// }).then((res) => {
+		// 	// console.log(JSON.stringify(res.data))
+		// 	// console.log(res.data.data)
+		// 	// console.log(JSON.stringify(res.data.articles))
+		// 	setNewsArticles(res.data.data)
+		// })
 		// console.log(JSON.stringify(newsArticles))
 	}, [])
 
@@ -248,6 +280,7 @@ function App() {
 				<button onClick={executeScroll(1)}> Charts </button>
 				<button onClick={executeScroll(2)}> News </button>
 				<button onClick={executeScroll(3)}> Saved </button>
+				<button onClick={executeScroll(4)}> Comments </button>
 			</nav>
 			<header>
 				<img src={require(`./images/sky.png`)} alt="Picture of clouds" className='skyBanner' />
@@ -267,17 +300,6 @@ function App() {
 						</div>
 					}
 				</div>
-				{/* <div className='commentContainer'>
-					{
-						comments.map((element, index) => {
-							return (
-								<div key={index}>
-									<p>{element.key}</p>
-								</div>
-							)
-						})
-					}
-				</div> */}
 				{/* weather display from api app */}
 				<div ref={myRef[0]}></div>
 				{result !== '' ?
@@ -438,7 +460,7 @@ function App() {
 														return (savedElement.userData.article.uuid == element.uuid)
 													}).length > 0
 														?
-														// 'saved'
+														//saved
 														<button className='fontIcon'>
 															<FontAwesomeIcon icon="fa-solid fa-bookmark" />
 														</button>
@@ -466,13 +488,62 @@ function App() {
 						{sectionToggles[3] ?
 							<div className='newsToggleContainer'>
 								<h2>Saved News Articles: </h2>
-								{/* <input type='text' value={searchTopic} onChange={handleTopicChange} className='searchField' placeholder='Search by topic' /> */}
 								<div className='newsArticles'>
 									{savedArticles.map((element, index) => {
-										// console.log('test: ', element)
 										return (
 											<div className={`articleContainer${index} articleContainer`} key={index}>
 												<Article element={element.userData.article} />
+												{
+													element.userData.article.uuid == currentArticle
+														?
+														//comments
+														<button className='fontIcon'>
+															<FontAwesomeIcon icon="fa-solid fa-bookmark" />
+														</button>
+														:
+														<button className='saveIcon' onClick={handleCommentsButtonClick(element.userData.article)}>Comments</button>
+												}
+											</div>
+										)
+									})}
+								</div>
+							</div>
+
+							:
+							''
+						}
+					</div>
+					:
+					'No saved news available atm'
+				}
+				{/* current article comments */}
+				{/* <div className='commentContainer'>
+					{
+						currentComments.map((element, index) => {
+							return (
+								<div key={index}>
+									<p>{element.key}</p>
+								</div>
+							)
+						})
+					}
+				</div> */}
+				<div ref={myRef[4]}></div>
+				{currentComments.length !== 0 ?
+					<div className='commentsContainer'>
+						<button onClick={handleButtonClick(4)}>{sectionToggles[4] ? 'Hide ' : 'Show '} Current Comments </button>
+						{sectionToggles[4] ?
+							<div className='commentsToggleContainer'>
+								<h2>Current Comments: </h2>
+								<div className='articleComments'>
+									{currentComments.map((element, index) => {
+										console.log('test object: ', element)
+										return (
+											<div className={`commentContainer${index} commentContainer`} key={index}>
+												<img src={`${require(`${element.comment.picture}`)}`} alt=""></img>
+												<h3>{element.comment.username}</h3>
+												<p>{element.comment.comment}</p>
+												{/* <Comment element={element.userData.comment} /> */}
 											</div>
 										)
 									})}
