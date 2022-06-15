@@ -32,7 +32,7 @@ function App() {
 	const myRef = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)]
 
 	// user state variable
-	const [user, setUser] = useState({})
+	const [user, setUser] = useState({name: 'Anonymous', picture : `./images/favicon.png`})
 
 	// weather state variables
 	const [longitude, setLongitude] = useState(200) // 200 is outside possible value
@@ -53,8 +53,9 @@ function App() {
 	const [users, setUsers] = useState([{}])
 	const [savedArticles, setSavedArticles] = useState([])
 	//current article and comments
-	const [currentArticle, setCurrentArticle] = useState({ uuid: '55c9bca7-01c5-4dd9-9134-71bd0fff5223' })
+	const [currentArticle, setCurrentArticle] = useState(null)
 	const [currentComments, setCurrentComments] = useState([])
+	const [currentComment, setCurrentComment] = useState('')
 
 	// button functions
 	const handleButtonClick = (index) => (event) => {
@@ -65,10 +66,6 @@ function App() {
 		return myRef[index].current.scrollIntoView()
 	}
 
-	// const handleTopicChange = (event) => {
-	// 	setSearchTopic(event.target.value)
-	// }
-
 	// google login setup
 	function handleCallbackResponse(response) {
 		// console.log(("Encoded JWT ID token: " + response.credential))
@@ -78,7 +75,7 @@ function App() {
 		document.getElementById("signInDiv").hidden = true
 	}
 	function handleSignout(event) {
-		setUser({})
+		setUser({name: 'Anonymous', picture : `./images/favicon.png`})
 		document.getElementById("signInDiv").hidden = false
 	}
 	useEffect(() => {
@@ -142,7 +139,7 @@ function App() {
 	}, [])
 	// watch comment data for current article if one is selected
 	useEffect(() => {
-		if (currentArticle.uuid !== '' && currentArticle.uuid !== null) {
+		if (currentArticle !== null) {
 			const commentsDb = ref(realtime, `saved/${currentArticle.uuid}/comments/`)
 			onValue(commentsDb, (snapshot) => {
 				const myData = snapshot.val()
@@ -168,8 +165,6 @@ function App() {
 	//firebase button function
 	//save button
 	const handleSaveButtonClick = (element) => (event) => {
-		// console.log('testing save: ', element)
-
 		//update user
 		const savedDb = ref(realtime, `saved/${element.uuid}`)
 		const testComment = {
@@ -186,21 +181,27 @@ function App() {
 	}
 	//read comments button
 	const handleCommentsButtonClick = (element) => (event) => {
-		// console.log('testing save: ', element)
-
-		//update user
-		const savedDb = ref(realtime, `saved/${element.uuid}`)
-		const testComment = {
-			username: 'Weatherenews bot',
-			picture: `./images/favicon.png`,
-			comment: 'First!',
-			date: new Date()
-		}
-		const tempComments = {
-			comments: [testComment],
-		}
-		update(savedDb, tempComments)
 		setCurrentArticle(element)
+	}
+	//form comment change handler
+	const handleCommentChange = (event) => {
+		event.preventDefault()
+		setCurrentComment(event.target.value)
+	}
+	//form submit for comment
+	const handleCommentSubmit = (event) => {
+		event.preventDefault()
+		// console.log(currentComment)
+		if (currentComment !== '') {
+			const commentsDb = ref(realtime, `saved/${currentArticle.uuid}/comments/`)
+			push(commentsDb, {
+				username: user.name,
+				picture:  user.picture,
+				comment: currentComment,
+				date: new Date()
+			})
+		}
+		setCurrentComment('')
 	}
 
 	// for weather api data
@@ -260,16 +261,16 @@ function App() {
 		// 	setNewsArticles(res.data.articles)
 		// })
 		// NewsAPI
-		// axios({
-		// 	url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
-		// 	method: 'GET',
-		// 	dataResponse: 'json'
-		// }).then((res) => {
-		// 	// console.log(JSON.stringify(res.data))
-		// 	// console.log(res.data.data)
-		// 	// console.log(JSON.stringify(res.data.articles))
-		// 	setNewsArticles(res.data.data)
-		// })
+		axios({
+			url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
+			method: 'GET',
+			dataResponse: 'json'
+		}).then((res) => {
+			// console.log(JSON.stringify(res.data))
+			// console.log(res.data.data)
+			// console.log(JSON.stringify(res.data.articles))
+			setNewsArticles(res.data.data)
+		})
 		// console.log(JSON.stringify(newsArticles))
 	}, [])
 
@@ -290,10 +291,10 @@ function App() {
 				{/* google login button */}
 				<div className='googleLoginContainer'>
 					<p id="signInDiv"></p>
-					{Object.keys(user).length != 0 &&
+					{user.name !== 'Anonymous' &&
 						<button onClick={(e) => handleSignout(e)}>Sign out with Google</button>
 					}
-					{user &&
+					{user.name !== 'Anonymous' &&
 						<div>
 							<img src={user.picture} alt=""></img>
 							<h3>{user.name}</h3>
@@ -451,7 +452,6 @@ function App() {
 								{/* <input type='text' value={searchTopic} onChange={handleTopicChange} className='searchField' placeholder='Search by topic' /> */}
 								<div className='newsArticles'>
 									{newsArticles.map((element, index) => {
-										// console.log(element)
 										return (
 											<div className={`articleContainer${index} articleContainer`} key={index}>
 												<Article element={element} index={index} />
@@ -494,7 +494,7 @@ function App() {
 											<div className={`articleContainer${index} articleContainer`} key={index}>
 												<Article element={element.userData.article} index={index} />
 												{
-													element.userData.article.uuid == currentArticle.uuid
+													currentArticle !== null && element.userData.article.uuid == currentArticle.uuid
 														?
 														//comments
 														<button className='fontIcon'>
@@ -517,19 +517,8 @@ function App() {
 					'No saved news available atm'
 				}
 				{/* current article comments */}
-				{/* <div className='commentContainer'>
-					{
-						currentComments.map((element, index) => {
-							return (
-								<div key={index}>
-									<p>{element.key}</p>
-								</div>
-							)
-						})
-					}
-				</div> */}
 				<div ref={myRef[4]}></div>
-				{currentArticle.uuid !== '' ?
+				{currentArticle !== null ?
 					<div className='commentsContainer'>
 						<button onClick={handleButtonClick(4)}>{sectionToggles[4] ? 'Hide ' : 'Show '} Current Comments </button>
 						{sectionToggles[4] ?
@@ -539,14 +528,24 @@ function App() {
 									<Article element={currentArticle} index={0} />
 								</div>
 								<h2>Current Comments: </h2>
+								<h3>Leave a comment</h3>
+								<form onSubmit={handleCommentSubmit}>
+									<label htmlFor="postComment">Post Comment: </label>
+									<input type="text" name="postComment" id="postComment" value={currentComment} onChange={handleCommentChange} />
+									<button type="button" onClick={handleCommentSubmit}>Post Comment</button>
+								</form>
 								{currentComments.length !== 0 ?
 									<div className='articleComments'>
 										{currentComments.map((element, index) => {
 											// console.log('test object: ', element)
 											return (
 												<div className={`commentContainer${index} commentContainer`} key={index}>
-													<img src={`${require(`${element.comment.picture}`)}`} alt=""></img>
-													<h3>{element.comment.username}</h3>
+													{element.comment.username === 'Anonymous' || element.comment.username === 'Weatherenews bot' ?
+														<img src={`${require(`${element.comment.picture}`)}`} alt=""></img>
+														:
+														<img src={`${element.comment.picture}`} alt=""></img>
+													}
+													<h3>{element.comment.username}:</h3>
 													<p>{element.comment.comment}</p>
 													{/* <Comment element={element.userData.comment} /> */}
 												</div>
@@ -563,7 +562,7 @@ function App() {
 						}
 					</div>
 					:
-					'No saved news available atm'
+					'No current article available atm'
 				}
 			</div>
 			<footer>

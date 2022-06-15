@@ -158,6 +158,17 @@ p {
 .articleComments:hover {
 	background-color: $primaryColor;
 }
+.articleComments {
+	display: flex;
+	flex-direction: column;
+	padding: 3%;
+	width: 90%;
+	// height: fit-content;
+	// overflow: visible;
+	.commentContainer {
+		display: flex;
+	}
+}
 .hourContainer,
 .dayContainer {
 	padding: 1rem;
