@@ -53,7 +53,7 @@ function App() {
 	const [users, setUsers] = useState([{}])
 	const [savedArticles, setSavedArticles] = useState([])
 	//current article and comments
-	const [currentArticle, setCurrentArticle] = useState('55c9bca7-01c5-4dd9-9134-71bd0fff5223')
+	const [currentArticle, setCurrentArticle] = useState({ uuid: '55c9bca7-01c5-4dd9-9134-71bd0fff5223' })
 	const [currentComments, setCurrentComments] = useState([])
 
 	// button functions
@@ -142,8 +142,8 @@ function App() {
 	}, [])
 	// watch comment data for current article if one is selected
 	useEffect(() => {
-		if (currentArticle !== '' && currentArticle !== null) {
-			const commentsDb = ref(realtime, `saved/${currentArticle}/comments/`)
+		if (currentArticle.uuid !== '' && currentArticle.uuid !== null) {
+			const commentsDb = ref(realtime, `saved/${currentArticle.uuid}/comments/`)
 			onValue(commentsDb, (snapshot) => {
 				const myData = snapshot.val()
 				// console.log(myData);
@@ -174,7 +174,7 @@ function App() {
 		const savedDb = ref(realtime, `saved/${element.uuid}`)
 		const testComment = {
 			username: 'Weatherenews bot',
-			picture:`./images/favicon.png`,
+			picture: `./images/favicon.png`,
 			comment: 'First!',
 			date: new Date()
 		}
@@ -192,7 +192,7 @@ function App() {
 		const savedDb = ref(realtime, `saved/${element.uuid}`)
 		const testComment = {
 			username: 'Weatherenews bot',
-			picture:`./images/favicon.png`,
+			picture: `./images/favicon.png`,
 			comment: 'First!',
 			date: new Date()
 		}
@@ -200,7 +200,7 @@ function App() {
 			comments: [testComment],
 		}
 		update(savedDb, tempComments)
-		setCurrentArticle(element.uuid)
+		setCurrentArticle(element)
 	}
 
 	// for weather api data
@@ -219,7 +219,7 @@ function App() {
 				method: 'GET',
 				dataResponse: 'json'
 			}).then((res) => {
-				console.log(res.data)
+				// console.log(res.data)
 				setResult(res.data)
 				const tempData = res.data.hourly.map(element => {
 					return element.temp
@@ -454,7 +454,7 @@ function App() {
 										// console.log(element)
 										return (
 											<div className={`articleContainer${index} articleContainer`} key={index}>
-												<Article element={element} />
+												<Article element={element} index={index} />
 												{
 													savedArticles.filter(savedElement => {
 														return (savedElement.userData.article.uuid == element.uuid)
@@ -492,9 +492,9 @@ function App() {
 									{savedArticles.map((element, index) => {
 										return (
 											<div className={`articleContainer${index} articleContainer`} key={index}>
-												<Article element={element.userData.article} />
+												<Article element={element.userData.article} index={index} />
 												{
-													element.userData.article.uuid == currentArticle
+													element.userData.article.uuid == currentArticle.uuid
 														?
 														//comments
 														<button className='fontIcon'>
@@ -529,25 +529,33 @@ function App() {
 					}
 				</div> */}
 				<div ref={myRef[4]}></div>
-				{currentComments.length !== 0 ?
+				{currentArticle.uuid !== '' ?
 					<div className='commentsContainer'>
 						<button onClick={handleButtonClick(4)}>{sectionToggles[4] ? 'Hide ' : 'Show '} Current Comments </button>
 						{sectionToggles[4] ?
 							<div className='commentsToggleContainer'>
-								<h2>Current Comments: </h2>
-								<div className='articleComments'>
-									{currentComments.map((element, index) => {
-										console.log('test object: ', element)
-										return (
-											<div className={`commentContainer${index} commentContainer`} key={index}>
-												<img src={`${require(`${element.comment.picture}`)}`} alt=""></img>
-												<h3>{element.comment.username}</h3>
-												<p>{element.comment.comment}</p>
-												{/* <Comment element={element.userData.comment} /> */}
-											</div>
-										)
-									})}
+								<h2>Current Article: </h2>
+								<div className="currentArticle">
+									<Article element={currentArticle} index={0} />
 								</div>
+								<h2>Current Comments: </h2>
+								{currentComments.length !== 0 ?
+									<div className='articleComments'>
+										{currentComments.map((element, index) => {
+											// console.log('test object: ', element)
+											return (
+												<div className={`commentContainer${index} commentContainer`} key={index}>
+													<img src={`${require(`${element.comment.picture}`)}`} alt=""></img>
+													<h3>{element.comment.username}</h3>
+													<p>{element.comment.comment}</p>
+													{/* <Comment element={element.userData.comment} /> */}
+												</div>
+											)
+										})}
+									</div>
+									:
+									'No comments yet'
+								}
 							</div>
 
 							:

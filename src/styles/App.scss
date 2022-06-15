@@ -127,7 +127,7 @@ p {
 }
 .weatherDisplay,
 .newsArticles,
-.articleComments {
+.articleComments, .currentArticle {
 	flex-direction: row;
 	background-color: #b0ceef;
 	border-radius: 10px;
@@ -136,10 +136,10 @@ p {
 	margin: 1% 0;
 }
 .newsArticles,
-.articleComments {
+.articleComments, .currentArticle {
 	background-color: $quaternaryColor;
 }
-.articleContainer {
+.articleContainer, .currentArticle {
 	width: 200px;
 	padding: 3%;
 	img {
@@ -246,6 +246,9 @@ a:hover {
 }
 
 // comments
+.currentArticle {
+	width: 50%;
+}
 .commentContainer {
 	display: flex;
 	width: 100%;
