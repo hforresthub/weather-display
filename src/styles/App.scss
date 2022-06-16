@@ -148,27 +148,30 @@ p {
 
 }
 .articleContainer:nth-child(2n),
-.articleComments:nth-child(2n) {
+.commentContainer:nth-child(2n) {
 	background-color: $secondaryColor;
 	img {
 		border: 2px solid $quaternaryColor;
 	}
 }
-.articleContainer:hover,
-.articleComments:hover {
+.articleContainer:hover {
 	background-color: $primaryColor;
 }
 .articleComments {
 	display: flex;
 	flex-direction: column;
-	padding: 3%;
+	// padding: 3%;
+	// margin: 1%;
 	width: 90%;
 	// height: fit-content;
 	// overflow: visible;
 	.commentContainer {
 		display: flex;
+		margin: 0 3%;
+		// padding: 0 1%;
 	}
 }
+// weather
 .hourContainer,
 .dayContainer {
 	padding: 1rem;
@@ -258,7 +261,14 @@ a:hover {
 
 // comments
 .currentArticle {
-	width: 50%;
+	width: 300px;
+	img {
+		width: 100%;
+		object-fit: fill;
+	}
+}
+.commentsToggleContainer form {
+	display: flex;
 }
 .commentContainer {
 	display: flex;
@@ -274,6 +284,7 @@ a:hover {
 	img {
 		height: 30px;
 		width: 30px;
+		margin-left: 0.5rem;
 	}
 } 
 

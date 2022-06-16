@@ -32,7 +32,7 @@ function App() {
 	const myRef = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)]
 
 	// user state variable
-	const [user, setUser] = useState({name: 'Anonymous', picture : `./images/favicon.png`})
+	const [user, setUser] = useState({ name: 'Anonymous', picture: `./images/favicon.png` })
 
 	// weather state variables
 	const [longitude, setLongitude] = useState(200) // 200 is outside possible value
@@ -75,7 +75,7 @@ function App() {
 		document.getElementById("signInDiv").hidden = true
 	}
 	function handleSignout(event) {
-		setUser({name: 'Anonymous', picture : `./images/favicon.png`})
+		setUser({ name: 'Anonymous', picture: `./images/favicon.png` })
 		document.getElementById("signInDiv").hidden = false
 	}
 	useEffect(() => {
@@ -196,7 +196,7 @@ function App() {
 			const commentsDb = ref(realtime, `saved/${currentArticle.uuid}/comments/`)
 			push(commentsDb, {
 				username: user.name,
-				picture:  user.picture,
+				picture: user.picture,
 				comment: currentComment,
 				date: new Date()
 			})
@@ -288,19 +288,6 @@ function App() {
 				<h1>Weatherenews</h1>
 			</header>
 			<div className="container">
-				{/* google login button */}
-				<div className='googleLoginContainer'>
-					<p id="signInDiv"></p>
-					{user.name !== 'Anonymous' &&
-						<button onClick={(e) => handleSignout(e)}>Sign out with Google</button>
-					}
-					{user.name !== 'Anonymous' &&
-						<div>
-							<img src={user.picture} alt=""></img>
-							<h3>{user.name}</h3>
-						</div>
-					}
-				</div>
 				{/* weather display from api app */}
 				<div ref={myRef[0]}></div>
 				{result !== '' ?
@@ -516,6 +503,20 @@ function App() {
 					:
 					'No saved news available atm'
 				}
+				{/* google login button */}
+				<div className='googleLoginContainer'>
+					<p id="signInDiv"></p>
+					{user.name !== 'Anonymous' &&
+						<button onClick={(e) => handleSignout(e)}>Sign out with Google</button>
+					}
+					{user.name !== 'Anonymous' &&
+						<div>
+							<img src={user.picture} alt=""></img>
+							<h3>{user.name}</h3>
+						</div>
+					}
+				</div>
+
 				{/* current article comments */}
 				<div ref={myRef[4]}></div>
 				{currentArticle !== null ?
@@ -528,9 +529,8 @@ function App() {
 									<Article element={currentArticle} index={0} />
 								</div>
 								<h2>Current Comments: </h2>
-								<h3>Leave a comment</h3>
 								<form onSubmit={handleCommentSubmit}>
-									<label htmlFor="postComment">Post Comment: </label>
+									<label htmlFor="postComment">Comment as {user.name}</label>
 									<input type="text" name="postComment" id="postComment" value={currentComment} onChange={handleCommentChange} />
 									<button type="button" onClick={handleCommentSubmit}>Post Comment</button>
 								</form>
