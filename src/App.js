@@ -5,10 +5,10 @@ import DayForecast from './DayForecast';
 import HourForecast from './HourForecast';
 import Article from './Article';
 import Comment from './Comment';
-import Chart from 'chart.js/auto'
-import { Bar, Line } from 'react-chartjs-2';
+// import Chart from 'chart.js/auto'
+import { Line } from 'react-chartjs-2';
 
-import backupNewsData from './backupNewsData.json'
+// import backupNewsData from './backupNewsData.json'
 import backupNewsData2 from './backupNewsData2.json'
 
 //login import
@@ -51,7 +51,7 @@ function App() {
 	// const [searchTopic, setSearchTopic] = useState('')
 
 	//firebase state variables
-	const [users, setUsers] = useState([{}])
+	// const [users, setUsers] = useState([{}])
 	const [savedArticles, setSavedArticles] = useState([])
 	//current article and comments
 	const [currentArticle, setCurrentArticle] = useState(null)
@@ -99,25 +99,25 @@ function App() {
 
 	//firebase
 	// watch user data
-	useEffect(() => {
-		const userDb = ref(realtime, 'users/')
-		onValue(userDb, (snapshot) => {
-			const myData = snapshot.val()
-			const userArray = []
-			for (let propertyName in myData) {
-				// create a new local object for each loop iteration:
-				const tempUser = {
-					key: propertyName,
-					userData: myData[propertyName]
-				}
-				if (myData[propertyName]) {
-					userArray.push(tempUser)
-				}
-			}
-			// console.log(userArray);
-			setUsers(userArray)
-		})
-	}, [])
+	// useEffect(() => {
+	// 	const userDb = ref(realtime, 'users/')
+	// 	onValue(userDb, (snapshot) => {
+	// 		const myData = snapshot.val()
+	// 		const userArray = []
+	// 		for (let propertyName in myData) {
+	// 			// create a new local object for each loop iteration:
+	// 			const tempUser = {
+	// 				key: propertyName,
+	// 				userData: myData[propertyName]
+	// 			}
+	// 			if (myData[propertyName]) {
+	// 				userArray.push(tempUser)
+	// 			}
+	// 		}
+	// 		// console.log(userArray);
+	// 		setUsers(userArray)
+	// 	})
+	// }, [])
 	// watch saved article data
 	useEffect(() => {
 		const savedDb = ref(realtime, 'saved/')
@@ -283,7 +283,7 @@ function App() {
 				<button onClick={executeScroll(4)}> Comments </button>
 			</nav>
 			<header>
-				<img src={require(`./images/sky.png`)} alt="Picture of clouds" className='skyBanner' />
+				<img src={require(`./images/sky.png`)} alt="Clouds" className='skyBanner' />
 				<h1>Weatherenews</h1>
 			</header>
 			<div className="container">
@@ -443,7 +443,7 @@ function App() {
 												<Article element={element} index={index} />
 												{
 													savedArticles.filter(savedElement => {
-														return (savedElement.userData.article.uuid == element.uuid)
+														return (savedElement.userData.article.uuid === element.uuid)
 													}).length > 0
 														?
 														//saved
@@ -480,7 +480,7 @@ function App() {
 											<div className={`articleContainer${index} articleContainer`} key={index}>
 												<Article element={element.userData.article} index={index} />
 												{
-													currentArticle !== null && element.userData.article.uuid == currentArticle.uuid
+													currentArticle !== null && element.userData.article.uuid === currentArticle.uuid
 														?
 														//comments
 														<button className='fontIcon'>
@@ -555,7 +555,7 @@ function App() {
 				}
 			</div>
 			<footer>
-				<img src={require(`./images/lowerSky.png`)} alt="Picture of clouds" className='skyBanner' />
+				<img src={require(`./images/lowerSky.png`)} alt="Clouds" className='skyBanner' />
 			</footer>
 		</div>
 	);
