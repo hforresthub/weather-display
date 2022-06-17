@@ -5,7 +5,7 @@ import DayForecast from './DayForecast';
 import HourForecast from './HourForecast';
 import Article from './Article';
 import Comment from './Comment';
-// import Chart from 'chart.js/auto'
+import Chart from 'chart.js/auto'; //needed for live site despite warning suggesting it isnt needed
 import { Line } from 'react-chartjs-2';
 
 // import backupNewsData from './backupNewsData.json'
