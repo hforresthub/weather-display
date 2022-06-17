@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway&family=Inconsolata:wght@200");
 
-@import './colors.scss';
+@import "./colors.scss";
 
 html {
 	background-color: $quaternaryColor;
@@ -63,7 +63,8 @@ h1 {
 h2 {
 	color: $secondaryColor;
 }
-h3, p {
+h3,
+p {
 	color: rgb(26, 26, 26);
 }
 p {
@@ -75,7 +76,8 @@ p {
 	margin: 3%;
 	border: 1px solid #4378b0;
 	background-color: $secondaryColor;
-	box-shadow: 1px 1px 3px $tertiaryColor, 1px -1px 3px $tertiaryColor, -1px 1px 3px $tertiaryColor, -1px -1px 3px $tertiaryColor;
+	box-shadow: 1px 1px 3px $tertiaryColor, 1px -1px 3px $tertiaryColor, -1px 1px 3px $tertiaryColor,
+		-1px -1px 3px $tertiaryColor;
 }
 .skyBanner {
 	width: 100vw;
@@ -89,7 +91,8 @@ p {
 .commentsContainer {
 	background-color: $tertiaryColorTransparency;
 	border-radius: 25px;
-	box-shadow: 1px 1px 3px $tertiaryColorTransparency, 1px -1px 3px $tertiaryColorTransparency, -1px 1px 3px $tertiaryColorTransparency, -1px -1px 3px $tertiaryColorTransparency;
+	box-shadow: 1px 1px 3px $tertiaryColorTransparency, 1px -1px 3px $tertiaryColorTransparency,
+		-1px 1px 3px $tertiaryColorTransparency, -1px -1px 3px $tertiaryColorTransparency;
 	padding: 0 2%;
 	margin: 1% 0;
 	align-items: space-around;
@@ -101,7 +104,8 @@ p {
 	background-color: $quaternaryColor;
 	border-radius: 10px;
 	border: 2px solid #437ebd;
-	box-shadow: 1px 1px 10px $tertiaryColor, 1px -1px 10px $tertiaryColor, -1px 1px 10px $tertiaryColor, -1px -1px 10px $tertiaryColor;
+	box-shadow: 1px 1px 10px $tertiaryColor, 1px -1px 10px $tertiaryColor, -1px 1px 10px $tertiaryColor,
+		-1px -1px 10px $tertiaryColor;
 	margin: 1% 0;
 }
 .imgContainer {
@@ -127,25 +131,28 @@ p {
 }
 .weatherDisplay,
 .newsArticles,
-.articleComments, .currentArticle {
+.articleComments,
+.currentArticle {
 	flex-direction: row;
 	background-color: #b0ceef;
 	border-radius: 10px;
 	border: 2px solid #437ebd;
-	box-shadow: 1px 1px 10px $tertiaryColor, 1px -1px 10px $tertiaryColor, -1px 1px 10px $tertiaryColor, -1px -1px 10px $tertiaryColor;
+	box-shadow: 1px 1px 10px $tertiaryColor, 1px -1px 10px $tertiaryColor, -1px 1px 10px $tertiaryColor,
+		-1px -1px 10px $tertiaryColor;
 	margin: 1% 0;
 }
 .newsArticles,
-.articleComments, .currentArticle {
+.articleComments,
+.currentArticle {
 	background-color: $quaternaryColor;
 }
-.articleContainer, .currentArticle {
+.articleContainer,
+.currentArticle {
 	width: 200px;
 	padding: 3%;
 	img {
 		border: 2px solid $secondaryColor;
 	}
-
 }
 .articleContainer:nth-child(2n),
 .commentContainer:nth-child(2n) {
@@ -217,7 +224,8 @@ a {
 	width: 100%;
 	border: 1px solid #4378b0;
 	background-color: $secondaryColor;
-	box-shadow: 1px 1px 3px $tertiaryColor, 1px -1px 3px $tertiaryColor, -1px 1px 3px $tertiaryColor, -1px -1px 3px $tertiaryColor;
+	box-shadow: 1px 1px 3px $tertiaryColor, 1px -1px 3px $tertiaryColor, -1px 1px 3px $tertiaryColor,
+		-1px -1px 3px $tertiaryColor;
 }
 .articleContainer:nth-child(2n) a {
 	background-color: $quaternaryColor;
@@ -225,10 +233,12 @@ a {
 .articleContainer:nth-child(2n) a:hover {
 	background-color: $tertiaryColor;
 }
-a:hover, .container button:not(.fontIcon):hover {
+a:hover,
+.container button:not(.fontIcon):hover {
 	border: 1px solid #4378b0;
 	background-color: $tertiaryColor;
-	box-shadow: 1px 1px 3px $secondaryColor, 1px -1px 3px $secondaryColor, -1px 1px 3px $secondaryColor, -1px -1px 3px $secondaryColor;
+	box-shadow: 1px 1px 3px $secondaryColor, 1px -1px 3px $secondaryColor, -1px 1px 3px $secondaryColor,
+		-1px -1px 3px $secondaryColor;
 	color: rgb(227, 248, 255);
 }
 a:hover {
@@ -251,6 +261,15 @@ a:hover {
 .content {
 	overflow: hidden;
 	height: 10rem;
+}
+.container .saveIcon {
+	background-color: $secondaryColor;
+}
+.container .articleContainer:nth-child(2n) .saveIcon {
+	background-color: $quaternaryColor;
+	&:hover {
+		background-color: $tertiaryColor;
+	}
 }
 .container .fontIcon {
 	color: $tertiaryColor;
@@ -285,8 +304,9 @@ a:hover {
 		height: 30px;
 		width: 30px;
 		margin-left: 0.5rem;
+		border: 2px solid $secondaryColor;
 	}
-} 
+}
 
 @media only screen and (min-width: 800px) {
 	.App {

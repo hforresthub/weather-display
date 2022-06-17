@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import DayForecast from './DayForecast';
 import HourForecast from './HourForecast';
 import Article from './Article';
+import Comment from './Comment';
 import Chart from 'chart.js/auto'
 import { Bar, Line } from 'react-chartjs-2';
 
@@ -20,10 +21,10 @@ import { ref, onValue, push, update } from "firebase/database";
 //fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookmark } from '@fortawesome/free-solid-svg-icons'
+import { faBookmark, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { useRef } from 'react';
 
-library.add(faBookmark)
+library.add(faBookmark, faArrowDown)
 
 const currentDate = new Date()
 
@@ -266,8 +267,6 @@ function App() {
 			method: 'GET',
 			dataResponse: 'json'
 		}).then((res) => {
-			// console.log(JSON.stringify(res.data))
-			// console.log(res.data.data)
 			// console.log(JSON.stringify(res.data.articles))
 			setNewsArticles(res.data.data)
 		})
@@ -485,7 +484,7 @@ function App() {
 														?
 														//comments
 														<button className='fontIcon'>
-															<FontAwesomeIcon icon="fa-solid fa-bookmark" />
+															<FontAwesomeIcon icon="fa-solid fa-arrow-down" />
 														</button>
 														:
 														<button className='saveIcon' onClick={handleCommentsButtonClick(element.userData.article)}>Comments</button>
@@ -537,18 +536,8 @@ function App() {
 								{currentComments.length !== 0 ?
 									<div className='articleComments'>
 										{currentComments.map((element, index) => {
-											// console.log('test object: ', element)
 											return (
-												<div className={`commentContainer${index} commentContainer`} key={index}>
-													{element.comment.username === 'Anonymous' || element.comment.username === 'Weatherenews bot' ?
-														<img src={`${require(`${element.comment.picture}`)}`} alt=""></img>
-														:
-														<img src={`${element.comment.picture}`} alt=""></img>
-													}
-													<h3>{element.comment.username}:</h3>
-													<p>{element.comment.comment}</p>
-													{/* <Comment element={element.userData.comment} /> */}
-												</div>
+													<Comment element={element} index={index} key={index} />
 											)
 										})}
 									</div>
