@@ -7,7 +7,7 @@ import { Line } from 'react-chartjs-2';
 
 const currentDate = new Date()
 
-const Weather = ({handleButtonClick, sectionToggles, setSectionToggles, myRef}) => {
+const Weather = ({ handleButtonClick, sectionToggles, setSectionToggles, myRef }) => {
 
 	// weather state variables
 	const [longitude, setLongitude] = useState(200) // 200 is outside possible value
@@ -66,143 +66,144 @@ const Weather = ({handleButtonClick, sectionToggles, setSectionToggles, myRef}) 
 
 	return (
 		<div className={`weather`} >
-				{result !== '' ?
-					<div className="forecastsContainer">
-						<button onClick={handleButtonClick(1)}>{sectionToggles[1] ? 'Hide ' : 'Show '} Forecasts </button>
-						{sectionToggles[1] ?
-							<div className='forecastsToggleContainer'>
-								<h2>24 hour forecast</h2>
-								<div className="weatherDisplay">
-									{/* create forecast for first 5 hours */}
-									{result.hourly.map((element, index) => {
-										if (index < 24) {
-											const elementDate = new Date()
-											elementDate.setHours(currentDate.getHours() + index)
-											return (
-												<div className={`hourContainer${index} hourContainer  ${elementDate.getDate() > currentDate.getDate() ? 'hourContainerNewDay' : ''}`} key={index}>
-													<HourForecast element={element} index={index} elementDate={elementDate} />
-												</div>
-											)
-										} else {
-											return null
-										}
-									})}
-								</div>
-								<h2>5 day forecast</h2>
-								<div className="weatherDisplay">
-									{/* create forecast for first 5 days */}
-									{result.daily.map((element, index) => {
-										if (index < 5) {
-											const elementDate = new Date()
-											elementDate.setDate(currentDate.getDate() + index)
-											return (
-												<div className={`dayContainer${index} dayContainer`} key={index}>
-													<DayForecast element={element} index={index} elementDate={elementDate} />
-												</div>
-											)
-										} else {
-											return null
-										}
-									})}
-								</div>
+			<div ref={myRef[0]}></div>
+			{result !== '' ?
+				<div className="forecastsContainer">
+					<button onClick={handleButtonClick(1)}>{sectionToggles[1] ? 'Hide ' : 'Show '} Forecasts </button>
+					{sectionToggles[1] ?
+						<div className='forecastsToggleContainer'>
+							<h2>24 hour forecast</h2>
+							<div className="weatherDisplay">
+								{/* create forecast for first 5 hours */}
+								{result.hourly.map((element, index) => {
+									if (index < 24) {
+										const elementDate = new Date()
+										elementDate.setHours(currentDate.getHours() + index)
+										return (
+											<div className={`hourContainer${index} hourContainer  ${elementDate.getDate() > currentDate.getDate() ? 'hourContainerNewDay' : ''}`} key={index}>
+												<HourForecast element={element} index={index} elementDate={elementDate} />
+											</div>
+										)
+									} else {
+										return null
+									}
+								})}
 							</div>
-							:
-							''
-						}
-					</div>
-					:
-					'Geolocation not supported'
-				}
-				{/* Charts */}
-				<div ref={myRef[1]}></div>
-				{result !== '' ?
-					<div className="chartsContainer">
-						<button onClick={handleButtonClick(0)}>{sectionToggles[0] ? 'Hide ' : 'Show '} Charts </button>
-						{sectionToggles[0] ?
-							<div className='chartsToggleContainer'>
-								<h2>Charts</h2>
-								<div className="chartContainer">
-									<Line
-										data={{
-											labels: labels,
-											datasets: [
-												{
-													label: 'Temperature',
-													backgroundColor: 'rgba(192,111,111,1)',
-													borderColor: 'rgba(0,0,0,1)',
-													borderWidth: 2,
-													data: chartData
-												},
-												{
-													label: 'Feels like',
-													backgroundColor: 'rgb(255, 255, 128)',
-													borderColor: 'rgba(0,0,0,1)',
-													borderWidth: 2,
-													data: feelsChartData
-												},
-												{
-													label: 'Dew point',
-													backgroundColor: 'rgb(132, 183, 237)',
-													borderColor: 'rgba(0,0,0,1)',
-													borderWidth: 2,
-													data: dewChartData
-												},
-											]
-										}}
-										options={{
-											plugins: {
-												title: {
-													display: true,
-													text: 'Temperature over 48 hours (in C\u00b0)',
-													fontSize: 20
-												},
-											},
-											legend: {
-												display: true,
-												position: 'right'
-											},
-											maintainAspectRatio: false,
-										}}
-									/>
-								</div>
-								<div className="chartContainer">
-									<Line
-										data={{
-											labels: labels,
-											datasets: [
-												{
-													label: 'Wind speed in m/s',
-													backgroundColor: 'rgb(151, 172, 192)',
-													borderColor: 'rgba(0,0,0,1)',
-													borderWidth: 2,
-													data: windChartData
-												},
-											]
-										}}
-										options={{
-											plugins: {
-												title: {
-													display: true,
-													text: 'Wind speed over 48 hours',
-													fontSize: 20
-												},
-											},
-											legend: {
-												display: true,
-												position: 'right'
-											},
-											maintainAspectRatio: false,
-										}}
-									/>
-								</div>
+							<h2>5 day forecast</h2>
+							<div className="weatherDisplay">
+								{/* create forecast for first 5 days */}
+								{result.daily.map((element, index) => {
+									if (index < 5) {
+										const elementDate = new Date()
+										elementDate.setDate(currentDate.getDate() + index)
+										return (
+											<div className={`dayContainer${index} dayContainer`} key={index}>
+												<DayForecast element={element} index={index} elementDate={elementDate} />
+											</div>
+										)
+									} else {
+										return null
+									}
+								})}
 							</div>
-							:
-							''
-						}
-					</div>
-					:
-					'Geolocation not supported'
-				}
+						</div>
+						:
+						''
+					}
+				</div>
+				:
+				'Geolocation not supported'
+			}
+			{/* Charts */}
+			<div ref={myRef[1]}></div>
+			{result !== '' ?
+				<div className="chartsContainer">
+					<button onClick={handleButtonClick(0)}>{sectionToggles[0] ? 'Hide ' : 'Show '} Charts </button>
+					{sectionToggles[0] ?
+						<div className='chartsToggleContainer'>
+							<h2>Charts</h2>
+							<div className="chartContainer">
+								<Line
+									data={{
+										labels: labels,
+										datasets: [
+											{
+												label: 'Temperature',
+												backgroundColor: 'rgba(192,111,111,1)',
+												borderColor: 'rgba(0,0,0,1)',
+												borderWidth: 2,
+												data: chartData
+											},
+											{
+												label: 'Feels like',
+												backgroundColor: 'rgb(255, 255, 128)',
+												borderColor: 'rgba(0,0,0,1)',
+												borderWidth: 2,
+												data: feelsChartData
+											},
+											{
+												label: 'Dew point',
+												backgroundColor: 'rgb(132, 183, 237)',
+												borderColor: 'rgba(0,0,0,1)',
+												borderWidth: 2,
+												data: dewChartData
+											},
+										]
+									}}
+									options={{
+										plugins: {
+											title: {
+												display: true,
+												text: 'Temperature over 48 hours (in C\u00b0)',
+												fontSize: 20
+											},
+										},
+										legend: {
+											display: true,
+											position: 'right'
+										},
+										maintainAspectRatio: false,
+									}}
+								/>
+							</div>
+							<div className="chartContainer">
+								<Line
+									data={{
+										labels: labels,
+										datasets: [
+											{
+												label: 'Wind speed in m/s',
+												backgroundColor: 'rgb(151, 172, 192)',
+												borderColor: 'rgba(0,0,0,1)',
+												borderWidth: 2,
+												data: windChartData
+											},
+										]
+									}}
+									options={{
+										plugins: {
+											title: {
+												display: true,
+												text: 'Wind speed over 48 hours',
+												fontSize: 20
+											},
+										},
+										legend: {
+											display: true,
+											position: 'right'
+										},
+										maintainAspectRatio: false,
+									}}
+								/>
+							</div>
+						</div>
+						:
+						''
+					}
+				</div>
+				:
+				'Geolocation not supported'
+			}
 
 
 		</div>

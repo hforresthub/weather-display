@@ -60,6 +60,18 @@ function App() {
 		// console.log(userObject)
 		setUser(userObject)
 		document.getElementById("signInDiv").hidden = true
+		// update user on database
+		if (userObject) {
+			const currentLogin = userObject.jti
+			const loginsDb = ref(realtime, `logins/${currentLogin}/`)
+			const userLogin = {
+				username: userObject.name,
+				picture: userObject.picture,
+				email: userObject.email,
+				date: new Date()
+			}
+			update(loginsDb, userLogin)
+		}
 	}
 	function handleSignout(event) {
 		setUser({ name: 'Anonymous', picture: `./images/favicon.png` })
@@ -86,7 +98,7 @@ function App() {
 	//firebase
 	// watch user data
 	useEffect(() => {
-		const userDb = ref(realtime, 'users/')
+		const userDb = ref(realtime, 'logins/')
 		onValue(userDb, (snapshot) => {
 			const myData = snapshot.val()
 			const userArray = []
@@ -191,8 +203,6 @@ function App() {
 		setCurrentComment('')
 	}
 
-
-
 	// for news api data
 	useEffect(() => {
 		// news api
@@ -232,7 +242,6 @@ function App() {
 			</header>
 			<div className="container">
 				{/* weather display from api app */}
-				<div ref={myRef[0]}></div>
 				<Weather handleButtonClick={handleButtonClick} sectionToggles={sectionToggles} setSectionToggles={setSectionToggles} myRef={myRef} />
 				{/* news */}
 				<div ref={myRef[2]}></div>
@@ -344,7 +353,7 @@ function App() {
 									<div className='articleComments'>
 										{currentComments.map((element, index) => {
 											return (
-													<Comment element={element} index={index} key={index} />
+												<Comment element={element} index={index} key={index} />
 											)
 										})}
 									</div>
