@@ -2,6 +2,7 @@
 
 @import "./colors.scss";
 
+// general
 html {
 	background-color: $quaternaryColor;
 	overflow-y: scroll;
@@ -58,6 +59,7 @@ h1 {
 	position: relative;
 	top: 0;
 	margin-top: -60px;
+	margin-bottom: 0px;
 	padding-bottom: 25px;
 }
 h2 {
@@ -71,6 +73,27 @@ p {
 	font-family: Inconsolata;
 	font-weight: 100;
 }
+a {
+	color: #0a335f;
+	text-decoration: none;
+	text-align: center;
+	width: 100%;
+	border: 1px solid #4378b0;
+	background-color: $secondaryColor;
+	box-shadow: 1px 1px 3px $tertiaryColor, 1px -1px 3px $tertiaryColor, -1px 1px 3px $tertiaryColor,
+		-1px -1px 3px $tertiaryColor;
+}
+a:hover,
+.container button:not(.fontIcon):hover {
+	border: 1px solid #4378b0;
+	background-color: $tertiaryColor;
+	box-shadow: 1px 1px 3px $secondaryColor, 1px -1px 3px $secondaryColor, -1px 1px 3px $secondaryColor,
+		-1px -1px 3px $secondaryColor;
+	color: rgb(227, 248, 255);
+}
+a:hover {
+	text-shadow: 1px 1px 1px #0a335f, -1px 1px 1px #0a335f, 1px -1px 1px #0a335f, -1px -1px 1px #0a335f;
+}
 .container button {
 	border-radius: 5px;
 	margin: 3%;
@@ -79,11 +102,25 @@ p {
 	box-shadow: 1px 1px 3px $tertiaryColor, 1px -1px 3px $tertiaryColor, -1px 1px 3px $tertiaryColor,
 		-1px -1px 3px $tertiaryColor;
 }
+//scroll
+::-webkit-scrollbar {
+	width: 12px;
+}
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px #225387;
+	border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px #114071;
+}
+//header
 .skyBanner {
 	width: 100vw;
 	height: 100px;
 	object-fit: cover;
 }
+//containers
 .forecastsContainer,
 .chartsContainer,
 .newsContainer,
@@ -112,22 +149,12 @@ p {
 	display: flex;
 	justify-content: center;
 }
+//general containers
 .weatherDisplay,
 .newsArticles {
 	overflow-x: scroll;
 	scrollbar-width: hidden;
 	justify-content: start;
-}
-::-webkit-scrollbar {
-	width: 12px;
-}
-::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px #225387;
-	border-radius: 10px;
-}
-::-webkit-scrollbar-thumb {
-	border-radius: 10px;
-	-webkit-box-shadow: inset 0 0 6px #114071;
 }
 .weatherDisplay,
 .newsArticles,
@@ -145,38 +172,6 @@ p {
 .articleComments,
 .currentArticle {
 	background-color: $quaternaryColor;
-}
-.articleContainer,
-.currentArticle {
-	width: 200px;
-	padding: 3%;
-	img {
-		border: 2px solid $secondaryColor;
-	}
-}
-.articleContainer:nth-child(2n),
-.commentContainer:nth-child(2n) {
-	background-color: $secondaryColor;
-	img {
-		border: 2px solid $quaternaryColor;
-	}
-}
-.articleContainer:hover {
-	background-color: $primaryColor;
-}
-.articleComments {
-	display: flex;
-	flex-direction: column;
-	// padding: 3%;
-	// margin: 1%;
-	width: 90%;
-	// height: fit-content;
-	// overflow: visible;
-	.commentContainer {
-		display: flex;
-		margin: 0 3%;
-		// padding: 0 1%;
-	}
 }
 // weather
 .hourContainer,
@@ -217,32 +212,30 @@ p {
 .humid {
 	font-size: 0.5rem;
 }
-a {
-	color: #0a335f;
-	text-decoration: none;
-	text-align: center;
-	width: 100%;
-	border: 1px solid #4378b0;
+// articles
+.articleContainer,
+.currentArticle {
+	width: 200px;
+	padding: 3%;
+	img {
+		border: 2px solid $secondaryColor;
+	}
+}
+.articleContainer:nth-child(2n),
+.commentContainer:nth-child(2n) {
 	background-color: $secondaryColor;
-	box-shadow: 1px 1px 3px $tertiaryColor, 1px -1px 3px $tertiaryColor, -1px 1px 3px $tertiaryColor,
-		-1px -1px 3px $tertiaryColor;
+	img {
+		border: 2px solid $quaternaryColor;
+	}
+}
+.articleContainer:hover {
+	background-color: $primaryColor;
 }
 .articleContainer:nth-child(2n) a {
 	background-color: $quaternaryColor;
 }
 .articleContainer:nth-child(2n) a:hover {
 	background-color: $tertiaryColor;
-}
-a:hover,
-.container button:not(.fontIcon):hover {
-	border: 1px solid #4378b0;
-	background-color: $tertiaryColor;
-	box-shadow: 1px 1px 3px $secondaryColor, 1px -1px 3px $secondaryColor, -1px 1px 3px $secondaryColor,
-		-1px -1px 3px $secondaryColor;
-	color: rgb(227, 248, 255);
-}
-a:hover {
-	text-shadow: 1px 1px 1px #0a335f, -1px 1px 1px #0a335f, 1px -1px 1px #0a335f, -1px -1px 1px #0a335f;
 }
 .title {
 	height: 18rem;
@@ -262,6 +255,7 @@ a:hover {
 	overflow: hidden;
 	height: 10rem;
 }
+//icons
 .container .saveIcon {
 	background-color: $secondaryColor;
 }
@@ -279,6 +273,15 @@ a:hover {
 }
 
 // comments
+.articleComments {
+	display: flex;
+	flex-direction: column;
+	width: 90%;
+	.commentContainer {
+		display: flex;
+		margin: 0 3%;
+	}
+}
 .currentArticle {
 	width: 300px;
 	img {
@@ -308,6 +311,7 @@ a:hover {
 	}
 }
 
+//media queries
 @media only screen and (min-width: 800px) {
 	.App {
 		width: 98%;

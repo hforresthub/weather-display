@@ -32,13 +32,14 @@ function App() {
 
 	// toggle variables
 	const [sectionToggles, setSectionToggles] = useState([true, true, true, true, true])
+
 	// news state variables
 	const [newsArticles, setNewsArticles] = useState(backupNewsData2.data)
-	// const [searchTopic, setSearchTopic] = useState('')
 
 	//firebase state variables
 	const [users, setUsers] = useState([{}])
 	const [savedArticles, setSavedArticles] = useState([])
+
 	//current article and comments
 	const [currentArticle, setCurrentArticle] = useState(null)
 	const [currentComments, setCurrentComments] = useState([])
@@ -48,7 +49,6 @@ function App() {
 	const handleButtonClick = (index) => (event) => {
 		setSectionToggles((prev) => prev.map((toggle, toggleIndex) => ((toggleIndex === index) ? !toggle : toggle)))
 	}
-
 	const executeScroll = (index) => () => {
 		return myRef[index].current.scrollIntoView()
 	}
@@ -161,7 +161,7 @@ function App() {
 		}
 	}, [currentArticle])
 
-	//firebase button function
+	//firebase button functions
 	//save button
 	const handleSaveButtonClick = (element) => (event) => {
 		//update user
