@@ -5,7 +5,7 @@ const Article = ({ element, index }) => {
 				<h3 title={element.title}>
 					{element.title ? element.title : 'No title available'}
 				</h3>
-				<img src={element.image_url} onError={(e) => {e.target.src=require(`./images/backupImage.png`)}} alt={`Image related to ${element.title}`} />
+				<img src={element.image_url} onError={(e) => {e.target.src=require(`../images/backupImage.png`)}} alt={`Image related to ${element.title}`} />
 			</div>
 			<p className='content'>{element.description ? element.description : 'No description available'}</p>
 			<a href={element.url}>Read more</a>

@@ -1,8 +1,10 @@
+import anonImage from '../images/anon.png'
+
 const Comment = ({ element, index }) => {
 	return (
 		<div className={`commentContainer${index} commentContainer`}>
 			{element.comment.username === 'Anonymous' || element.comment.username === 'Weatherenews bot' ?
-				<img src={`${require(`${element.comment.picture}`)}`} alt=""></img>
+				<img src={anonImage} alt=""></img>
 				:
 				<img src={`${element.comment.picture}`} alt=""></img>
 			}

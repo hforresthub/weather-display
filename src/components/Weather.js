@@ -7,7 +7,7 @@ import { Line } from 'react-chartjs-2';
 
 const currentDate = new Date()
 
-const Weather = ({ handleButtonClick, sectionToggles, setSectionToggles, myRef }) => {
+const Weather = ({ handleButtonClick, sectionToggles, myRef }) => {
 
 	// weather state variables
 	const [longitude, setLongitude] = useState(200) // 200 is outside possible value
@@ -20,7 +20,6 @@ const Weather = ({ handleButtonClick, sectionToggles, setSectionToggles, myRef }
 	const [labels, setLabels] = useState([])	// for weather api data
 
 	useEffect(() => {
-
 		//weather api
 		// request geolocation permission from user
 		navigator.geolocation.getCurrentPosition((position) => {
@@ -34,7 +33,6 @@ const Weather = ({ handleButtonClick, sectionToggles, setSectionToggles, myRef }
 				method: 'GET',
 				dataResponse: 'json'
 			}).then((res) => {
-				// console.log(res.data)
 				setResult(res.data)
 				const tempData = res.data.hourly.map(element => {
 					return element.temp
@@ -62,10 +60,8 @@ const Weather = ({ handleButtonClick, sectionToggles, setSectionToggles, myRef }
 		}
 	}, [longitude, latitude])
 
-
-
 	return (
-		<div className={`weather`} >
+		<div className='weather' >
 			<div ref={myRef[0]}></div>
 			{result !== '' ?
 				<div className="forecastsContainer">
