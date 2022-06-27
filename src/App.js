@@ -22,11 +22,23 @@ function App() {
 	return (
 		<div className='App'>
 			<nav>
-				<button onClick={executeScroll(0)}> Weather </button>
-				<button onClick={executeScroll(1)}> Charts </button>
-				<button onClick={executeScroll(2)}> News </button>
-				<button onClick={executeScroll(3)}> Saved </button>
-				<button onClick={executeScroll(4)}> Comments </button>
+				<ul>
+					<li>
+						<button onClick={executeScroll(0)}> Weather </button>
+					</li>
+					<li>
+						<button onClick={executeScroll(1)}> Charts </button>
+					</li>
+					<li>
+						<button onClick={executeScroll(2)}> News </button>
+					</li>
+					<li>
+						<button onClick={executeScroll(3)}> Saved </button>
+					</li>
+					<li>
+						<button onClick={executeScroll(4)}> Comments </button>
+					</li>
+				</ul>
 			</nav>
 			<header>
 				<img src={require(`./images/sky.png`)} alt="Clouds" className='skyBanner' />
