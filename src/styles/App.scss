@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway&family=Inconsolata:wght@200");
 
+@import "./setup.scss";
 @import "./colors.scss";
 
 // general
@@ -42,10 +43,9 @@ nav ul {
 	list-style: none;
 	li {
 		flex-grow: 1;
-		display: flex;
+		flex-basis: 0;
 		button {
 			width: 100%;
-			height: 100%;
 			&:hover {
 				background-color: $tertiaryColor;
 				color: rgb(227, 248, 255);
