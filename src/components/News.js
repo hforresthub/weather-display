@@ -13,6 +13,9 @@ import jwt_decode from "jwt-decode" //install jwt-decode
 import realtime from './firebase'
 import { ref, onValue, push, update } from "firebase/database";
 
+//firebase auth tests
+// import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
 //fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -79,7 +82,9 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 
 		//prompt for google login, annoying for testing
 		// google.accounts.id.prompt()
+
 	}, [])
+
 
 	//firebase
 	// watch user data
@@ -200,6 +205,30 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 			}
 			update(loginsDb, userLogin)
 		}
+
+				// //firebase auth
+				// const provider = new GoogleAuthProvider();
+				// const auth = getAuth();
+				// signInWithPopup(auth, provider)
+				// 	.then((result) => {
+				// 		// This gives you a Google Access Token. You can use it to access the Google API.
+				// 		const credential = GoogleAuthProvider.credentialFromResult(result);
+				// 		const token = credential.accessToken;
+				// 		// The signed-in user info.
+				// 		const tempUser = result.user;
+				// 		console.log('firebase auth user: ', tempUser);
+				// 		// ...
+				// 	}).catch((error) => {
+				// 		// Handle Errors here.
+				// 		const errorCode = error.code;
+				// 		const errorMessage = error.message;
+				// 		console.log('firebaseerror: ', errorMessage);
+				// 		// The email of the user's account used.
+				// 		const email = error.customData.email;
+				// 		// The AuthCredential type that was used.
+				// 		const credential = GoogleAuthProvider.credentialFromError(error);
+				// 		// ...
+				// 	});
 	}
 	function handleSignout(event) {
 		setUser({ name: 'Anonymous', picture: `./images/favicon.png` })
