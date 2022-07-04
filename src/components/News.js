@@ -14,7 +14,7 @@ import realtime from './firebase'
 import { ref, onValue, push, update } from "firebase/database";
 
 //firebase auth tests
-// import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 //fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -28,6 +28,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 	/* State variables */
 	// user state variable
 	const [user, setUser] = useState({ name: 'Anonymous', picture: `./images/favicon.png` })
+	const [firebaseUser, setFirebaseUser] = useState({ displayName: 'Anonymous', photoURL: `./images/favicon.png` })
 
 	// news state variables
 	const [newsArticles, setNewsArticles] = useState(backupNewsData2.data)
@@ -55,14 +56,14 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 		// 	setNewsArticles(res.data.articles)
 		// })
 		// NewsAPI
-		// axios({
-		// 	url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
-		// 	method: 'GET',
-		// 	dataResponse: 'json'
-		// }).then((res) => {
-		// 	// console.log(JSON.stringify(res.data.articles))
-		// 	setNewsArticles(res.data.data)
-		// })
+		axios({
+			url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
+			method: 'GET',
+			dataResponse: 'json'
+		}).then((res) => {
+			// console.log(JSON.stringify(res.data.articles))
+			setNewsArticles(res.data.data)
+		})
 		// console.log(JSON.stringify(newsArticles))
 	}, [])
 
@@ -81,7 +82,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 		)
 
 		//prompt for google login, annoying for testing
-		// google.accounts.id.prompt()
+		google.accounts.id.prompt()
 
 	}, [])
 
@@ -105,7 +106,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 			}
 			setUsers(userArray)
 		})
-	}, [])
+	}, [firebaseUser])
 	// watch saved article data
 	useEffect(() => {
 		const savedDb = ref(realtime, 'saved/')
@@ -124,7 +125,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 			}
 			setSavedArticles(savedArray)
 		})
-	}, [])
+	}, [firebaseUser])
 	// watch comment data for current article if one is selected
 	useEffect(() => {
 		if (currentArticle !== null) {
@@ -145,7 +146,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 				setCurrentComments(commentArray)
 			})
 		}
-	}, [currentArticle])
+	}, [currentArticle, firebaseUser])
 
 	//firebase button functions
 	//save button
@@ -206,29 +207,30 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 			update(loginsDb, userLogin)
 		}
 
-				// //firebase auth
-				// const provider = new GoogleAuthProvider();
-				// const auth = getAuth();
-				// signInWithPopup(auth, provider)
-				// 	.then((result) => {
-				// 		// This gives you a Google Access Token. You can use it to access the Google API.
-				// 		const credential = GoogleAuthProvider.credentialFromResult(result);
-				// 		const token = credential.accessToken;
-				// 		// The signed-in user info.
-				// 		const tempUser = result.user;
-				// 		console.log('firebase auth user: ', tempUser);
-				// 		// ...
-				// 	}).catch((error) => {
-				// 		// Handle Errors here.
-				// 		const errorCode = error.code;
-				// 		const errorMessage = error.message;
-				// 		console.log('firebaseerror: ', errorMessage);
-				// 		// The email of the user's account used.
-				// 		const email = error.customData.email;
-				// 		// The AuthCredential type that was used.
-				// 		const credential = GoogleAuthProvider.credentialFromError(error);
-				// 		// ...
-				// 	});
+		//firebase auth
+		const provider = new GoogleAuthProvider();
+		const auth = getAuth();
+		signInWithPopup(auth, provider)
+			.then((result) => {
+				// This gives you a Google Access Token. You can use it to access the Google API.
+				const credential = GoogleAuthProvider.credentialFromResult(result);
+				const token = credential.accessToken;
+				// The signed-in user info.
+				const tempUser = result.user;
+				// console.log('firebase auth user: ', tempUser);
+				setFirebaseUser(tempUser)
+				// ...
+			}).catch((error) => {
+				// Handle Errors here.
+				const errorCode = error.code;
+				const errorMessage = error.message;
+				// console.log('firebaseerror: ', errorMessage);
+				// The email of the user's account used.
+				const email = error.customData.email;
+				// The AuthCredential type that was used.
+				const credential = GoogleAuthProvider.credentialFromError(error);
+				// ...
+			});
 	}
 	function handleSignout(event) {
 		setUser({ name: 'Anonymous', picture: `./images/favicon.png` })
@@ -262,14 +264,17 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 															<FontAwesomeIcon icon="fa-solid fa-bookmark" />
 														</button>
 														:
-														<button className='saveIcon' onClick={handleSaveButtonClick(element)}>Save</button>
+														(savedArticles.length !== 0 ?
+															<button className='saveIcon' onClick={handleSaveButtonClick(element)}>Save</button>
+															:
+															<p>Login to save</p>
+														)
 												}
 											</div>
 										)
 									})}
 								</div>
 							</div>
-
 							:
 							''
 						}
@@ -312,7 +317,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 					}
 				</div>
 				:
-				'No saved news available atm'
+				'No saved news available atm, possibly because you are not logged in'
 			}
 
 			{/* google login button */}
