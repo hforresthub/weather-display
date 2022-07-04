@@ -267,7 +267,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 														(savedArticles.length !== 0 ?
 															<button className='saveIcon' onClick={handleSaveButtonClick(element)}>Save</button>
 															:
-															<p>Login to save</p>
+															<p>Login to Save</p>
 														)
 												}
 											</div>
