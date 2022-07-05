@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Article from './Article';
 import Comment from './Comment';
+import anonImage from '../images/anon.png'
 
 // import backupNewsData from './backupData/backupNewsData.json'
 import backupNewsData2 from './backupData/backupNewsData2.json'
@@ -28,7 +29,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 	/* State variables */
 	// user state variable
 	const [user, setUser] = useState({ name: 'Anonymous', picture: `./images/favicon.png` })
-	const [firebaseUser, setFirebaseUser] = useState({ displayName: 'Anonymous', photoURL: `./images/favicon.png` })
+	const [firebaseUser, setFirebaseUser] = useState(null)
 
 	// news state variables
 	const [newsArticles, setNewsArticles] = useState(backupNewsData2.data)
@@ -90,45 +91,49 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 	//firebase
 	// watch user data
 	useEffect(() => {
-		const userDb = ref(realtime, 'logins/')
-		onValue(userDb, (snapshot) => {
-			const myData = snapshot.val()
-			const userArray = []
-			for (let propertyName in myData) {
-				// create a new local object for each loop iteration:
-				const tempUser = {
-					key: propertyName,
-					userData: myData[propertyName]
+		if (firebaseUser !== null) {
+			const userDb = ref(realtime, 'logins/')
+			onValue(userDb, (snapshot) => {
+				const myData = snapshot.val()
+				const userArray = []
+				for (let propertyName in myData) {
+					// create a new local object for each loop iteration:
+					const tempUser = {
+						key: propertyName,
+						userData: myData[propertyName]
+					}
+					if (myData[propertyName]) {
+						userArray.push(tempUser)
+					}
 				}
-				if (myData[propertyName]) {
-					userArray.push(tempUser)
-				}
-			}
-			setUsers(userArray)
-		})
+				setUsers(userArray)
+			})
+		}
 	}, [firebaseUser])
 	// watch saved article data
 	useEffect(() => {
-		const savedDb = ref(realtime, 'saved/')
-		onValue(savedDb, (snapshot) => {
-			const myData = snapshot.val()
-			const savedArray = []
-			for (let propertyName in myData) {
-				// create a new local object for each loop iteration:
-				const tempArticle = {
-					key: propertyName,
-					userData: myData[propertyName]
+		if (firebaseUser !== null) {
+			const savedDb = ref(realtime, 'saved/')
+			onValue(savedDb, (snapshot) => {
+				const myData = snapshot.val()
+				const savedArray = []
+				for (let propertyName in myData) {
+					// create a new local object for each loop iteration:
+					const tempArticle = {
+						key: propertyName,
+						userData: myData[propertyName]
+					}
+					if (myData[propertyName]) {
+						savedArray.push(tempArticle)
+					}
 				}
-				if (myData[propertyName]) {
-					savedArray.push(tempArticle)
-				}
-			}
-			setSavedArticles(savedArray)
-		})
+				setSavedArticles(savedArray)
+			})
+		}
 	}, [firebaseUser])
 	// watch comment data for current article if one is selected
 	useEffect(() => {
-		if (currentArticle !== null) {
+		if (currentArticle !== null && firebaseUser !== null) {
 			const commentsDb = ref(realtime, `saved/${currentArticle.uuid}/comments/`)
 			onValue(commentsDb, (snapshot) => {
 				const myData = snapshot.val()
@@ -194,7 +199,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 		const userObject = jwt_decode(response.credential)
 		setUser(userObject)
 		document.getElementById("signInDiv").hidden = true
-		// update user on database
+		// update user on database, this logs each login from same person as a new entry
 		if (userObject) {
 			const currentLogin = userObject.jti
 			const loginsDb = ref(realtime, `logins/${currentLogin}/`)
@@ -218,6 +223,18 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 				// The signed-in user info.
 				const tempUser = result.user;
 				// console.log('firebase auth user: ', tempUser);
+				// log their login to firebase, updates existing login for same user
+				if (tempUser) {
+					const currentLogin = tempUser.uid
+					const firebaseLoginsDb = ref(realtime, `firebaseLogins/${currentLogin}/`)
+					const userLogin = {
+						username: tempUser.displayName,
+						picture: tempUser.photoURL,
+						email: tempUser.email,
+						date: new Date()
+					}
+					update(firebaseLoginsDb, userLogin)
+				}
 				setFirebaseUser(tempUser)
 				// ...
 			}).catch((error) => {
@@ -347,8 +364,20 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 							</div>
 							<h2>Current Comments: </h2>
 							<form onSubmit={handleCommentSubmit}>
-								<label htmlFor="postComment">Comment as {user.name}</label>
-								<input type="text" name="postComment" id="postComment" value={currentComment} onChange={handleCommentChange} />
+								<label htmlFor="postComment">
+									<p>
+										Comment as
+									</p>
+									<div className="userCard">
+										{user.name === 'Anonymous' || user.name === 'Weatherenews bot' ?
+											<img src={anonImage} alt=""></img>
+											:
+											<img src={`${user.picture}`} alt=""></img>
+										}
+										<p>{user.name}:</p>
+									</div>
+								</label>
+								<textarea name="postComment" id="postComment" value={currentComment} onChange={handleCommentChange} />
 								<button type="button" onClick={handleCommentSubmit}>Post Comment</button>
 							</form>
 							{currentComments.length !== 0 ?

@@ -293,6 +293,19 @@ a:hover {
 }
 
 // comments
+.userCard {
+	display: flex;
+	flex-direction: row;
+	height: 3rem;
+	p {
+		font-weight: bold;
+		font-family: Raleway, sans-serif;
+	}
+	img {
+		width: 20px;
+		margin: 3%;
+	}
+}
 .articleComments {
 	display: flex;
 	flex-direction: column;
@@ -311,6 +324,10 @@ a:hover {
 }
 .commentsToggleContainer form {
 	display: flex;
+	margin-bottom: 3%;
+	textarea {
+		resize: none;
+	}
 }
 .commentContainer {
 	display: flex;
