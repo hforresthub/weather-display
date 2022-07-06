@@ -7,15 +7,12 @@ import anonImage from '../images/anon.png'
 // import backupNewsData from './backupData/backupNewsData.json'
 import backupNewsData2 from './backupData/backupNewsData2.json'
 
-//login import
-import jwt_decode from "jwt-decode" //install jwt-decode
-
 //firebase
 import realtime from './firebase'
 import { ref, onValue, push, update } from "firebase/database";
 
 //firebase auth tests
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithRedirect, GoogleAuthProvider, getRedirectResult } from "firebase/auth";
 
 //fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -35,7 +32,6 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 	const [newsArticles, setNewsArticles] = useState(backupNewsData2.data)
 
 	//firebase state variables
-	const [users, setUsers] = useState([{}])
 	const [savedArticles, setSavedArticles] = useState([])
 
 	//current article and comments
@@ -46,16 +42,6 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 	/* Use Effects */
 	// for news api data
 	useEffect(() => {
-		// news api
-		// axios({
-		// 	url: `https://newsapi.org/v2/everything?q=news&sortBy=popularity&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`,
-		// 	method: 'GET',
-		// 	dataResponse: 'json'
-		// }).then((res) => {
-		// 	// console.log(res.data.articles)
-		// 	// console.log(JSON.stringify(res.data.articles))
-		// 	setNewsArticles(res.data.articles)
-		// })
 		// NewsAPI
 		axios({
 			url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
@@ -68,49 +54,58 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 		// console.log(JSON.stringify(newsArticles))
 	}, [])
 
+	//firebase user login
+	const handleFirebaseLogin = () => {
+		//firebase auth
+		const provider = new GoogleAuthProvider();
+		const auth1 = getAuth();
+		signInWithRedirect(auth1, provider)
+	}
+	function handleSignout(event) {
+		setUser({ name: 'Anonymous', picture: `./images/favicon.png` })
+		setFirebaseUser(null)
+		setSavedArticles([])
+		setCurrentArticle(null)
+	}
+	//firebase get redirect
 	useEffect(() => {
-		/* global google */
-		google.accounts.id.initialize({
-			client_id: process.env.REACT_APP_GOOGLE_KEY,
-			callback: handleCallbackResponse
-		})
-
-		google.accounts.id.renderButton(
-			document.getElementById("signInDiv"),
-			{
-				theme: "outline", size: "large"
+		const auth = getAuth();
+		getRedirectResult(auth)
+			.then((result) => {
+			// This gives you a Google Access Token. You can use it to access the Google API.
+			const credential = GoogleAuthProvider.credentialFromResult(result);
+			const token = credential.accessToken;
+			// The signed-in user info.
+			const tempUser = result.user;
+			// console.log('firebase auth user: ', tempUser);
+			// log their login to firebase, updates existing login for same user
+			if (tempUser) {
+				const currentLogin = tempUser.uid
+				const firebaseLoginsDb = ref(realtime, `firebaseLogins/${currentLogin}/`)
+				const userLogin = {
+					username: tempUser.displayName,
+					picture: tempUser.photoURL,
+					email: tempUser.email,
+					date: new Date()
+				}
+				update(firebaseLoginsDb, userLogin)
 			}
-		)
-
-		//prompt for google login, annoying for testing
-		google.accounts.id.prompt()
-
+			setFirebaseUser(tempUser)
+			// ...
+		}).catch((error) => {
+			// Handle Errors here.
+			const errorCode = error.code;
+			const errorMessage = error.message;
+			// console.log('firebaseerror: ', errorMessage);
+			// The email of the user's account used.
+			// const email = error.customData.email;
+			// The AuthCredential type that was used.
+			const credential = GoogleAuthProvider.credentialFromError(error);
+			// ...
+		});
 	}, [])
 
-
-	//firebase
-	// watch user data
-	useEffect(() => {
-		if (firebaseUser !== null) {
-			const userDb = ref(realtime, 'logins/')
-			onValue(userDb, (snapshot) => {
-				const myData = snapshot.val()
-				const userArray = []
-				for (let propertyName in myData) {
-					// create a new local object for each loop iteration:
-					const tempUser = {
-						key: propertyName,
-						userData: myData[propertyName]
-					}
-					if (myData[propertyName]) {
-						userArray.push(tempUser)
-					}
-				}
-				setUsers(userArray)
-			})
-		}
-	}, [firebaseUser])
-	// watch saved article data
+	// watch saved articles
 	useEffect(() => {
 		if (firebaseUser !== null) {
 			const savedDb = ref(realtime, 'saved/')
@@ -185,73 +180,13 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 		if (currentComment !== '') {
 			const commentsDb = ref(realtime, `saved/${currentArticle.uuid}/comments/`)
 			push(commentsDb, {
-				username: user.name,
-				picture: user.picture,
+				username: firebaseUser.displayName,
+				picture: firebaseUser.photoURL,
 				comment: currentComment,
 				date: new Date()
 			})
 		}
 		setCurrentComment('')
-	}
-
-	// google login setup functions
-	function handleCallbackResponse(response) {
-		const userObject = jwt_decode(response.credential)
-		setUser(userObject)
-		document.getElementById("signInDiv").hidden = true
-		// update user on database, this logs each login from same person as a new entry
-		if (userObject) {
-			const currentLogin = userObject.jti
-			const loginsDb = ref(realtime, `logins/${currentLogin}/`)
-			const userLogin = {
-				username: userObject.name,
-				picture: userObject.picture,
-				email: userObject.email,
-				date: new Date()
-			}
-			update(loginsDb, userLogin)
-		}
-
-		//firebase auth
-		const provider = new GoogleAuthProvider();
-		const auth = getAuth();
-		signInWithPopup(auth, provider)
-			.then((result) => {
-				// This gives you a Google Access Token. You can use it to access the Google API.
-				const credential = GoogleAuthProvider.credentialFromResult(result);
-				const token = credential.accessToken;
-				// The signed-in user info.
-				const tempUser = result.user;
-				// console.log('firebase auth user: ', tempUser);
-				// log their login to firebase, updates existing login for same user
-				if (tempUser) {
-					const currentLogin = tempUser.uid
-					const firebaseLoginsDb = ref(realtime, `firebaseLogins/${currentLogin}/`)
-					const userLogin = {
-						username: tempUser.displayName,
-						picture: tempUser.photoURL,
-						email: tempUser.email,
-						date: new Date()
-					}
-					update(firebaseLoginsDb, userLogin)
-				}
-				setFirebaseUser(tempUser)
-				// ...
-			}).catch((error) => {
-				// Handle Errors here.
-				const errorCode = error.code;
-				const errorMessage = error.message;
-				// console.log('firebaseerror: ', errorMessage);
-				// The email of the user's account used.
-				const email = error.customData.email;
-				// The AuthCredential type that was used.
-				const credential = GoogleAuthProvider.credentialFromError(error);
-				// ...
-			});
-	}
-	function handleSignout(event) {
-		setUser({ name: 'Anonymous', picture: `./images/favicon.png` })
-		document.getElementById("signInDiv").hidden = false
 	}
 
 	return (
@@ -334,19 +269,20 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 					}
 				</div>
 				:
-				'No saved news available atm, possibly because you are not logged in'
+				'No saved news available atm, possibly because you are not logged in, or have popups disabled'
 			}
 
 			{/* google login button */}
 			<div className='googleLoginContainer'>
-				<p id="signInDiv"></p>
-				{user.name !== 'Anonymous' &&
+				{firebaseUser !== null ?
 					<button onClick={(e) => handleSignout(e)}>Sign out with Google</button>
+					:
+					<button type="button" onClick={handleFirebaseLogin}>Google login</button>
 				}
-				{user.name !== 'Anonymous' &&
+				{firebaseUser !== null &&
 					<div>
-						<img src={user.picture} alt=""></img>
-						<h3>{user.name}</h3>
+						<img src={firebaseUser.photoURL} alt=""></img>
+						<h3>{firebaseUser.displayName}</h3>
 					</div>
 				}
 			</div>
@@ -369,13 +305,17 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 										Comment as
 									</p>
 									<div className="userCard">
-										{user.name === 'Anonymous' || user.name === 'Weatherenews bot' ?
+										{firebaseUser === null ?
 											<img src={anonImage} alt=""></img>
 											:
-											<img src={`${user.picture}`} alt=""></img>
+											<img src={`${firebaseUser.photoURL}`} alt=""></img>
 										}
-										<p>{user.name}:</p>
-									</div>
+										{firebaseUser === null ?
+											<p>{'Anonymous'}:</p>
+											:
+											<p>{firebaseUser.displayName}:</p>
+										}
+										</div>
 								</label>
 								<textarea name="postComment" id="postComment" value={currentComment} onChange={handleCommentChange} />
 								<button type="button" onClick={handleCommentSubmit}>Post Comment</button>
