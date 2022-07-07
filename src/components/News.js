@@ -12,7 +12,7 @@ import realtime from './firebase'
 import { ref, onValue, push, update } from "firebase/database";
 
 //firebase auth tests
-import { getAuth, signInWithRedirect, GoogleAuthProvider, getRedirectResult } from "firebase/auth";
+import { getAuth, signInWithRedirect, GoogleAuthProvider, getRedirectResult, signOut, onAuthStateChanged, reauthenticateWithCredential } from "firebase/auth";
 
 //fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -43,43 +43,25 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 	// for news api data
 	useEffect(() => {
 		// NewsAPI
-		// axios({
-		// 	url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
-		// 	method: 'GET',
-		// 	dataResponse: 'json'
-		// }).then((res) => {
-		// 	// console.log(JSON.stringify(res.data.articles))
-		// 	setNewsArticles(res.data.data)
-		// })
+		axios({
+			url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
+			method: 'GET',
+			dataResponse: 'json'
+		}).then((res) => {
+			// console.log(JSON.stringify(res.data.articles))
+			setNewsArticles(res.data.data)
+		})
 		// console.log(JSON.stringify(newsArticles))
 	}, [])
 
 	//firebase user login
-	const handleFirebaseLogin = () => {
-		//firebase auth
-		const provider = new GoogleAuthProvider();
-		const auth1 = getAuth();
-		signInWithRedirect(auth1, provider)
-	}
-	function handleSignout(event) {
-		setUser({ name: 'Anonymous', picture: `./images/favicon.png` })
-		setFirebaseUser(null)
-		setSavedArticles([])
-		setCurrentArticle(null)
-	}
-	//firebase get redirect
+	// previously logged in
 	useEffect(() => {
 		const auth = getAuth();
-		getRedirectResult(auth)
-			.then((result) => {
-			// This gives you a Google Access Token. You can use it to access the Google API.
-			const credential = GoogleAuthProvider.credentialFromResult(result);
-			const token = credential.accessToken;
-			// The signed-in user info.
-			const tempUser = result.user;
-			// console.log('firebase auth user: ', tempUser);
-			// log their login to firebase, updates existing login for same user
+
+		onAuthStateChanged(auth, (tempUser) => {
 			if (tempUser) {
+				// console.log("current user? ", tempUser);
 				const currentLogin = tempUser.uid
 				const firebaseLoginsDb = ref(realtime, `firebaseLogins/${currentLogin}/`)
 				const userLogin = {
@@ -89,20 +71,68 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 					date: new Date()
 				}
 				update(firebaseLoginsDb, userLogin)
+				setFirebaseUser(tempUser)
+			} else {
 			}
-			setFirebaseUser(tempUser)
-			// ...
-		}).catch((error) => {
-			// Handle Errors here.
-			const errorCode = error.code;
-			const errorMessage = error.message;
-			// console.log('firebaseerror: ', errorMessage);
-			// The email of the user's account used.
-			// const email = error.customData.email;
-			// The AuthCredential type that was used.
-			const credential = GoogleAuthProvider.credentialFromError(error);
-			// ...
 		});
+	}, [])
+	// button login
+	const handleFirebaseLogin = () => {
+		//firebase auth
+		const provider = new GoogleAuthProvider();
+		const auth = getAuth();
+		signInWithRedirect(auth, provider)
+	}
+	function handleSignout(event) {
+		setUser({ name: 'Anonymous', picture: `./images/favicon.png` })
+		setFirebaseUser(null)
+		setSavedArticles([])
+		setCurrentArticle(null)
+
+		//firebase auth logout
+		const auth = getAuth();
+		signOut(auth).then(() => {
+			// console.log('Logged out');
+		}).catch((error) => {
+
+		})
+	}
+	//firebase get redirect
+	useEffect(() => {
+		const auth = getAuth();
+		getRedirectResult(auth)
+			.then((result) => {
+				// This gives you a Google Access Token. You can use it to access the Google API.
+				const credential = GoogleAuthProvider.credentialFromResult(result);
+				const token = credential.accessToken;
+				// The signed-in user info.
+				const tempUser = result.user;
+				// console.log('firebase auth user: ', tempUser);
+				// log their login to firebase, updates existing login for same user
+				if (tempUser) {
+					const currentLogin = tempUser.uid
+					const firebaseLoginsDb = ref(realtime, `firebaseLogins/${currentLogin}/`)
+					const userLogin = {
+						username: tempUser.displayName,
+						picture: tempUser.photoURL,
+						email: tempUser.email,
+						date: new Date()
+					}
+					update(firebaseLoginsDb, userLogin)
+				}
+				setFirebaseUser(tempUser)
+				// ...
+			}).catch((error) => {
+				// Handle Errors here.
+				const errorCode = error.code;
+				const errorMessage = error.message;
+				// console.log('firebaseerror: ', errorMessage);
+				// The email of the user's account used.
+				// const email = error.customData.email;
+				// The AuthCredential type that was used.
+				const credential = GoogleAuthProvider.credentialFromError(error);
+				// ...
+			});
 	}, [])
 
 	// watch saved articles
@@ -315,7 +345,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 											:
 											<p>{firebaseUser.displayName}:</p>
 										}
-										</div>
+									</div>
 								</label>
 								<textarea name="postComment" id="postComment" value={currentComment} onChange={handleCommentChange} />
 								<button type="button" onClick={handleCommentSubmit}>Post Comment</button>
