@@ -12,7 +12,8 @@ html {
 }
 .App {
 	font-weight: bold;
-	background-color: $quaternaryColor;
+	// background-color: $quaternaryColor;
+	background-image: linear-gradient(to bottom, $quaternaryColor, $senaryColor);
 	color: rgb(26, 26, 26);
 	.container {
 		width: 95%;
@@ -181,7 +182,7 @@ a:hover {
 .articleComments,
 .currentArticle {
 	flex-direction: row;
-	background-color: #b0ceef;
+	background-color: $septenaryColor;
 	border-radius: 10px;
 	border: 2px solid #437ebd;
 	box-shadow: 1px 1px 10px $tertiaryColor, 1px -1px 10px $tertiaryColor, -1px 1px 10px $tertiaryColor,
@@ -197,13 +198,14 @@ a:hover {
 .hourContainer,
 .dayContainer {
 	padding: 1rem;
+	background-image: linear-gradient(to left, $septenaryColor, $septenaryColorBrighter);
 }
 .dayContainer0,
 .hourContainer0 {
-	background-color: $primaryColor;
+	background-image: linear-gradient(to left, $primaryColor, $primaryColorBrighter);
 }
 .hourContainerNewDay {
-	background-color: $quinaryColor;
+	background-image: linear-gradient(to left, $quinaryColor, $quinaryColorBrighter);
 }
 .dayName {
 	text-align: center;
