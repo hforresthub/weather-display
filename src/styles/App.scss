@@ -251,7 +251,21 @@ a:hover {
 	}
 }
 .articleContainer:hover {
-	background-color: $primaryColor;
+	// background-color: $primaryColor;
+	background-image: linear-gradient(to bottom, $primaryColor, $octonaryColor);
+	background-size: 100% 1000%;
+	animation: gradient 5s ease infinite;
+}
+@keyframes gradient {
+	0% {
+		background-position: 0% 100%;;
+	}
+	50% {
+		background-position: 100% 50%;;
+	}
+	100% {
+		background-position: 0% 100%;;
+	}
 }
 .articleContainer:nth-child(2n) a {
 	background-color: $quaternaryColor;
