@@ -50,11 +50,6 @@ nav ul {
 		button {
 			width: 100%;
 			border: 1px solid $quaternaryColor;
-			&:hover {
-				border: 1px solid $primaryColor;
-				// background-color: $tertiaryColor;
-				// color: rgb(227, 248, 255);
-			}
 		}
 	}
 }
@@ -250,11 +245,11 @@ a:hover {
 		border: 2px solid $quaternaryColor;
 	}
 }
-.articleContainer:hover {
+.articleContainer:hover, nav li button:hover {
 	// background-color: $primaryColor;
 	background-image: linear-gradient(to bottom, $primaryColor, $octonaryColor);
 	background-size: 100% 1000%;
-	animation: gradient 5s ease infinite;
+	animation: gradient 2s ease infinite;
 }
 @keyframes gradient {
 	0% {
