@@ -24,19 +24,24 @@ function App() {
 			<nav>
 				<ul>
 					<li>
-						<button onClick={executeScroll(0)}> Weather </button>
+						<button onClick={executeScroll(0)} className='sectionButton'> Weather </button>
+						<button onClick={handleButtonClick(0)} className='minimizerButton'>{sectionToggles[0] ? `-` : `+`}</button>
 					</li>
 					<li>
-						<button onClick={executeScroll(1)}> Charts </button>
+						<button onClick={executeScroll(1)} className='sectionButton'> Charts </button>
+						<button onClick={handleButtonClick(1)} className='minimizerButton'>{sectionToggles[1] ? `-` : `+`}</button>
 					</li>
 					<li>
-						<button onClick={executeScroll(2)}> News </button>
+						<button onClick={executeScroll(2)} className='sectionButton'> News </button>
+						<button onClick={handleButtonClick(2)} className='minimizerButton'>{sectionToggles[2] ? `-` : `+`}</button>
 					</li>
 					<li>
-						<button onClick={executeScroll(3)}> Saved </button>
+						<button onClick={executeScroll(3)} className='sectionButton'> Saved </button>
+						<button onClick={handleButtonClick(3)} className='minimizerButton'>{sectionToggles[3] ? `-` : `+`}</button>
 					</li>
 					<li>
-						<button onClick={executeScroll(4)}> Comments </button>
+						<button onClick={executeScroll(4)} className='sectionButton'> Comments </button>
+						<button onClick={handleButtonClick(4)} className='minimizerButton'>{sectionToggles[4] ? `-` : `+`}</button>
 					</li>
 				</ul>
 			</nav>

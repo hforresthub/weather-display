@@ -65,8 +65,8 @@ const Weather = ({ handleButtonClick, sectionToggles, myRef }) => {
 			<div ref={myRef[0]}></div>
 			{result !== '' ?
 				<div className="forecastsContainer">
-					<button onClick={handleButtonClick(1)}>{sectionToggles[1] ? 'Hide ' : 'Show '} Forecasts </button>
-					{sectionToggles[1] ?
+					<button onClick={handleButtonClick(0)}>{sectionToggles[0] ? 'Hide ' : 'Show '} Forecasts </button>
+					{sectionToggles[0] ?
 						<div className='forecastsToggleContainer'>
 							<h2>24 hour forecast</h2>
 							<div className="weatherDisplay">
@@ -114,8 +114,8 @@ const Weather = ({ handleButtonClick, sectionToggles, myRef }) => {
 			<div ref={myRef[1]}></div>
 			{result !== '' ?
 				<div className="chartsContainer">
-					<button onClick={handleButtonClick(0)}>{sectionToggles[0] ? 'Hide ' : 'Show '} Charts </button>
-					{sectionToggles[0] ?
+					<button onClick={handleButtonClick(1)}>{sectionToggles[1] ? 'Hide ' : 'Show '} Charts </button>
+					{sectionToggles[1] ?
 						<div className='chartsToggleContainer'>
 							<h2>Charts</h2>
 							<div className="chartContainer">
