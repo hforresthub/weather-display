@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Article from './Article';
+import UserThread from './UserThread';
 import Comment from './Comment';
 import anonImage from '../images/anon.png'
 
@@ -33,24 +34,27 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 
 	//firebase state variables
 	const [savedArticles, setSavedArticles] = useState([])
+	const [userThreads, setUserThreads] = useState([])
 
 	//current article and comments
 	const [currentArticle, setCurrentArticle] = useState(null)
 	const [currentComments, setCurrentComments] = useState([])
 	const [currentComment, setCurrentComment] = useState('')
+	const [currentThread, setCurrentThread] = useState('')
+	const [currentThreadTitle, setCurrentThreadTitle] = useState('')
 
 	/* Use Effects */
 	// for news api data
 	useEffect(() => {
 		// NewsAPI
-		axios({
-			url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
-			method: 'GET',
-			dataResponse: 'json'
-		}).then((res) => {
-			// console.log(JSON.stringify(res.data.articles))
-			setNewsArticles(res.data.data)
-		})
+		// axios({
+		// 	url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
+		// 	method: 'GET',
+		// 	dataResponse: 'json'
+		// }).then((res) => {
+		// 	// console.log(JSON.stringify(res.data.articles))
+		// 	setNewsArticles(res.data.data)
+		// })
 		// console.log(JSON.stringify(newsArticles))
 	}, [])
 
@@ -156,6 +160,30 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 			})
 		}
 	}, [firebaseUser])
+	// watch user threads
+	useEffect(() => {
+		if (firebaseUser !== null) {
+			const createdDb = ref(realtime, 'created/')
+			onValue(createdDb, (snapshot) => {
+				const myData = snapshot.val()
+				// console.log("mydata ", Object.getOwnPropertyNames(myData)[0]);
+				const uuid =  Object.getOwnPropertyNames(myData)[0]
+				const savedArray = []
+				for (let propertyName in myData) {
+					// create a new local object for each loop iteration:
+					const tempArticle = {
+						key: propertyName,
+						userData: myData[propertyName],
+						uuid: {uuid}
+					}
+					if (myData[propertyName]) {
+						savedArray.push(tempArticle)
+					}
+				}
+				setUserThreads(savedArray)
+			})
+		}
+	}, [firebaseUser])
 	// watch comment data for current article if one is selected
 	useEffect(() => {
 		if (currentArticle !== null && firebaseUser !== null) {
@@ -181,7 +209,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 	//firebase button functions
 	//save button
 	const handleSaveButtonClick = (element) => (event) => {
-		//update user
+		//save article to db
 		const savedDb = ref(realtime, `saved/${element.uuid}`)
 		const testComment = {
 			username: 'Weatherenews bot',
@@ -189,6 +217,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 			comment: 'First!',
 			date: new Date()
 		}
+		console.log("element ", element);
 		const tempSavedArticle = {
 			article: element,
 			comments: [testComment],
@@ -217,6 +246,43 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 			})
 		}
 		setCurrentComment('')
+	}
+	//thread functions
+	//form thread title change handler
+	const handleThreadTitleChange = (event) => {
+		event.preventDefault()
+		setCurrentThreadTitle(event.target.value)
+	}
+	//form thread change handler
+	const handleThreadChange = (event) => {
+		event.preventDefault()
+		setCurrentThread(event.target.value)
+	}
+	//form submit for comment
+	const handleThreadSubmit = (event) => {
+		event.preventDefault()
+		if (currentThreadTitle !== '' && currentThread !== '') {
+			//save article to db
+			const createdDb = ref(realtime, `created/`)
+			const testComment = {
+				username: 'Weatherenews bot',
+				picture: `../images/favicon.png`,
+				comment: 'First!',
+				date: new Date()
+			}
+			const newThread = {
+				title: currentThreadTitle,
+				description: currentThread,
+				image_url: `../images/backupImage.png`
+			}
+			const tempSavedArticle = {
+				article: newThread,
+				comments: [testComment],
+			}
+			push(createdDb, tempSavedArticle)
+		}
+		setCurrentThreadTitle('')
+		setCurrentThread('')
 	}
 
 	return (
@@ -292,6 +358,26 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 									)
 								})}
 							</div>
+							<h2>User Threads: </h2>
+							<div className='usersThreads'>
+								{userThreads.map((element, index) => {
+									return (
+										<div className={`articleContainer${index} articleContainer`} key={index}>
+											<UserThread element={element.userData.article} index={index} />
+											{
+												currentArticle !== null && element.userData.article.uuid === currentArticle.uuid
+													?
+													//comments
+													<button className='fontIcon'>
+														<FontAwesomeIcon icon="fa-solid fa-arrow-down" />
+													</button>
+													:
+													<button className='saveIcon' onClick={handleCommentsButtonClick(element.userData.article)}>Comments</button>
+											}
+										</div>
+									)
+								})}
+							</div>
 						</div>
 
 						:
@@ -311,8 +397,22 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 				}
 				{firebaseUser !== null &&
 					<div>
-						<img src={firebaseUser.photoURL} alt=""></img>
-						<h3>{firebaseUser.displayName}</h3>
+						<div>
+							<img src={firebaseUser.photoURL} alt=""></img>
+							<h3>{firebaseUser.displayName}</h3>
+						</div>
+						<div className="newThread">
+							<form onSubmit={handleThreadSubmit}>
+								<label htmlFor="postThread">
+									<p>
+										Create new article
+									</p>
+								</label>
+								<input name="postThreadTitle" id="postThreadTitle" value={currentThreadTitle} onChange={handleThreadTitleChange} />
+								<textarea name="postThread" id="postThread" value={currentThread} onChange={handleThreadChange} />
+								<button type="button" onClick={handleThreadSubmit}>Post Thread</button>
+							</form>
+						</div>
 					</div>
 				}
 			</div>
