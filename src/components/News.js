@@ -41,6 +41,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 	const [currentComments, setCurrentComments] = useState([])
 	const [currentComment, setCurrentComment] = useState('')
 	const [currentThread, setCurrentThread] = useState('')
+	const [currentUserThread, setCurrentUserThread] = useState('')
 	const [currentThreadTitle, setCurrentThreadTitle] = useState('')
 
 	/* Use Effects */
