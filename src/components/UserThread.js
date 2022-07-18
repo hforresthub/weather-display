@@ -1,4 +1,4 @@
-const Article = ({ element, index }) => {
+const UserThread = ({ element, index }) => {
 	return (
 		<div className={`article${index} article`} >
 			<div className='title'>
@@ -12,4 +12,4 @@ const Article = ({ element, index }) => {
 	)
 }
 
-export default Article
+export default UserThread

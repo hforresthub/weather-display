@@ -182,7 +182,8 @@ a:hover {
 .weatherDisplay,
 .newsArticles,
 .articleComments,
-.currentArticle {
+.currentArticle,
+.usersThreads {
 	flex-direction: row;
 	background-color: $septenaryColor;
 	border-radius: 10px;
@@ -193,7 +194,8 @@ a:hover {
 }
 .newsArticles,
 .articleComments,
-.currentArticle {
+.currentArticle,
+.usersThreads {
 	background-color: $quaternaryColor;
 }
 // weather
@@ -252,21 +254,23 @@ a:hover {
 		border: 2px solid $quaternaryColor;
 	}
 }
-.articleContainer:hover, nav li button:hover {
+.articleContainer:hover,
+nav li button:hover {
 	// background-color: $primaryColor;
 	background-image: linear-gradient(to bottom, $primaryColor, $octonaryColor);
+	border-radius: 10px;
 	background-size: 100% 1000%;
 	animation: gradient 2s ease infinite;
 }
 @keyframes gradient {
 	0% {
-		background-position: 0% 100%;;
+		background-position: 0% 100%;
 	}
 	50% {
-		background-position: 100% 50%;;
+		background-position: 100% 50%;
 	}
 	100% {
-		background-position: 0% 100%;;
+		background-position: 0% 100%;
 	}
 }
 .articleContainer:nth-child(2n) a {
@@ -343,6 +347,13 @@ a:hover {
 .commentsToggleContainer form {
 	display: flex;
 	margin-bottom: 3%;
+	textarea {
+		resize: none;
+	}
+}
+.newThread form {
+	display: flex;
+	flex-direction: column;
 	textarea {
 		resize: none;
 	}

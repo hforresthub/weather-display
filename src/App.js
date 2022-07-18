@@ -6,10 +6,10 @@ import News from './components/News';
 
 function App() {
 	// button variables
-	const myRef = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)]
+	const myRef = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)]
 
 	// toggle variables
-	const [sectionToggles, setSectionToggles] = useState([true, true, true, true, true])
+	const [sectionToggles, setSectionToggles] = useState([true, true, true, true, true, true])
 
 	// button functions
 	const handleButtonClick = (index) => (event) => {
@@ -41,6 +41,10 @@ function App() {
 					</li>
 					<li>
 						<button onClick={executeScroll(4)} className='sectionButton'> Comments </button>
+						<button onClick={handleButtonClick(4)} className='minimizerButton'>{sectionToggles[4] ? `-` : `+`}</button>
+					</li>
+					<li>
+						<button onClick={executeScroll(4)} className='sectionButton'> Threads </button>
 						<button onClick={handleButtonClick(4)} className='minimizerButton'>{sectionToggles[4] ? `-` : `+`}</button>
 					</li>
 				</ul>
