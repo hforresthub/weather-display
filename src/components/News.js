@@ -55,14 +55,14 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 	// for news api data
 	useEffect(() => {
 		// NewsAPI
-		// axios({
-		// 	url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
-		// 	method: 'GET',
-		// 	dataResponse: 'json'
-		// }).then((res) => {
-		// 	// console.log(JSON.stringify(res.data.articles))
-		// 	setNewsArticles(res.data.data)
-		// })
+		axios({
+			url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
+			method: 'GET',
+			dataResponse: 'json'
+		}).then((res) => {
+			// console.log(JSON.stringify(res.data.articles))
+			setNewsArticles(res.data.data)
+		})
 		// console.log(JSON.stringify(newsArticles))
 	}, [])
 
@@ -223,7 +223,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 			comment: 'First!',
 			date: new Date()
 		}
-		console.log("element ", element);
+		// console.log("element ", element);
 		const tempSavedArticle = {
 			article: element,
 			comments: [testComment],
@@ -258,7 +258,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 	// watch comment data for current user thread if one is selected
 	useEffect(() => {
 		if (currentUserThread !== null && firebaseUser !== null) {
-			console.log("current comments: ", currentUserThread.uuid);
+			// console.log("current comments: ", currentUserThread.uuid);
 			const commentsDb = ref(realtime, `created/${currentUserThread.uuid}/comments/`)
 			onValue(commentsDb, (snapshot) => {
 				const myData = snapshot.val()
@@ -276,7 +276,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 				setCurrentUserThreadComments(commentArray)
 			})
 		}
-	}, [currentArticle, firebaseUser])
+	}, [currentUserThread, firebaseUser])
 
 	//form thread title change handler
 	const handleThreadTitleChange = (event) => {
@@ -327,11 +327,12 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 	const handleUserThreadCommentSubmit = (event) => {
 		event.preventDefault()
 		if (currentUserThreadComment !== '') {
+			// console.log("current user thread: ", currentUserThread);
 			const commentsDb = ref(realtime, `created/${currentUserThread.uuid}/comments/`)
 			push(commentsDb, {
 				username: firebaseUser.displayName,
 				picture: firebaseUser.photoURL,
-				comment: currentComment,
+				comment: currentUserThreadComment,
 				date: new Date()
 			})
 		}
@@ -492,7 +493,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 							<form onSubmit={handleThreadSubmit}>
 								<label htmlFor="postThread">
 									<h3>
-										Create new article
+										Create new user thread
 									</h3>
 								</label>
 								<p>Title:</p>
@@ -520,14 +521,14 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 										<div className={`articleContainer${index} articleContainer`} key={index}>
 											<UserThread element={element.userData.article} index={index} />
 											{
-												currentUserThread !== null && element.userData.article.uuid === currentUserThread.uuid
+												currentUserThread !== null && element.uuid === currentUserThread.uuid
 													?
 													//comments
 													<button className='fontIcon'>
 														<FontAwesomeIcon icon="fa-solid fa-arrow-down" />
 													</button>
 													:
-													<button className='saveIcon' onClick={handleUserThreadButtonClick(element.userData.article)}>Comments</button>
+													<button className='saveIcon' onClick={handleUserThreadButtonClick(element)}>Comments</button>
 											}
 										</div>
 									)
@@ -540,7 +541,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 					}
 				</div>
 				:
-				'No saved news available atm, possibly because you are not logged in'
+				'No user threads available atm, possibly because you are not logged in'
 			}
 
 			{/* current article comments */}
@@ -550,9 +551,9 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 					<button onClick={handleButtonClick(5)}>{sectionToggles[5] ? 'Hide ' : 'Show '} Current Comments </button>
 					{sectionToggles[5] ?
 						<div className='commentsToggleContainer'>
-							<h2>Current Article: </h2>
+							<h2>Current User Thread: </h2>
 							<div className="currentArticle">
-								<UserThread element={currentUserThread} index={0} />
+								<UserThread element={currentUserThread.userData.article} index={0} />
 							</div>
 							<h2>Current Comments: </h2>
 							<form onSubmit={handleUserThreadCommentSubmit}>
@@ -579,7 +580,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 							{currentUserThreadComments.length !== 0 ?
 								<div className='articleComments'>
 									{currentUserThreadComments.map((element, index) => {
-										console.log("comments ", currentUserThreadComments);
+										// console.log("comments ", currentUserThreadComments);
 										return (
 											<Comment element={element} index={index} key={index} />
 										)
