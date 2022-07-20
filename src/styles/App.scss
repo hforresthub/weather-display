@@ -256,11 +256,12 @@ a:hover {
 }
 .articleContainer:hover,
 nav li button:hover {
-	// background-color: $primaryColor;
 	background-image: linear-gradient(to bottom, $primaryColor, $octonaryColor);
-	border-radius: 10px;
 	background-size: 100% 1000%;
 	animation: gradient 2s ease infinite;
+}
+nav li button:hover {
+	border-radius: 10px;
 }
 @keyframes gradient {
 	0% {

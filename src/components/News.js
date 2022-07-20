@@ -424,11 +424,9 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 			}
 
 			{/* current article comments */}
-			<div ref={myRef[4]}></div>
 			{currentArticle !== null ?
 				<div className='commentsContainer'>
-					<button onClick={handleButtonClick(4)}>{sectionToggles[4] ? 'Hide ' : 'Show '} Current Comments </button>
-					{sectionToggles[4] ?
+					{sectionToggles[3] ?
 						<div className='commentsToggleContainer'>
 							<h2>Current Article: </h2>
 							<div className="currentArticle">
@@ -508,11 +506,11 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 			</div>
 
 			{/* user threads */}
-			<div ref={myRef[5]}></div>
+			<div ref={myRef[4]}></div>
 			{userThreads.length !== 0 ?
 				<div className='newsContainer'>
-					<button onClick={handleButtonClick(5)}>{sectionToggles[5] ? 'Hide ' : 'Show '} User Threads </button>
-					{sectionToggles[5] ?
+					<button onClick={handleButtonClick(4)}>{sectionToggles[4] ? 'Hide ' : 'Show '} User Threads </button>
+					{sectionToggles[4] ?
 						<div className='newsToggleContainer'>
 							<h2>User Threads: </h2>
 							<div className='usersThreads'>
@@ -545,11 +543,9 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 			}
 
 			{/* current article comments */}
-			<div ref={myRef[5]}></div>
 			{currentUserThread !== null ?
 				<div className='commentsContainer'>
-					<button onClick={handleButtonClick(5)}>{sectionToggles[5] ? 'Hide ' : 'Show '} Current Comments </button>
-					{sectionToggles[5] ?
+					{sectionToggles[4] ?
 						<div className='commentsToggleContainer'>
 							<h2>Current User Thread: </h2>
 							<div className="currentArticle">

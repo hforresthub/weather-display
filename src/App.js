@@ -40,10 +40,6 @@ function App() {
 						<button onClick={handleButtonClick(3)} className='minimizerButton'>{sectionToggles[3] ? `-` : `+`}</button>
 					</li>
 					<li>
-						<button onClick={executeScroll(4)} className='sectionButton'> Comments </button>
-						<button onClick={handleButtonClick(4)} className='minimizerButton'>{sectionToggles[4] ? `-` : `+`}</button>
-					</li>
-					<li>
 						<button onClick={executeScroll(4)} className='sectionButton'> Threads </button>
 						<button onClick={handleButtonClick(4)} className='minimizerButton'>{sectionToggles[4] ? `-` : `+`}</button>
 					</li>
