@@ -8,8 +8,7 @@ const Article = ({ element, index }) => {
 				<img src={element.image_url} onError={(e) => {e.target.src=require(`../images/backupImage.png`)}} alt={`Image related to ${element.title}`} />
 			</div>
 			<p className='content'>{element.description ? element.description : 'No description available'}</p>
-			{/* do not create read more button for threads */}
-			{element.url !== undefined ? <a href={element.url}>Read more</a> : ''}
+			<a href={element.url}>Read more</a>
 		</div>
 	)
 }
