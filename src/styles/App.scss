@@ -174,7 +174,8 @@ a:hover {
 }
 //general containers
 .weatherDisplay,
-.newsArticles {
+.newsArticles,
+.usersThreads {
 	overflow-x: scroll;
 	scrollbar-width: hidden;
 	justify-content: start;
@@ -411,8 +412,20 @@ nav li button:hover {
 		width: 100px;
 	}
 }
-@media only screen and (max-width: 300px) {
+@media only screen and (max-width: 400px) {
 	h1 {
 		font-size: 1.25rem;
+	}
+	li {
+		flex-shrink: 1;
+		button {
+			font-size: 0.5rem;
+		}
+	}
+	h3 {
+		font-size: 0.5rem;
+	}
+	form {
+		flex-direction: column;
 	}
 }
