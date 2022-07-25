@@ -409,7 +409,7 @@ nav li button:hover {
 	.hourContainer,
 	.dayContainer {
 		border: 1px solid lightgrey;
-		width: 100px;
+		width: 110px;
 	}
 }
 @media only screen and (max-width: 400px) {
@@ -419,11 +419,14 @@ nav li button:hover {
 	li {
 		flex-shrink: 1;
 		button {
-			font-size: 0.5rem;
+			// font-size: 0.5rem;
+			span {
+				display: none;
+			}
 		}
 	}
 	h3 {
-		font-size: 0.5rem;
+		font-size: 1.2rem;
 	}
 	form {
 		flex-direction: column;
