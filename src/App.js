@@ -200,6 +200,7 @@ function App() {
 								currentArticle={currentArticle}
 								setCurrentArticle={setCurrentArticle}
 								newsArticles={newsArticles}
+								setNewsArticles={setNewsArticles}
 							/>}
 						>
 						</Route>

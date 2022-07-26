@@ -16,7 +16,7 @@ import { faBookmark, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faBookmark, faArrowDown)
 
-const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArticles, setSavedArticles, currentArticle, setCurrentArticle, newsArticles }) => {
+const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArticles, setSavedArticles, currentArticle, setCurrentArticle, newsArticles, setNewsArticles }) => {
 
 	/* State variables */
 
