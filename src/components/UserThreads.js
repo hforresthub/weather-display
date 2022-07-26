@@ -139,6 +139,7 @@ const UserThreads = ({ handleButtonClick, sectionToggles, myRef, firebaseUser })
 	return (
 		<div className='news'>
 			{/* creating threads */}
+			<div ref={myRef[4]}></div>
 			<div className='googleLoginContainer'>
 				{firebaseUser !== null &&
 					<div>
@@ -161,7 +162,6 @@ const UserThreads = ({ handleButtonClick, sectionToggles, myRef, firebaseUser })
 			</div>
 
 			{/* user threads */}
-			<div ref={myRef[4]}></div>
 			{userThreads.length !== 0 ?
 				<div className='newsContainer'>
 					<button onClick={handleButtonClick(4)}>{sectionToggles[4] ? 'Hide ' : 'Show '} User Threads </button>

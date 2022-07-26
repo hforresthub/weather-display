@@ -48,12 +48,9 @@ nav ul {
 		flex-basis: 0;
 		margin: 0;
 		padding: 0;
-		button.sectionButton {
-			width: 90%;
-			border: 1px solid $quaternaryColor;
-		}
-		button.minimizerButton {
-			width: 10%;
+		a {
+			display: block;
+			width: 100%;
 			padding: 0;
 			margin: 0;
 			border: 1px solid $quaternaryColor;
@@ -429,7 +426,7 @@ nav li button:hover {
 	}
 	li {
 		flex-shrink: 1;
-		button {
+		a {
 			// font-size: 0.5rem;
 			span {
 				display: none;

@@ -1,6 +1,6 @@
 import './styles/App.scss';
-import { useEffect, useState } from 'react'
-import { useRef } from 'react';
+import { useEffect, useState, useRef } from 'react'
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import Weather from './components/Weather';
 import News from './components/News';
 import UserThreads from './components/UserThreads';
@@ -42,7 +42,7 @@ function App() {
 
 	// button functions
 	const handleButtonClick = (index) => (event) => {
-		setSectionToggles((prev) => prev.map((toggle, toggleIndex) => ((toggleIndex === index) ? !toggle : toggle)))
+		setSectionToggles((prev) => prev.map((toggle, toggleIndex) => ((toggleIndex === index || toggleIndex === index + 1) ? !toggle : toggle)))
 	}
 	const executeScroll = (index) => () => {
 		return myRef[index].current.scrollIntoView()
@@ -130,71 +130,91 @@ function App() {
 	}, [])
 
 	return (
-		<div className='App'>
-			<nav>
-				<ul>
-					<li>
-						<button onClick={executeScroll(0)} className='sectionButton'><FontAwesomeIcon icon="fa-solid fa-cloud-sun-rain" /><span> Weather</span></button>
-						<button onClick={handleButtonClick(0)} className='minimizerButton'>{sectionToggles[0] ? `-` : `+`}</button>
-					</li>
-					{/* <li>
+		<Router>
+			<div className='App'>
+				<nav>
+					<ul>
+						<li>
+							{/* <button onClick={executeScroll(0)} className='sectionButton'><FontAwesomeIcon icon="fa-solid fa-cloud-sun-rain" /><span> Weather</span></button>
+						<button onClick={handleButtonClick(0)} className='minimizerButton'>{sectionToggles[0] ? `-` : `+`}</button> */}
+							<Link to="/">
+								<FontAwesomeIcon icon="fa-solid fa-cloud-sun-rain" /><span> Weather</span>
+							</Link>
+						</li>
+						{/* <li>
 						<button onClick={executeScroll(1)} className='sectionButton'> Charts </button>
 						<button onClick={handleButtonClick(1)} className='minimizerButton'>{sectionToggles[1] ? `-` : `+`}</button>
 					</li> */}
-					<li>
-						<button onClick={executeScroll(2)} className='sectionButton'><FontAwesomeIcon icon="fa-solid fa-newspaper" /><span> News</span></button>
-						<button onClick={handleButtonClick(2)} className='minimizerButton'>{sectionToggles[2] ? `-` : `+`}</button>
-					</li>
-					{/* <li>
+						<li>
+							{/* <button onClick={executeScroll(2)} className='sectionButton'><FontAwesomeIcon icon="fa-solid fa-newspaper" /><span> News</span></button>
+							<button onClick={handleButtonClick(2)} className='minimizerButton'>{sectionToggles[2] ? `-` : `+`}</button> */}
+							<Link to="/News">
+								<FontAwesomeIcon icon="fa-solid fa-newspaper" /><span> News</span>
+							</Link>
+						</li>
+						{/* <li>
 						<button onClick={executeScroll(3)} className='sectionButton'> Saved </button>
 						<button onClick={handleButtonClick(3)} className='minimizerButton'>{sectionToggles[3] ? `-` : `+`}</button>
 					</li> */}
-					<li>
-						<button onClick={executeScroll(4)} className='sectionButton'><FontAwesomeIcon icon="fa-solid fa-comment-dots" /><span> Threads</span></button>
-						<button onClick={handleButtonClick(4)} className='minimizerButton'>{sectionToggles[4] ? `-` : `+`}</button>
-					</li>
-				</ul>
-			</nav>
-			<header>
-				<img src={require(`./images/sky.png`)} alt="Clouds" className='skyBanner' />
-				<h1>Weatherenews</h1>
-			</header>
-			<div className="container">
-				{/* google login button */}
-				<div className='googleLoginContainer'>
-					{firebaseUser !== null ?
-						<button onClick={(e) => handleSignout(e)}>Sign out with Google</button>
-						:
-						<button type="button" onClick={handleFirebaseLogin}>Google login</button>
-					}
-					{firebaseUser !== null &&
-						<div>
-							<div className='loginCard'>
-								<img src={firebaseUser.photoURL} alt=""></img>
-								<h3>{firebaseUser.displayName}</h3>
+						<li>
+							{/* <button onClick={executeScroll(4)} className='sectionButton'><FontAwesomeIcon icon="fa-solid fa-comment-dots" /><span> Threads</span></button>
+							<button onClick={handleButtonClick(4)} className='minimizerButton'>{sectionToggles[4] ? `-` : `+`}</button> */}
+							<Link to="/Threads">
+								<FontAwesomeIcon icon="fa-solid fa-comment-dots" /><span> Threads</span>
+							</Link>
+						</li>
+					</ul>
+				</nav>
+				<header>
+					<img src={require(`./images/sky.png`)} alt="Clouds" className='skyBanner' />
+					<h1>Weatherenews</h1>
+				</header>
+				<div className="container">
+					{/* google login button */}
+					<div className='googleLoginContainer'>
+						{firebaseUser !== null ?
+							<button onClick={(e) => handleSignout(e)}>Sign out with Google</button>
+							:
+							<button type="button" onClick={handleFirebaseLogin}>Google login</button>
+						}
+						{firebaseUser !== null &&
+							<div>
+								<div className='loginCard'>
+									<img src={firebaseUser.photoURL} alt=""></img>
+									<h3>{firebaseUser.displayName}</h3>
+								</div>
 							</div>
-						</div>
-					}
+						}
+					</div>
+
+
+					<Routes>
+						<Route exact path="/"
+							element={<Weather handleButtonClick={handleButtonClick} sectionToggles={sectionToggles} myRef={myRef} />}
+						>
+						</Route>
+						<Route exact path="/News"
+							element={<News handleButtonClick={handleButtonClick} sectionToggles={sectionToggles} myRef={myRef} firebaseUser={firebaseUser}
+								savedArticles={savedArticles}
+								setSavedArticles={setSavedArticles}
+								currentArticle={currentArticle}
+								setCurrentArticle={setCurrentArticle}
+								newsArticles={newsArticles}
+							/>}
+						>
+						</Route>
+						<Route exact path="/Threads"
+							element={<UserThreads handleButtonClick={handleButtonClick} sectionToggles={sectionToggles} myRef={myRef} firebaseUser={firebaseUser} />}
+						>
+						</Route>
+					</Routes>
+
 				</div>
-
-				{/* weather display from api app */}
-				<Weather handleButtonClick={handleButtonClick} sectionToggles={sectionToggles} myRef={myRef} />
-				{/* news */}
-				<News handleButtonClick={handleButtonClick} sectionToggles={sectionToggles} myRef={myRef} firebaseUser={firebaseUser}
-					savedArticles={savedArticles}
-					setSavedArticles={setSavedArticles}
-					currentArticle={currentArticle}
-					setCurrentArticle={setCurrentArticle}
-					newsArticles={newsArticles}
-				/>
-
-				{/* user threads */}
-				<UserThreads handleButtonClick={handleButtonClick} sectionToggles={sectionToggles} myRef={myRef} firebaseUser={firebaseUser} />
+				<footer>
+					<img src={require(`./images/lowerSky.png`)} alt="Clouds" className='skyBanner' />
+				</footer>
 			</div>
-			<footer>
-				<img src={require(`./images/lowerSky.png`)} alt="Clouds" className='skyBanner' />
-			</footer>
-		</div>
+		</Router>
 	);
 }
 
