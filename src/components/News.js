@@ -3,17 +3,11 @@ import { useEffect, useState } from 'react'
 import Article from './Article';
 import Comment from './Comment';
 import anonImage from '../images/anon.png'
-import UserThreads from './UserThreads';
 
-// import backupNewsData from './backupData/backupNewsData.json'
-import backupNewsData2 from './backupData/backupNewsData2.json'
 
 //firebase
 import realtime from './firebase'
 import { ref, onValue, push, update } from "firebase/database";
-
-//firebase auth tests
-import { getAuth, signInWithRedirect, GoogleAuthProvider, getRedirectResult, signOut, onAuthStateChanged } from "firebase/auth";
 
 //fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -22,21 +16,12 @@ import { faBookmark, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faBookmark, faArrowDown)
 
-const News = ({ handleButtonClick, sectionToggles, myRef }) => {
+const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArticles, setSavedArticles, currentArticle, setCurrentArticle, newsArticles }) => {
 
 	/* State variables */
-	// user state variable
-	const [user, setUser] = useState({ name: 'Anonymous', picture: `./images/favicon.png` })
-	const [firebaseUser, setFirebaseUser] = useState(null)
-
-	// news state variables
-	const [newsArticles, setNewsArticles] = useState(backupNewsData2.data)
-
-	//firebase state variables
-	const [savedArticles, setSavedArticles] = useState([])
 
 	//current article and comments
-	const [currentArticle, setCurrentArticle] = useState(null)
+
 	const [currentComments, setCurrentComments] = useState([])
 	const [currentComment, setCurrentComment] = useState('')
 
@@ -54,87 +39,6 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 		// 	setNewsArticles(res.data.data)
 		// })
 		// console.log(JSON.stringify(newsArticles))
-	}, [])
-
-	//firebase user login
-	// previously logged in
-	useEffect(() => {
-		const auth = getAuth();
-
-		onAuthStateChanged(auth, (tempUser) => {
-			if (tempUser) {
-				// console.log("current user? ", tempUser);
-				const currentLogin = tempUser.uid
-				const firebaseLoginsDb = ref(realtime, `firebaseLogins/${currentLogin}/`)
-				const userLogin = {
-					username: tempUser.displayName,
-					picture: tempUser.photoURL,
-					email: tempUser.email,
-					date: new Date()
-				}
-				update(firebaseLoginsDb, userLogin)
-				setFirebaseUser(tempUser)
-			} else {
-			}
-		});
-	}, [])
-	// button login
-	const handleFirebaseLogin = () => {
-		//firebase auth
-		const provider = new GoogleAuthProvider();
-		const auth = getAuth();
-		signInWithRedirect(auth, provider)
-	}
-	function handleSignout(event) {
-		setUser({ name: 'Anonymous', picture: `./images/favicon.png` })
-		setFirebaseUser(null)
-		setSavedArticles([])
-		setCurrentArticle(null)
-
-		//firebase auth logout
-		const auth = getAuth();
-		signOut(auth).then(() => {
-			// console.log('Logged out');
-		}).catch((error) => {
-
-		})
-	}
-	//firebase get redirect
-	useEffect(() => {
-		const auth = getAuth();
-		getRedirectResult(auth)
-			.then((result) => {
-				// This gives you a Google Access Token. You can use it to access the Google API.
-				const credential = GoogleAuthProvider.credentialFromResult(result);
-				const token = credential.accessToken;
-				// The signed-in user info.
-				const tempUser = result.user;
-				// console.log('firebase auth user: ', tempUser);
-				// log their login to firebase, updates existing login for same user
-				if (tempUser) {
-					const currentLogin = tempUser.uid
-					const firebaseLoginsDb = ref(realtime, `firebaseLogins/${currentLogin}/`)
-					const userLogin = {
-						username: tempUser.displayName,
-						picture: tempUser.photoURL,
-						email: tempUser.email,
-						date: new Date()
-					}
-					update(firebaseLoginsDb, userLogin)
-				}
-				setFirebaseUser(tempUser)
-				// ...
-			}).catch((error) => {
-				// Handle Errors here.
-				const errorCode = error.code;
-				const errorMessage = error.message;
-				// console.log('firebaseerror: ', errorMessage);
-				// The email of the user's account used.
-				// const email = error.customData.email;
-				// The AuthCredential type that was used.
-				const credential = GoogleAuthProvider.credentialFromError(error);
-				// ...
-			});
 	}, [])
 
 	// watch saved articles
@@ -355,26 +259,6 @@ const News = ({ handleButtonClick, sectionToggles, myRef }) => {
 				:
 				'No current article available atm'
 			}
-
-			{/* google login button */}
-			<div className='googleLoginContainer'>
-				{firebaseUser !== null ?
-					<button onClick={(e) => handleSignout(e)}>Sign out with Google</button>
-					:
-					<button type="button" onClick={handleFirebaseLogin}>Google login</button>
-				}
-				{firebaseUser !== null &&
-					<div>
-						<div>
-							<img src={firebaseUser.photoURL} alt=""></img>
-							<h3>{firebaseUser.displayName}</h3>
-						</div>
-					</div>
-				}
-			</div>
-
-			{/* user threads */}
-			<UserThreads handleButtonClick={handleButtonClick} sectionToggles={sectionToggles} myRef={myRef} firebaseUser={firebaseUser} />
 
 		</div>
 	)
