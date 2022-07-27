@@ -42,7 +42,7 @@ function App() {
 
 	// button functions
 	const handleButtonClick = (index) => (event) => {
-		setSectionToggles((prev) => prev.map((toggle, toggleIndex) => ((toggleIndex === index || toggleIndex === index + 1) ? !toggle : toggle)))
+		setSectionToggles((prev) => prev.map((toggle, toggleIndex) => ((toggleIndex === index) ? !toggle : toggle)))
 	}
 	const executeScroll = (index) => () => {
 		return myRef[index].current.scrollIntoView()

@@ -99,15 +99,19 @@ a {
 	width: 100%;
 	border: 1px solid #4378b0;
 	background-color: $secondaryColor;
+}
+.article a {
 	box-shadow: 1px 1px 3px $tertiaryColor, 1px -1px 3px $tertiaryColor, -1px 1px 3px $tertiaryColor,
 		-1px -1px 3px $tertiaryColor;
+	&:hover {
+		box-shadow: 1px 1px 3px $secondaryColor, 1px -1px 3px $secondaryColor, -1px 1px 3px $secondaryColor,
+			-1px -1px 3px $secondaryColor;
+	}
 }
 a:hover,
 .container button:not(.fontIcon):hover {
 	border: 1px solid #4378b0;
 	background-color: $tertiaryColor;
-	box-shadow: 1px 1px 3px $secondaryColor, 1px -1px 3px $secondaryColor, -1px 1px 3px $secondaryColor,
-		-1px -1px 3px $secondaryColor;
 	color: rgb(227, 248, 255);
 }
 a:hover {
