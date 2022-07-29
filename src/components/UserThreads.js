@@ -137,7 +137,7 @@ const UserThreads = ({ handleButtonClick, sectionToggles, myRef, firebaseUser })
 	}
 
 	return (
-		<div className='news'>
+		<div className='threadsMain'>
 			{/* creating threads */}
 			<div ref={myRef[4]}></div>
 			<div className='googleLoginContainer'>

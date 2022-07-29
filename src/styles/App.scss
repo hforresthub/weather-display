@@ -12,11 +12,19 @@ html {
 }
 .App {
 	font-weight: bold;
-	// background-color: $quaternaryColor;
 	background-image: linear-gradient(to bottom, $quaternaryColor, $senaryColor);
 	color: rgb(26, 26, 26);
 	.container {
 		width: 95%;
+	}
+	.weather .forecastsContainer {
+		background-color: rgba(0, 40, 120, 0.2);
+	}
+	.news .newsContainer {
+		background-color: rgba(59, 60, 62, 0.2);
+	}
+	.threadsMain .newsContainer, .threadsMain .googleLoginContainer {
+			background-color: rgba(3, 118, 16, 0.2);
 	}
 }
 div {
@@ -431,7 +439,6 @@ nav li button:hover {
 	li {
 		flex-shrink: 1;
 		a {
-			// font-size: 0.5rem;
 			span {
 				display: none;
 			}
