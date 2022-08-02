@@ -152,7 +152,20 @@ function App() {
 					</ul>
 				</nav>
 				<header>
-					<img src={require(`./images/sky.png`)} alt="Clouds" className='skyBanner' />
+					<Routes>
+						<Route exact path="/"
+							element={<img src={require(`./images/sky.png`)} alt="Clouds" className='skyBanner' />}
+						>
+						</Route>
+						<Route exact path="/news"
+							element={<img src={require(`./images/lowerSky.png`)} alt="parking lot sky" className='skyBanner' />}
+						>
+						</Route>
+						<Route exact path="/threads"
+							element={<img src={require(`./images/treesBanner2.png`)} alt="trees in fall" className='skyBanner' />}
+						>
+						</Route>
+					</Routes>
 					<h1>Weatherenews</h1>
 				</header>
 				<div className="container">
@@ -198,7 +211,20 @@ function App() {
 
 				</div>
 				<footer>
-					<img src={require(`./images/lowerSky.png`)} alt="Clouds" className='skyBanner' />
+					<Routes>
+						<Route exact path="/"
+							element={<img src={require(`./images/sky.png`)} alt="Clouds" className='skyBanner' />}
+						>
+						</Route>
+						<Route exact path="/news"
+							element={<img src={require(`./images/lowerSky.png`)} alt="parking lot sky" className='skyBanner' />}
+						>
+						</Route>
+						<Route exact path="/threads"
+							element={<img src={require(`./images/treesBanner.png`)} alt="trees in fall" className='skyBanner' />}
+						>
+						</Route>
+					</Routes>
 				</footer>
 			</div>
 		</Router>
