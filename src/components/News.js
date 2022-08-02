@@ -30,14 +30,14 @@ const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArt
 	// for news api data
 	useEffect(() => {
 		// NewsAPI
-		// axios({
-		// 	url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
-		// 	method: 'GET',
-		// 	dataResponse: 'json'
-		// }).then((res) => {
-		// 	// console.log(JSON.stringify(res.data.articles))
-		// 	setNewsArticles(res.data.data)
-		// })
+		axios({
+			url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
+			method: 'GET',
+			dataResponse: 'json'
+		}).then((res) => {
+			// console.log(JSON.stringify(res.data.articles))
+			setNewsArticles(res.data.data)
+		})
 		// console.log(JSON.stringify(newsArticles))
 	}, [])
 
@@ -206,7 +206,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArt
 					}
 				</div>
 				:
-				'No saved news available atm, possibly because you are not logged in'
+				<p>No saved news available atm, possibly because you are not logged in</p>
 			}
 
 			{/* current article comments */}
@@ -249,7 +249,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArt
 									})}
 								</div>
 								:
-								'No comments yet'
+								<p>No comments yet</p>
 							}
 						</div>
 						:
@@ -257,7 +257,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArt
 					}
 				</div>
 				:
-				'No current article available atm'
+				<p>No current article available atm</p>
 			}
 
 		</div>

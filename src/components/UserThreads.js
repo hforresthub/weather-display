@@ -153,7 +153,7 @@ const UserThreads = ({ handleButtonClick, sectionToggles, myRef, firebaseUser })
 								<p>Title:</p>
 								<input name="postThreadTitle" id="postThreadTitle" value={currentThreadTitle} onChange={handleThreadTitleChange} />
 								<p>Text:</p>
-								<textarea name="postThread" id="postThread" value={currentThread} onChange={handleThreadChange} />
+								<textarea name="postThread" id="postThread" value={currentThread} onChange={handleThreadChange} rows={5} />
 								<button type="button" onClick={handleThreadSubmit}>Post Thread</button>
 							</form>
 						</div>
@@ -193,7 +193,7 @@ const UserThreads = ({ handleButtonClick, sectionToggles, myRef, firebaseUser })
 					}
 				</div>
 				:
-				'No user threads available atm, possibly because you are not logged in'
+				<p>No user threads available atm, possibly because you are not logged in</p>
 			}
 
 			{/* current article comments */}
@@ -236,7 +236,7 @@ const UserThreads = ({ handleButtonClick, sectionToggles, myRef, firebaseUser })
 									})}
 								</div>
 								:
-								'No comments yet'
+								<p>No comments yet</p>
 							}
 						</div>
 						:
@@ -244,7 +244,7 @@ const UserThreads = ({ handleButtonClick, sectionToggles, myRef, firebaseUser })
 					}
 				</div>
 				:
-				'No current user thread available atm'
+				<p>No current user thread available atm</p>
 			}
 		</div>
 	)

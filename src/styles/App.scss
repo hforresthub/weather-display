@@ -108,6 +108,9 @@ a {
 	border: 1px solid #4378b0;
 	background-color: $secondaryColor;
 }
+.weatherLink, .newsLink, .threadLink {
+	background-color: $quaternaryColor;
+}
 .article a {
 	box-shadow: 1px 1px 3px $tertiaryColor, 1px -1px 3px $tertiaryColor, -1px 1px 3px $tertiaryColor,
 		-1px -1px 3px $tertiaryColor;
@@ -126,7 +129,7 @@ a:hover {
 	text-shadow: 1px 1px 1px #0a335f, -1px 1px 1px #0a335f, 1px -1px 1px #0a335f, -1px -1px 1px #0a335f;
 }
 .container button {
-	border-radius: 5px;
+	border-radius: 3px;
 	margin: 3%;
 	border: 1px solid #4378b0;
 	background-color: $secondaryColor;
@@ -159,7 +162,7 @@ a:hover {
 .googleLoginContainer,
 .commentsContainer {
 	background-color: $tertiaryColorTransparency;
-	border-radius: 25px;
+	border-radius: 10px;
 	box-shadow: 1px 1px 3px $tertiaryColorTransparency, 1px -1px 3px $tertiaryColorTransparency,
 		-1px 1px 3px $tertiaryColorTransparency, -1px -1px 3px $tertiaryColorTransparency;
 	padding: 0 2%;
@@ -281,6 +284,13 @@ nav li button:hover {
 	background-size: 100% 1000%;
 	animation: gradient 2s ease infinite;
 }
+.threadsMain .articleContainer:hover,
+nav li button:hover {
+	background-image: linear-gradient(to bottom, $threadsLowlight, $threadsHighlight);
+	background-size: 100% 1000%;
+	animation: gradient 2s ease infinite;
+}
+
 nav li button:hover {
 	border-radius: 10px;
 }

@@ -135,17 +135,17 @@ function App() {
 				<nav>
 					<ul>
 						<li>
-							<Link to="/">
+							<Link to="/" className='weatherLink'>
 								<FontAwesomeIcon icon="fa-solid fa-cloud-sun-rain" /><span> Weather</span>
 							</Link>
 						</li>
 						<li>
-							<Link to="/News">
+							<Link to="/News" className='newsLink'>
 								<FontAwesomeIcon icon="fa-solid fa-newspaper" /><span> News</span>
 							</Link>
 						</li>
 						<li>
-							<Link to="/Threads">
+							<Link to="/Threads" className='threadLink'>
 								<FontAwesomeIcon icon="fa-solid fa-comment-dots" /><span> Threads</span>
 							</Link>
 						</li>
