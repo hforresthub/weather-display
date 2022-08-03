@@ -13,18 +13,19 @@ html {
 .App {
 	font-weight: bold;
 	background-image: linear-gradient(to bottom, $quaternaryColor, $senaryColor);
-	color: rgb(26, 26, 26);
+	color: #1a1a1a;
 	.container {
 		width: 95%;
 	}
 	.weather .forecastsContainer {
-		background-color: rgba(0, 40, 120, 0.2);
+		background-color: #00287833;
 	}
 	.news .newsContainer {
-		background-color: rgba(59, 60, 62, 0.2);
+		background-color: #3b3c3e33;
 	}
-	.threadsMain .newsContainer, .threadsMain .googleLoginContainer {
-			background-color: rgba(3, 118, 16, 0.2);
+	.threadsMain .newsContainer,
+	.threadsMain .googleLoginContainer {
+		background-color: #03761033;
 	}
 }
 div {
@@ -108,7 +109,9 @@ a {
 	border: 1px solid #4378b0;
 	background-color: $secondaryColor;
 }
-.weatherLink, .newsLink, .threadLink {
+.weatherLink,
+.newsLink,
+.threadLink {
 	background-color: $quaternaryColor;
 }
 .article a {
@@ -463,8 +466,180 @@ nav li button:hover {
 }
 
 // testing
-// @media (prefers-color-scheme: dark) {
-// 	.App {
-// 		background-image:linear-gradient(to bottom, $quinaryColor, $tertiaryColor); 
-// 	}
-// }
+@media (prefers-color-scheme: dark) {
+	.App {
+		background-image: linear-gradient(to bottom, $quinaryColorDark, $tertiaryColorDark);
+		.weather .forecastsContainer {
+			background-color: #00287833;
+		}
+		.news .newsContainer {
+			background-color: #3b3c3e33;
+		}
+		.threadsMain .newsContainer,
+		.threadsMain .googleLoginContainer {
+			background-color: #03761033;
+		}
+	}
+
+	.container .articleContainer:nth-child(2n) .saveIcon {
+		background-color: $quaternaryColorDark;
+		&:hover {
+			background-color: $tertiaryColorDark;
+		}
+	}
+	nav ul li {
+			background-color: $quaternaryColorDark;
+			a {
+				border: 1px solid $quaternaryColorDark;
+			}
+	}
+	h1,
+	h2 {
+		text-shadow: 1px 1px 1px #1a1a1a, 1px -1px 1px rgb(26, 26, 26), -1px 1px 1px rgb(26, 26, 26),
+			-1px -1px 1px rgb(26, 26, 26);
+	}
+	h1 {
+		color: $quaternaryColorDark;
+	}
+	h2 {
+		color: $secondaryColorDark;
+	}
+	h3,
+	p {
+		color: $fontPrimaryColorDark;
+	}
+	a {
+		color: $fontTertiaryColorDark;
+		border: 1px solid #4378b0;
+		background-color: $secondaryColorDark;
+	}
+	.weatherLink,
+	.newsLink,
+	.threadLink {
+		background-color: $quaternaryColorDark;
+	}
+	.article a {
+		box-shadow: 1px 1px 3px $tertiaryColorDark, 1px -1px 3px $tertiaryColorDark, -1px 1px 3px $tertiaryColorDark,
+			-1px -1px 3px $tertiaryColorDark;
+		&:hover {
+			box-shadow: 1px 1px 3px $secondaryColorDark, 1px -1px 3px $secondaryColorDark, -1px 1px 3px $secondaryColorDark,
+				-1px -1px 3px $secondaryColorDark;
+		}
+	}
+	a:hover,
+	.container button:not(.fontIcon):hover {
+		border: 1px solid #4378b0;
+		background-color: $tertiaryColorDark;
+		color: rgb(227, 248, 255);
+	}
+	a:hover {
+		text-shadow: 1px 1px 1px $fontTertiaryColorDark, -1px 1px 1px $fontTertiaryColorDark, 1px -1px 1px $fontTertiaryColorDark, -1px -1px 1px $fontTertiaryColorDark;
+	}
+	.container button {
+		border: 1px solid #4378b0;
+		background-color: $secondaryColorDark;
+		box-shadow: 1px 1px 3px $tertiaryColorDark, 1px -1px 3px $tertiaryColorDark, -1px 1px 3px $tertiaryColorDark,
+			-1px -1px 3px $tertiaryColorDark;
+	}
+	.forecastsContainer,
+	.chartsContainer,
+	.newsContainer,
+	.googleLoginContainer,
+	.commentsContainer {
+		background-color: $tertiaryColorTransparencyDark;
+		box-shadow: 1px 1px 3px $tertiaryColorTransparencyDark, 1px -1px 3px $tertiaryColorTransparencyDark,
+			-1px 1px 3px $tertiaryColorTransparencyDark, -1px -1px 3px $tertiaryColorTransparencyDark;
+	}
+	.chartContainer {
+		background-color: $quaternaryColorDark;
+		border: 2px solid #437ebd;
+		box-shadow: 1px 1px 10px $tertiaryColorDark, 1px -1px 10px $tertiaryColorDark, -1px 1px 10px $tertiaryColorDark,
+			-1px -1px 10px $tertiaryColorDark;
+	}
+	.weatherDisplay,
+	.newsArticles,
+	.articleComments,
+	.currentArticle,
+	.usersThreads {
+		background-color: $septenaryColorDark;
+		border: 2px solid #437ebd;
+		box-shadow: 1px 1px 10px $tertiaryColorDark, 1px -1px 10px $tertiaryColorDark, -1px 1px 10px $tertiaryColorDark,
+			-1px -1px 10px $tertiaryColorDark;
+	}
+	.newsArticles,
+	.articleComments,
+	.currentArticle,
+	.usersThreads {
+		background-color: $quaternaryColorDark;
+	}
+	// weather
+	.hourContainer,
+	.dayContainer {
+		padding: 1rem;
+		background-image: linear-gradient(to left, $septenaryColorDark, $septenaryColorBrighterDark);
+	}
+	.dayContainer0,
+	.hourContainer0 {
+		background-image: linear-gradient(to left, $primaryColorDark, $primaryColorBrighterDark);
+	}
+	.hourContainerNewDay {
+		background-image: linear-gradient(to left, $quinaryColorDark, $quinaryColorBrighterDark);
+	}
+	.dayName, .tempMin, .tempMax {
+		color: $fontPrimaryColorDark;
+	}
+	.description,
+	.wind,
+	.dewPoint,
+	.humid {
+		color: $fontSecondaryColorDark;
+	}
+	// articles
+	.articleContainer,
+	.currentArticle {
+		img {
+			border: 2px solid $secondaryColorDark;
+		}
+	}
+	.articleContainer:nth-child(2n),
+	.commentContainer:nth-child(2n) {
+		background-color: $secondaryColorDark;
+		img {
+			border: 2px solid $quaternaryColorDark;
+		}
+	}
+	.articleContainer:hover,
+	nav li button:hover {
+		background-image: linear-gradient(to bottom, $primaryColorDark, $octonaryColorDark);
+	}
+	.threadsMain .articleContainer:hover,
+	nav li button:hover {
+		background-image: linear-gradient(to bottom, $threadsLowlightDark, $threadsHighlightDark);
+		background-size: 100% 1000%;
+	}
+	.articleContainer:nth-child(2n) a {
+		background-color: $quaternaryColorDark;
+	}
+	.articleContainer:nth-child(2n) a:hover {
+		background-color: $tertiaryColorDark;
+	}
+	.container .saveIcon {
+		background-color: $secondaryColorDark;
+	}
+	.container .articleContainer:nth-child(2n) .saveIcon {
+		background-color: $quaternaryColorDark;
+		&:hover {
+			background-color: $tertiaryColorDark;
+		}
+	}
+	.container .fontIcon {
+		color: $tertiaryColorDark;
+		border: 1px solid rgba(255, 0, 0, 0);
+	}
+	.commentContainer img {
+		border: 2px solid $secondaryColorDark;
+	}
+	button {
+		color: white;
+	}
+}

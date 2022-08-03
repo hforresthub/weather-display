@@ -34,7 +34,7 @@ const Weather = ({ handleButtonClick, sectionToggles, myRef }) => {
 				dataResponse: 'json'
 			}).then((res) => {
 				setResult(res.data)
-				console.log(res.data);
+				// console.log(res.data);
 				const tempData = res.data.hourly.map(element => {
 					return element.temp
 				})
