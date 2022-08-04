@@ -499,10 +499,10 @@ nav li button:hover {
 			-1px -1px 1px rgb(26, 26, 26);
 	}
 	h1 {
-		color: $quaternaryColorDark;
+		// color: $quaternaryColorDark;
 	}
 	h2 {
-		color: $secondaryColorDark;
+		// color: $secondaryColorDark;
 	}
 	h3,
 	p {
@@ -551,7 +551,7 @@ nav li button:hover {
 			-1px 1px 3px $tertiaryColorTransparencyDark, -1px -1px 3px $tertiaryColorTransparencyDark;
 	}
 	.chartContainer {
-		background-color: $quaternaryColorDark;
+		// background-color: #dfeefd;
 		border: 2px solid #437ebd;
 		box-shadow: 1px 1px 10px $tertiaryColorDark, 1px -1px 10px $tertiaryColorDark, -1px 1px 10px $tertiaryColorDark,
 			-1px -1px 10px $tertiaryColorDark;
