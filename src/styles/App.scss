@@ -181,6 +181,7 @@ a:hover {
 	img {
 		margin-right: 5px;
 		width: 20px;
+		border: 1px solid $secondaryColor;
 	}
 }
 .chartContainer {
@@ -467,6 +468,9 @@ nav li button:hover {
 
 // testing
 @media (prefers-color-scheme: dark) {
+	html {
+		background-image: linear-gradient(to bottom, $quinaryColorDark, $tertiaryColorDark);
+	}
 	.App {
 		background-image: linear-gradient(to bottom, $quinaryColorDark, $tertiaryColorDark);
 		.weather .forecastsContainer {
@@ -482,13 +486,11 @@ nav li button:hover {
 	}
 
 	.container .articleContainer:nth-child(2n) .saveIcon {
-		background-color: $quaternaryColorDark;
 		&:hover {
 			background-color: $tertiaryColorDark;
 		}
 	}
 	nav ul li {
-			background-color: $quaternaryColorDark;
 			a {
 				border: 1px solid $quaternaryColorDark;
 			}
@@ -498,12 +500,6 @@ nav li button:hover {
 		text-shadow: 1px 1px 1px #1a1a1a, 1px -1px 1px rgb(26, 26, 26), -1px 1px 1px rgb(26, 26, 26),
 			-1px -1px 1px rgb(26, 26, 26);
 	}
-	h1 {
-		// color: $quaternaryColorDark;
-	}
-	h2 {
-		// color: $secondaryColorDark;
-	}
 	h3,
 	p {
 		color: $fontPrimaryColorDark;
@@ -512,11 +508,6 @@ nav li button:hover {
 		color: $fontTertiaryColorDark;
 		border: 1px solid #4378b0;
 		background-color: $secondaryColorDark;
-	}
-	.weatherLink,
-	.newsLink,
-	.threadLink {
-		background-color: $quaternaryColorDark;
 	}
 	.article a {
 		box-shadow: 1px 1px 3px $tertiaryColorDark, 1px -1px 3px $tertiaryColorDark, -1px 1px 3px $tertiaryColorDark,
@@ -529,8 +520,7 @@ nav li button:hover {
 	a:hover,
 	.container button:not(.fontIcon):hover {
 		border: 1px solid #4378b0;
-		background-color: $tertiaryColorDark;
-		color: rgb(227, 248, 255);
+		color: rgb(35, 64, 75);
 	}
 	a:hover {
 		text-shadow: 1px 1px 1px $fontTertiaryColorDark, -1px 1px 1px $fontTertiaryColorDark, 1px -1px 1px $fontTertiaryColorDark, -1px -1px 1px $fontTertiaryColorDark;
@@ -551,7 +541,6 @@ nav li button:hover {
 			-1px 1px 3px $tertiaryColorTransparencyDark, -1px -1px 3px $tertiaryColorTransparencyDark;
 	}
 	.chartContainer {
-		// background-color: #dfeefd;
 		border: 2px solid #437ebd;
 		box-shadow: 1px 1px 10px $tertiaryColorDark, 1px -1px 10px $tertiaryColorDark, -1px 1px 10px $tertiaryColorDark,
 			-1px -1px 10px $tertiaryColorDark;
@@ -565,12 +554,6 @@ nav li button:hover {
 		border: 2px solid #437ebd;
 		box-shadow: 1px 1px 10px $tertiaryColorDark, 1px -1px 10px $tertiaryColorDark, -1px 1px 10px $tertiaryColorDark,
 			-1px -1px 10px $tertiaryColorDark;
-	}
-	.newsArticles,
-	.articleComments,
-	.currentArticle,
-	.usersThreads {
-		background-color: $quaternaryColorDark;
 	}
 	// weather
 	.hourContainer,
@@ -617,9 +600,6 @@ nav li button:hover {
 		background-image: linear-gradient(to bottom, $threadsLowlightDark, $threadsHighlightDark);
 		background-size: 100% 1000%;
 	}
-	.articleContainer:nth-child(2n) a {
-		background-color: $quaternaryColorDark;
-	}
 	.articleContainer:nth-child(2n) a:hover {
 		background-color: $tertiaryColorDark;
 	}
@@ -627,7 +607,6 @@ nav li button:hover {
 		background-color: $secondaryColorDark;
 	}
 	.container .articleContainer:nth-child(2n) .saveIcon {
-		background-color: $quaternaryColorDark;
 		&:hover {
 			background-color: $tertiaryColorDark;
 		}
@@ -642,4 +621,14 @@ nav li button:hover {
 	button {
 		color: white;
 	}
+	.container .articleContainer:nth-child(2n) .saveIcon,
+	nav ul li, .weatherLink,
+	.newsLink, .container button:not(.fontIcon):hover,
+	.threadLink, .newsArticles,
+	.articleComments,
+	.currentArticle,
+	.usersThreads, .articleContainer:nth-child(2n) a {
+		background-color: $quaternaryColorDark;
+	}
+
 }
