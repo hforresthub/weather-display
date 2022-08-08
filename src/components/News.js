@@ -138,7 +138,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArt
 						{sectionToggles[2] ?
 							<div className='newsToggleContainer'>
 								<h2>News Feed: </h2>
-								<div className='newsArticles'>
+								<article className='newsArticles'>
 									{newsArticles.map((element, index) => {
 										return (
 											<div className={`articleContainer${index} articleContainer`} key={index}>
@@ -162,7 +162,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArt
 											</div>
 										)
 									})}
-								</div>
+								</article>
 							</div>
 							:
 							''

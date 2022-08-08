@@ -168,7 +168,7 @@ function App() {
 					</Routes>
 					<h1>Weatherenews</h1>
 				</header>
-				<div className="container">
+				<main className="container">
 					{/* google login button */}
 					<div className='googleLoginContainer'>
 						{firebaseUser !== null ?
@@ -209,7 +209,7 @@ function App() {
 						</Route>
 					</Routes>
 
-				</div>
+				</main>
 				<footer>
 					<Routes>
 						<Route exact path="/"

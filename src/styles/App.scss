@@ -28,7 +28,7 @@ html {
 		background-color: #03761033;
 	}
 }
-div {
+div, main, article {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -412,6 +412,10 @@ nav li button:hover {
 		border: 2px solid $secondaryColor;
 	}
 }
+footer img.skyBanner {
+	margin: 0;
+	padding: 0;
+}
 
 //media queries
 @media only screen and (min-width: 800px) {
@@ -473,7 +477,7 @@ nav li button:hover {
 	}
 	.App {
 		background-image: linear-gradient(to bottom, $quinaryColorDark, $tertiaryColorDark);
-		.weather .forecastsContainer {
+		.weather .forecastsContainer, .chartsContainer {
 			background-color: #00287833;
 		}
 		.news .newsContainer {
@@ -497,8 +501,8 @@ nav li button:hover {
 	}
 	h1,
 	h2 {
-		text-shadow: 1px 1px 1px #1a1a1a, 1px -1px 1px rgb(26, 26, 26), -1px 1px 1px rgb(26, 26, 26),
-			-1px -1px 1px rgb(26, 26, 26);
+		text-shadow: 1px 1px 1px $quaternaryColorDark, 1px -1px 1px $quaternaryColorDark, -1px 1px 1px $quaternaryColorDark,
+			-1px -1px 1px $quaternaryColorDark;
 	}
 	h3,
 	p {
@@ -558,7 +562,6 @@ nav li button:hover {
 	// weather
 	.hourContainer,
 	.dayContainer {
-		padding: 1rem;
 		background-image: linear-gradient(to left, $septenaryColorDark, $septenaryColorBrighterDark);
 	}
 	.dayContainer0,
