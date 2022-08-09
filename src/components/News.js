@@ -58,6 +58,14 @@ const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArt
 						savedArray.push(tempArticle)
 					}
 				}
+				// sort to show most recently saved articles first
+				savedArray.sort((current, next) => {
+					if (current.userData.comments[0].date > next.userData.comments[0].date) {
+						return -1
+					} else {
+						return 1
+					}
+				})
 				setSavedArticles(savedArray)
 			})
 		}
