@@ -58,6 +58,11 @@ const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArt
 						savedArray.push(tempArticle)
 					}
 				}
+				// count number of comments for each saved article
+				savedArray.forEach(element => {
+					element.userData.numComments = Object.keys(element.userData.comments).length
+					// console.log(element.userData.numComments);
+				})
 				// sort to show most recently saved articles first
 				savedArray.sort((current, next) => {
 					if (current.userData.comments[0].date > next.userData.comments[0].date) {
@@ -201,7 +206,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArt
 														<FontAwesomeIcon icon="fa-solid fa-arrow-down" />
 													</button>
 													:
-													<button className='saveIcon' onClick={handleCommentsButtonClick(element.userData.article)}>Comments</button>
+													<button className='saveIcon' onClick={handleCommentsButtonClick(element.userData.article)}>{element.userData.numComments} Comment{element.userData.numComments > 1 ? 's' : ''}</button>
 											}
 										</div>
 									)

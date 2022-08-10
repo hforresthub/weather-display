@@ -48,6 +48,11 @@ const UserThreads = ({ handleButtonClick, sectionToggles, myRef, firebaseUser })
 						savedArray.push(tempArticle)
 					}
 				}
+				// count number of comments for each saved article
+				savedArray.forEach(element => {
+					element.userData.numComments = Object.keys(element.userData.comments).length
+					// console.log(element.userData.numComments);
+				})
 				setUserThreads(savedArray)
 			})
 		}
@@ -181,7 +186,7 @@ const UserThreads = ({ handleButtonClick, sectionToggles, myRef, firebaseUser })
 														<FontAwesomeIcon icon="fa-solid fa-arrow-down" />
 													</button>
 													:
-													<button className='saveIcon' onClick={handleUserThreadButtonClick(element)}>Comments</button>
+													<button className='saveIcon' onClick={handleUserThreadButtonClick(element)}>{element.userData.numComments} Comment{element.userData.numComments > 1 ? 's' : ''}</button>
 											}
 										</div>
 									)
