@@ -234,7 +234,9 @@ a:hover {
 }
 .dayContainer0,
 .hourContainer0 {
-	background-image: linear-gradient(to left, $primaryColor, $primaryColorBrighter);
+	background-image: linear-gradient(to top, $primaryColor, $primaryColorBrighter);
+	background-size: 100% 200%;
+	animation: gradient 6s ease infinite;
 }
 .hourContainerNewDay {
 	background-image: linear-gradient(to left, $quinaryColor, $quinaryColorBrighter);
@@ -566,7 +568,7 @@ footer img.skyBanner {
 	}
 	.dayContainer0,
 	.hourContainer0 {
-		background-image: linear-gradient(to left, $primaryColorDark, $primaryColorBrighterDark);
+		background-image: linear-gradient(to top, $primaryColorDark, $primaryColorBrighterDark);
 	}
 	.hourContainerNewDay {
 		background-image: linear-gradient(to left, $quinaryColorDark, $quinaryColorBrighterDark);
