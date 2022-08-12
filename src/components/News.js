@@ -30,14 +30,14 @@ const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArt
 	// for news api data
 	useEffect(() => {
 		// NewsAPI
-		// axios({
-		// 	url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
-		// 	method: 'GET',
-		// 	dataResponse: 'json'
-		// }).then((res) => {
-		// 	// console.log(JSON.stringify(res.data.articles))
-		// 	setNewsArticles(res.data.data)
-		// })
+		axios({
+			url: `https://api.thenewsapi.com/v1/news/all?locale=us,ca&language=en&api_token=${process.env.REACT_APP_NEWS_API_KEY_2}`,
+			method: 'GET',
+			dataResponse: 'json'
+		}).then((res) => {
+			// console.log(JSON.stringify(res.data.articles))
+			setNewsArticles(res.data.data)
+		})
 		// console.log(JSON.stringify(newsArticles))
 	}, [])
 
@@ -107,7 +107,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArt
 			username: 'Weatherenews bot',
 			picture: `../images/favicon.png`,
 			comment: 'First!',
-			date: new Date()
+			date: (new Date).toJSON()
 		}
 		const tempSavedArticle = {
 			article: element,
@@ -133,7 +133,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArt
 				username: firebaseUser.displayName,
 				picture: firebaseUser.photoURL,
 				comment: currentComment,
-				date: new Date()
+				date: (new Date).toJSON()
 			})
 		}
 		setCurrentComment('')

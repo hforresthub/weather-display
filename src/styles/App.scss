@@ -28,7 +28,9 @@ html {
 		background-color: #03761033;
 	}
 }
-div, main, article {
+div,
+main,
+article {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -400,12 +402,26 @@ nav li button:hover {
 	display: flex;
 	width: 100%;
 	flex-direction: row;
-	h3 {
+	.commented {
+		width: 12rem;
 		margin-left: 0.5rem;
+		height: min-content;
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-start;
+		h3, p {
+			margin: 0;
+			padding: 0;
+			text-align: left;
+		}
+		p {
+			font-size: 0.85rem;
+		}
 	}
 	p {
-		flex-grow: 1;
+		// flex-grow: 1;
 		margin-left: 0.5rem;
+		width: 100%;
 	}
 	img {
 		height: 30px;
@@ -479,7 +495,8 @@ footer img.skyBanner {
 	}
 	.App {
 		background-image: linear-gradient(to bottom, $quinaryColorDark, $tertiaryColorDark);
-		.weather .forecastsContainer, .chartsContainer {
+		.weather .forecastsContainer,
+		.chartsContainer {
 			background-color: #00287833;
 		}
 		.news .newsContainer {
@@ -497,14 +514,14 @@ footer img.skyBanner {
 		}
 	}
 	nav ul li {
-			a {
-				border: 1px solid $quaternaryColorDark;
-			}
+		a {
+			border: 1px solid $quaternaryColorDark;
+		}
 	}
 	h1,
 	h2 {
-		text-shadow: 1px 1px 1px $quaternaryColorDark, 1px -1px 1px $quaternaryColorDark, -1px 1px 1px $quaternaryColorDark,
-			-1px -1px 1px $quaternaryColorDark;
+		text-shadow: 1px 1px 1px $quaternaryColorDark, 1px -1px 1px $quaternaryColorDark,
+			-1px 1px 1px $quaternaryColorDark, -1px -1px 1px $quaternaryColorDark;
 	}
 	h3,
 	p {
@@ -519,8 +536,8 @@ footer img.skyBanner {
 		box-shadow: 1px 1px 3px $tertiaryColorDark, 1px -1px 3px $tertiaryColorDark, -1px 1px 3px $tertiaryColorDark,
 			-1px -1px 3px $tertiaryColorDark;
 		&:hover {
-			box-shadow: 1px 1px 3px $secondaryColorDark, 1px -1px 3px $secondaryColorDark, -1px 1px 3px $secondaryColorDark,
-				-1px -1px 3px $secondaryColorDark;
+			box-shadow: 1px 1px 3px $secondaryColorDark, 1px -1px 3px $secondaryColorDark,
+				-1px 1px 3px $secondaryColorDark, -1px -1px 3px $secondaryColorDark;
 		}
 	}
 	a:hover,
@@ -529,7 +546,8 @@ footer img.skyBanner {
 		color: rgb(35, 64, 75);
 	}
 	a:hover {
-		text-shadow: 1px 1px 1px $fontTertiaryColorDark, -1px 1px 1px $fontTertiaryColorDark, 1px -1px 1px $fontTertiaryColorDark, -1px -1px 1px $fontTertiaryColorDark;
+		text-shadow: 1px 1px 1px $fontTertiaryColorDark, -1px 1px 1px $fontTertiaryColorDark,
+			1px -1px 1px $fontTertiaryColorDark, -1px -1px 1px $fontTertiaryColorDark;
 	}
 	.container button {
 		border: 1px solid #4378b0;
@@ -573,7 +591,9 @@ footer img.skyBanner {
 	.hourContainerNewDay {
 		background-image: linear-gradient(to left, $quinaryColorDark, $quinaryColorBrighterDark);
 	}
-	.dayName, .tempMin, .tempMax {
+	.dayName,
+	.tempMin,
+	.tempMax {
 		color: $fontPrimaryColorDark;
 	}
 	.description,
@@ -627,13 +647,16 @@ footer img.skyBanner {
 		color: white;
 	}
 	.container .articleContainer:nth-child(2n) .saveIcon,
-	nav ul li, .weatherLink,
-	.newsLink, .container button:not(.fontIcon):hover,
-	.threadLink, .newsArticles,
+	nav ul li,
+	.weatherLink,
+	.newsLink,
+	.container button:not(.fontIcon):hover,
+	.threadLink,
+	.newsArticles,
 	.articleComments,
 	.currentArticle,
-	.usersThreads, .articleContainer:nth-child(2n) a {
+	.usersThreads,
+	.articleContainer:nth-child(2n) a {
 		background-color: $quaternaryColorDark;
 	}
-
 }
