@@ -1,0 +1,108 @@
+// general
+html {
+	background-color: $quaternaryColor;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	font-family: Raleway, sans-serif;
+}
+.App {
+	font-weight: bold;
+	background-image: linear-gradient(to bottom, $quaternaryColor, $senaryColor);
+	color: #1a1a1a;
+	.container {
+		width: 95%;
+	}
+	.weather .forecastsContainer {
+		background-color: #00287833;
+	}
+	.news .newsContainer {
+		background-color: #3b3c3e33;
+	}
+	.threadsMain .newsContainer,
+	.threadsMain .googleLoginContainer {
+		background-color: #03761033;
+	}
+}
+div,
+main,
+article {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+}
+nav {
+	position: fixed;
+	top: 0;
+	z-index: 1;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+nav ul {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	li {
+		background-color: $quaternaryColor;
+		flex-grow: 1;
+		flex-basis: 0;
+		margin: 0;
+		padding: 0;
+		a {
+			display: block;
+			width: 100%;
+			padding: 0;
+			margin: 0;
+			border: 1px solid $quaternaryColor;
+		}
+	}
+}
+button {
+	font-family: Raleway, sans-serif;
+	font-weight: bold;
+}
+h1,
+h2 {
+	text-shadow: 1px 1px 1px rgb(26, 26, 26), 1px -1px 1px rgb(26, 26, 26), -1px 1px 1px rgb(26, 26, 26),
+		-1px -1px 1px rgb(26, 26, 26);
+	width: 100%;
+	text-align: center;
+}
+h1,
+h2,
+h3 {
+	font-family: Raleway, sans-serif;
+}
+h1 {
+	color: $quaternaryColor;
+	position: relative;
+	top: 0;
+	margin-top: -5rem;
+	margin-bottom: 1rem;
+	padding-bottom: 25px;
+}
+h2 {
+	color: $secondaryColor;
+}
+h3,
+p {
+	color: rgb(26, 26, 26);
+}
+p {
+	font-family: Inconsolata;
+	font-weight: 100;
+}
+a {
+	color: #0a335f;
+	text-decoration: none;
+	text-align: center;
+	width: 100%;
+	border: 1px solid #4378b0;
+	background-color: $secondaryColor;
+}

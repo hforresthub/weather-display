@@ -1,0 +1,322 @@
+.weatherLink,
+.newsLink,
+.threadLink {
+	background-color: $quaternaryColor;
+}
+.article a {
+	box-shadow: 1px 1px 3px $tertiaryColor, 1px -1px 3px $tertiaryColor, -1px 1px 3px $tertiaryColor,
+		-1px -1px 3px $tertiaryColor;
+	&:hover {
+		box-shadow: 1px 1px 3px $secondaryColor, 1px -1px 3px $secondaryColor, -1px 1px 3px $secondaryColor,
+			-1px -1px 3px $secondaryColor;
+	}
+}
+a:hover,
+.container button:not(.fontIcon):hover {
+	border: 1px solid #4378b0;
+	background-color: $tertiaryColor;
+	color: rgb(227, 248, 255);
+}
+a:hover {
+	text-shadow: 1px 1px 1px #0a335f, -1px 1px 1px #0a335f, 1px -1px 1px #0a335f, -1px -1px 1px #0a335f;
+}
+.container button {
+	border-radius: 3px;
+	margin: 3%;
+	border: 1px solid #4378b0;
+	background-color: $secondaryColor;
+	box-shadow: 1px 1px 3px $tertiaryColor, 1px -1px 3px $tertiaryColor, -1px 1px 3px $tertiaryColor,
+		-1px -1px 3px $tertiaryColor;
+}
+//scroll
+::-webkit-scrollbar {
+	width: 12px;
+}
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px #225387;
+	border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px #114071;
+}
+//header
+.skyBanner {
+	width: 100vw;
+	height: 100px;
+	object-fit: cover;
+	margin: 1rem;
+}
+//containers
+.forecastsContainer,
+.chartsContainer,
+.newsContainer,
+.googleLoginContainer,
+.commentsContainer {
+	background-color: $tertiaryColorTransparency;
+	border-radius: 10px;
+	box-shadow: 1px 1px 3px $tertiaryColorTransparency, 1px -1px 3px $tertiaryColorTransparency,
+		-1px 1px 3px $tertiaryColorTransparency, -1px -1px 3px $tertiaryColorTransparency;
+	padding: 0 2%;
+	margin: 1% 0;
+	align-items: space-around;
+}
+.googleLoginContainer .loginCard {
+	display: flex;
+	flex-direction: row;
+	h3 {
+		margin: 1%;
+	}
+	img {
+		margin-right: 5px;
+		width: 20px;
+		border: 1px solid $secondaryColor;
+	}
+}
+.chartContainer {
+	width: 90%;
+	height: 50vh;
+	margin: auto;
+	background-color: $quaternaryColor;
+	border-radius: 10px;
+	border: 2px solid #437ebd;
+	box-shadow: 1px 1px 10px $tertiaryColor, 1px -1px 10px $tertiaryColor, -1px 1px 10px $tertiaryColor,
+		-1px -1px 10px $tertiaryColor;
+	margin: 1% 0;
+}
+.imgContainer {
+	display: flex;
+	justify-content: center;
+}
+//general containers
+.weatherDisplay,
+.newsArticles,
+.usersThreads {
+	overflow-x: scroll;
+	scrollbar-width: hidden;
+	justify-content: start;
+}
+.weatherDisplay,
+.newsArticles,
+.articleComments,
+.currentArticle,
+.usersThreads {
+	flex-direction: row;
+	background-color: $septenaryColor;
+	border-radius: 10px;
+	border: 2px solid #437ebd;
+	box-shadow: 1px 1px 10px $tertiaryColor, 1px -1px 10px $tertiaryColor, -1px 1px 10px $tertiaryColor,
+		-1px -1px 10px $tertiaryColor;
+	margin: 1% 0;
+}
+.newsArticles,
+.articleComments,
+.currentArticle,
+.usersThreads {
+	background-color: $quaternaryColor;
+}
+// weather
+.hourContainer,
+.dayContainer {
+	padding: 1rem;
+	background-image: linear-gradient(to left, $septenaryColor, $septenaryColorBrighter);
+}
+.dayContainer0,
+.hourContainer0 {
+	background-image: linear-gradient(to top, $primaryColor, $primaryColorBrighter);
+	background-size: 100% 200%;
+	animation: gradient 6s ease infinite;
+}
+.hourContainerNewDay {
+	background-image: linear-gradient(to left, $quinaryColor, $quinaryColorBrighter);
+}
+.dayName {
+	text-align: center;
+	color: rgb(82, 82, 82);
+}
+.temps {
+	flex-direction: row;
+	justify-content: space-between;
+}
+.tempMin {
+	color: rgb(82, 82, 82);
+	text-align: center;
+}
+.tempMax {
+	color: rgb(41, 41, 41);
+	text-align: center;
+}
+.description,
+.wind,
+.dewPoint,
+.humid {
+	color: rgb(82, 82, 82);
+	text-align: center;
+}
+.dewPoint,
+.humid {
+	font-size: 0.5rem;
+}
+// articles
+.articleContainer,
+.currentArticle {
+	width: 200px;
+	padding: 3%;
+	img {
+		border: 2px solid $secondaryColor;
+	}
+}
+.articleContainer:nth-child(2n),
+.commentContainer:nth-child(2n) {
+	background-color: $secondaryColor;
+	img {
+		border: 2px solid $quaternaryColor;
+	}
+}
+.articleContainer:hover,
+nav li button:hover {
+	background-image: linear-gradient(to bottom, $primaryColor, $octonaryColor);
+	background-size: 100% 1000%;
+	animation: gradient 2s ease infinite;
+}
+.threadsMain .articleContainer:hover,
+nav li button:hover {
+	background-image: linear-gradient(to bottom, $threadsLowlight, $threadsHighlight);
+	background-size: 100% 1000%;
+	animation: gradient 2s ease infinite;
+}
+
+nav li button:hover {
+	border-radius: 10px;
+}
+@keyframes gradient {
+	0% {
+		background-position: 0% 100%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 100%;
+	}
+}
+.articleContainer:nth-child(2n) a {
+	background-color: $quaternaryColor;
+}
+.articleContainer:nth-child(2n) a:hover {
+	background-color: $tertiaryColor;
+}
+.title {
+	height: 18rem;
+	justify-content: space-between;
+	img {
+		width: 190px;
+		height: fit-content;
+		max-height: 100px;
+		overflow-y: hidden;
+	}
+	h3 {
+		overflow: hidden;
+		height: 10rem;
+	}
+}
+.content {
+	overflow: hidden;
+	height: 10rem;
+}
+//icons
+.container .saveIcon {
+	background-color: $secondaryColor;
+}
+.container .articleContainer:nth-child(2n) .saveIcon {
+	background-color: $quaternaryColor;
+	&:hover {
+		background-color: $tertiaryColor;
+	}
+}
+.container .fontIcon {
+	color: $tertiaryColor;
+	background: none;
+	border: 1px solid rgba(255, 0, 0, 0);
+	box-shadow: none;
+}
+
+// comments
+.userCard {
+	display: flex;
+	flex-direction: row;
+	height: 3rem;
+	p {
+		font-weight: bold;
+		font-family: Raleway, sans-serif;
+	}
+	img {
+		width: 20px;
+		margin: 3%;
+	}
+}
+.articleComments {
+	display: flex;
+	flex-direction: column;
+	width: 90%;
+	.commentContainer {
+		display: flex;
+		margin: 0 3%;
+	}
+}
+.currentArticle {
+	width: 300px;
+	img {
+		width: 100%;
+		object-fit: fill;
+	}
+}
+.commentsToggleContainer form {
+	display: flex;
+	margin-bottom: 3%;
+	textarea {
+		resize: none;
+	}
+}
+.newThread form {
+	display: flex;
+	flex-direction: column;
+	textarea {
+		resize: none;
+	}
+}
+.commentContainer {
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	.commented {
+		width: 12rem;
+		margin-left: 0.5rem;
+		height: min-content;
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-start;
+		h3, p {
+			margin: 0;
+			padding: 0;
+			text-align: left;
+		}
+		p {
+			font-size: 0.85rem;
+		}
+	}
+	p {
+		margin-left: 0.5rem;
+		width: 100%;
+	}
+	img {
+		height: 30px;
+		width: 30px;
+		margin-left: 0.5rem;
+		border: 2px solid $secondaryColor;
+	}
+}
+footer img.skyBanner {
+	margin: 0;
+	padding: 0;
+}
