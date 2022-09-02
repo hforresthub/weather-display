@@ -177,13 +177,13 @@ a:hover {
 nav li button:hover {
 	background-image: linear-gradient(to bottom, $primaryColor, $octonaryColor);
 	background-size: 100% 1000%;
-	animation: gradient 2s ease infinite;
+	animation: highlightglow 2s ease infinite;
 }
 .threadsMain .articleContainer:hover,
 nav li button:hover {
 	background-image: linear-gradient(to bottom, $threadsLowlight, $threadsHighlight);
 	background-size: 100% 1000%;
-	animation: gradient 2s ease infinite;
+	animation: highlightglow 2s ease infinite;
 }
 
 nav li button:hover {
@@ -198,6 +198,26 @@ nav li button:hover {
 	}
 	100% {
 		background-position: 0% 100%;
+	}
+}
+@keyframes highlightglow {
+	0% {
+		background-position: 0% 100%;
+		box-shadow: 1px 1px 10px $tertiaryColor, 1px -1px 10px $tertiaryColor, -1px 1px 10px $tertiaryColor,
+		-1px -1px 10px $tertiaryColor;
+		z-index: 1;
+	}
+	50% {
+		background-position: 100% 50%;
+		box-shadow: 1px 1px 50px $secondaryColor, 1px -1px 50px $secondaryColor, -1px 1px 50px $secondaryColor,
+		-1px -1px 50px $secondaryColor;
+		z-index: 1;
+	}
+	100% {
+		background-position: 0% 100%;
+		box-shadow: 1px 1px 10px $tertiaryColor, 1px -1px 10px $tertiaryColor, -1px 1px 10px $tertiaryColor,
+		-1px -1px 10px $tertiaryColor;
+		z-index: 1;
 	}
 }
 .articleContainer:nth-child(2n) a {
@@ -239,6 +259,12 @@ nav li button:hover {
 	}
 }
 .container .fontIcon {
+	color: $tertiaryColor;
+	background: none;
+	border: 1px solid rgba(255, 0, 0, 0);
+	box-shadow: none;
+}
+.container .playSound {
 	color: $tertiaryColor;
 	background: none;
 	border: 1px solid rgba(255, 0, 0, 0);
