@@ -53,6 +53,15 @@
 	}
 }
 
+// mobile test
+@media not all and (min-resolution: 0.001dpcm) {
+	@supports (-webkit-appearance: none) {
+		.container .playSound {
+			display: none;
+		}
+	}
+}
+
 // darkmode
 @media (prefers-color-scheme: dark) {
 	html {

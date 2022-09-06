@@ -25,11 +25,11 @@ const Article = ({ element, index }) => {
 			<p className='content'>{element.description ? element.description : 'No description available'}</p>
 			<SayButton 
 				className='playSound'
-				// voice={ selector }
+				voice={ selector }
 				onClick= { event => {
-							// console.log(event)
+							console.log(event)
 						}
-					} speak={element.description ? element.description : 'No description available'} 
+					} text={element.description ? element.description : 'No description available'} 
 			>
 			<FontAwesomeIcon icon="fa-solid fa-volume-high" />
 			</SayButton>
