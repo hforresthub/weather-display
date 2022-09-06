@@ -1,6 +1,9 @@
 import { SayButton } from 'react-say'
 import { useCallback } from 'react'
 
+//react device detect
+import { isMobile } from 'react-device-detect'
+
 //fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -23,6 +26,9 @@ const Article = ({ element, index }) => {
 				<img src={element.image_url} onError={(e) => {e.target.src=require(`../images/backupImage.png`)}} alt={`Image related to ${element.title}`} />
 			</div>
 			<p className='content'>{element.description ? element.description : 'No description available'}</p>
+			{ isMobile ? 
+			''
+			:
 			<SayButton 
 				className='playSound'
 				voice={ selector }
@@ -33,6 +39,7 @@ const Article = ({ element, index }) => {
 			>
 			<FontAwesomeIcon icon="fa-solid fa-volume-high" />
 			</SayButton>
+			}
 			<a href={element.url}>Read more</a>
 		</div>
 	)
