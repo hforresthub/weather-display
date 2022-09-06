@@ -25,7 +25,7 @@ const Article = ({ element, index }) => {
 			<p className='content'>{element.description ? element.description : 'No description available'}</p>
 			<SayButton 
 				className='playSound'
-				voice={ selector }
+				// voice={ selector }
 				onClick= { event => {
 							// console.log(event)
 						}
