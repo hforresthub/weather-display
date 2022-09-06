@@ -54,8 +54,8 @@
 }
 
 // mobile test
-@media not all and (min-resolution: 0.001dpcm) {
-	@supports (-webkit-appearance: none) {
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
 		.container .playSound {
 			display: none;
 		}
