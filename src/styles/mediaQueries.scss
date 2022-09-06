@@ -54,14 +54,14 @@
 }
 
 // mobile test
-@media not all and (min-resolution:.001dpcm)
-{ @supports (-webkit-appearance:none) {
-		.container .playSound {
-			display: none;
-			width: 1000px;
-		}
-	}
-}
+// @media not all and (min-resolution:.001dpcm)
+// { @supports (-webkit-appearance:none) {
+// 		.container .playSound {
+// 			display: none;
+// 			width: 1000px;
+// 		}
+// 	}
+// }
 
 // darkmode
 @media (prefers-color-scheme: dark) {
