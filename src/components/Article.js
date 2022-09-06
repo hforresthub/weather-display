@@ -26,8 +26,12 @@ const Article = ({ element, index }) => {
 			<SayButton 
 				className='playSound'
 				voice={ selector }
-				onClick= { event => console.log(event) } speak={element.description ? element.description : 'No description available'} >
-					<FontAwesomeIcon icon="fa-solid fa-volume-high" />
+				onClick= { event => {
+							// console.log(event)
+						}
+					} speak={element.description ? element.description : 'No description available'} 
+			>
+			<FontAwesomeIcon icon="fa-solid fa-volume-high" />
 			</SayButton>
 			<a href={element.url}>Read more</a>
 		</div>
