@@ -1,0 +1,17 @@
+// container queries
+
+.newsArticles, .usersThreads {
+	container-type: inline-size;
+}
+
+@container (max-width: 400px) {
+	h3 {
+		font-size: 1.0rem;
+	}
+	.article .title img {
+		width: 100px;
+	}
+	p {
+		font-size: 0.8rem;
+	}
+}

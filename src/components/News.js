@@ -74,7 +74,7 @@ const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArt
 				setSavedArticles(savedArray)
 			})
 		}
-	}, [firebaseUser])
+	}, [firebaseUser, setSavedArticles])
 
 	// watch comment data for current article if one is selected
 	useEffect(() => {
@@ -103,11 +103,12 @@ const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArt
 	const handleSaveButtonClick = (element) => (event) => {
 		//save article to db
 		const savedDb = ref(realtime, `saved/${element.uuid}`)
+		const currentDate = new Date()
 		const testComment = {
 			username: 'Weatherenews bot',
 			picture: `../images/favicon.png`,
 			comment: 'First!',
-			date: (new Date).toJSON()
+			date: currentDate.toJSON()
 		}
 		const tempSavedArticle = {
 			article: element,
@@ -129,11 +130,12 @@ const News = ({ handleButtonClick, sectionToggles, myRef, firebaseUser, savedArt
 		event.preventDefault()
 		if (currentComment !== '') {
 			const commentsDb = ref(realtime, `saved/${currentArticle.uuid}/comments/`)
+			const currentDate = new Date()
 			push(commentsDb, {
 				username: firebaseUser.displayName,
 				picture: firebaseUser.photoURL,
 				comment: currentComment,
-				date: (new Date).toJSON()
+				date: currentDate.toJSON()
 			})
 		}
 		setCurrentComment('')

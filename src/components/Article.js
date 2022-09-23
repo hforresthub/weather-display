@@ -25,7 +25,10 @@ const Article = ({ element, index }) => {
 				</h3>
 				<img src={element.image_url} onError={(e) => {e.target.src=require(`../images/backupImage.png`)}} alt={`Image related to ${element.title}`} />
 			</div>
+			<div class="paragraphContainer">
+
 			<p className='content'>{element.description ? element.description : 'No description available'}</p>
+			</div>
 			{ isMobile ? 
 			''
 			:
