@@ -97,11 +97,12 @@ const UserThreads = ({ handleButtonClick, sectionToggles, myRef, firebaseUser })
 		if (currentThreadTitle !== '' && currentThread !== '') {
 			//save article to db
 			const createdDb = ref(realtime, `created/`)
+			const currentDate = new Date()
 			const testComment = {
 				username: 'Weatherenews bot',
 				picture: `../images/favicon.png`,
 				comment: 'First!',
-				date: (new Date).toJSON()
+				date: currentDate.toJSON()
 			}
 			const newThread = {
 				title: currentThreadTitle,
@@ -130,13 +131,13 @@ const UserThreads = ({ handleButtonClick, sectionToggles, myRef, firebaseUser })
 	const handleUserThreadCommentSubmit = (event) => {
 		event.preventDefault()
 		if (currentUserThreadComment !== '') {
-			// const currentDate = new Date()
+			const currentDate = new Date()
 			const commentsDb = ref(realtime, `created/${currentUserThread.uuid}/comments/`)
 			push(commentsDb, {
 				username: firebaseUser.displayName,
 				picture: firebaseUser.photoURL,
 				comment: currentUserThreadComment,
-				date: (new Date).toJSON()
+				date: currentDate.toJSON()
 			})
 		}
 		setCurrentUserThreadComment('')
