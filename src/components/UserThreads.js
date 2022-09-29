@@ -157,6 +157,11 @@ const UserThreads = ({ handleButtonClick, sectionToggles, myRef, firebaseUser })
 										Create new user thread
 									</h3>
 								</label>
+								<select className="userTheme" name="" id="">
+									<option value="default">Default</option>
+									<option value="blue">Blue</option>
+									<option value="grey">Grey</option>
+								</select>
 								<p>Title:</p>
 								<input name="postThreadTitle" id="postThreadTitle" value={currentThreadTitle} onChange={handleThreadTitleChange} />
 								<p>Text:</p>

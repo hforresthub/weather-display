@@ -185,6 +185,16 @@ nav li button:hover {
 	background-size: 100% 1000%;
 	animation: highlightglow 2s ease infinite;
 }
+.threadsMain:has(.userTheme > [value="blue"]:checked) {
+	.googleLoginContainer, .newsContainer {
+		background-color: $primaryColorBrighterDark;
+	}
+}
+.threadsMain:has(.userTheme > [value="grey"]:checked) {
+	.googleLoginContainer, .newsContainer {
+		background-color: $quinaryColorBrighterDark;
+	}
+}
 
 nav li button:hover {
 	border-radius: 10px;
