@@ -136,17 +136,17 @@ function App() {
 					<ul>
 						<li>
 							<Link to="/" className='weatherLink'>
-								<FontAwesomeIcon icon="fa-solid fa-cloud-sun-rain" /><span> Weather</span>
+								<FontAwesomeIcon icon="fa-solid fa-cloud-sun-rain" className="fontButton" /><span> Weather</span>
 							</Link>
 						</li>
 						<li>
 							<Link to="/News" className='newsLink'>
-								<FontAwesomeIcon icon="fa-solid fa-newspaper" /><span> News</span>
+								<FontAwesomeIcon icon="fa-solid fa-newspaper" className="fontButton" /><span> News</span>
 							</Link>
 						</li>
 						<li>
 							<Link to="/Threads" className='threadLink'>
-								<FontAwesomeIcon icon="fa-solid fa-comment-dots" /><span> Threads</span>
+								<FontAwesomeIcon icon="fa-solid fa-comment-dots" className="fontButton" /><span> Threads</span>
 							</Link>
 						</li>
 					</ul>

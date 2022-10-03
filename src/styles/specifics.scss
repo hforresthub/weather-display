@@ -185,6 +185,7 @@ nav li button:hover {
 	background-size: 100% 1000%;
 	animation: highlightglow 2s ease infinite;
 }
+// has tests
 .threadsMain:has(.userTheme > [value="blue"]:checked) {
 	.googleLoginContainer, .newsContainer {
 		background-color: $primaryColorBrighterDark;

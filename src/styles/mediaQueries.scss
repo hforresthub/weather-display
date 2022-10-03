@@ -37,6 +37,13 @@
 	h1 {
 		font-size: 1.25rem;
 	}
+	nav li {
+		display: flex;
+		align-items: center;
+		a .fontButton {
+			height: 30px;
+		}
+	}
 	li {
 		flex-shrink: 1;
 		a {
@@ -52,16 +59,6 @@
 		flex-direction: column;
 	}
 }
-
-// mobile test
-// @media not all and (min-resolution:.001dpcm)
-// { @supports (-webkit-appearance:none) {
-// 		.container .playSound {
-// 			display: none;
-// 			width: 1000px;
-// 		}
-// 	}
-// }
 
 // darkmode
 @media (prefers-color-scheme: dark) {
