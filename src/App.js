@@ -225,6 +225,9 @@ function App() {
 						>
 						</Route>
 					</Routes>
+					<p>
+						<a href="https://www.halcodes.ca/">halcodes.ca</a>
+					</p>
 				</footer>
 			</div>
 		</Router>

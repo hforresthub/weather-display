@@ -106,3 +106,22 @@ a {
 	border: 1px solid #4378b0;
 	background-color: $secondaryColor;
 }
+footer {
+	p,
+	a {
+		color: $fontPrimaryColor;
+		font-size: 2rem;
+		background: none;
+		border: 0;
+		position: relative;
+		top: 0;
+		text-align: center;
+		margin-top: -2.1rem;
+		margin-bottom: -2.1rem;
+		&:hover {
+			color: $fontPrimaryColor;
+			background: none;
+			border: 0;
+		}
+	}
+}
