@@ -7,7 +7,7 @@ const DayForecast = ({element, index, elementDate}) => {
 				}
 			</div>
 			<div className='imgContainer'>
-				<img src={require(`../icons/${element.weather[0].icon}@2x.png`)} alt="testing" />
+				<img className="weatherIcon" src={require(`../icons/${element.weather[0].icon}@2x.png`)} alt="testing" />
 			</div>
 			<div className='temps'>
 				<div className='tempMax'>{Math.round(element.temp.max)}{'\u00b0'}</div>

@@ -5,7 +5,7 @@ const HourForecast = ({element, index, elementDate}) => {
 				{elementDate.toLocaleString('en-US', { hour: 'numeric', hour12: true })}
 			</div>
 			<div className='imgContainer'>
-				<img src={require(`../icons/${element.weather[0].icon}@2x.png`)} alt="testing" />
+				<img className="weatherIcon" src={require(`../icons/${element.weather[0].icon}@2x.png`)} alt="testing" />
 			</div>
 			<div className='temps'>
 				<div className='tempMax'>{Math.round(element.temp)}{'\u00b0'}</div>

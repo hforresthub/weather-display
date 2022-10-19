@@ -110,6 +110,8 @@ footer {
 	p,
 	a {
 		color: $fontPrimaryColor;
+		text-shadow: 1px 1px 1px $secondaryColor, 1px -1px 1px $secondaryColor, -1px 1px 1px $secondaryColor,
+		-1px -1px 1px $secondaryColor;
 		font-size: 2rem;
 		background: none;
 		border: 0;
